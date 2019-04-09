@@ -58,9 +58,8 @@ class UserSchema(ma.ModelSchema, BaseSchema):
 
     password_confirmation = fields.String(required=True)
 
-    created_planets = fields.Nested('PlanetSchema', many=True)
-
-    likes = fields.Nested('PlanetSchema', many=True, only=('id', 'name'))
+    owned_job_posts = fields.Nested('JobPostSchema', many=True)
+    owned_social_posts = fields.Nested('SocialPostSchema', many=True)
 
     class Meta:
         model = User
