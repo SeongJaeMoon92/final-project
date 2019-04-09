@@ -58,10 +58,6 @@ class UserSchema(ma.ModelSchema, BaseSchema):
 
     password_confirmation = fields.String(required=True)
 
-    created_planets = fields.Nested('PlanetSchema', many=True)
-
-    likes = fields.Nested('PlanetSchema', many=True, only=('id', 'name'))
-
     class Meta:
         model = User
         exclude = ('password_hash', )
