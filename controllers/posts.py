@@ -1,11 +1,12 @@
 from flask import Blueprint, jsonify, request, g
 from models.post.job_post import JobPost, JobPostSchema
 from models.post.social_post import SocialPost, SocialPostSchema
-from models.post.industry import Industry
+from models.post.industry import Industry, IndustrySchema
 from lib.secure_route import secure_route
 
 job_post_schema = JobPostSchema()
 social_post_schema = SocialPostSchema()
+industry_schema = IndustrySchema()
 
 api = Blueprint('posts', __name__)
 
@@ -34,9 +35,28 @@ def job_post_create():
     post.save()
     return job_post_schema.jsonify(post), 201
 
+@api.route('/job_posts/<int:job_post_id>', methods=['PUT'])
+@secure_route
+def job_post_update(job_post_id):
+    post = JobPost.query.get(job_post_id)
+    post, errors = job_post_schema.load(request.get_json(), instance=post, partial=True)
+    if errors:
+        return jsonify(errors), 422
 
+    if post.owner != g.current_user:
+        return jsonify({'message': 'Unauthorized'}), 401
 
+    post.save()
+    return job_post_schema.jsonify(post), 202
 
+@api.route('/job_posts/<int:job_post_id>', methods=['DELETE'])
+@secure_route
+def job_post_delete(job_post_id):
+    post = JobPost.query.get(job_post_id)
+    if post.owner != g.current_user:
+        return jsonify({'message': 'Unauthorized'}), 401
+    post.remove()
+    return '', 204
 
 
 
@@ -52,3 +72,47 @@ def social_post_index():
 def social_post_show(social_post_id):
     social_post = SocialPost.query.get(social_post_id)
     return social_post_schema.jsonify(social_post), 200
+
+@api.route('/social_posts', methods=['POST'])
+@secure_route
+def social_post_create():
+    data = request.get_json()
+    post, errors = social_post_schema.load(data)
+    if errors:
+        return jsonify(errors), 422
+    industry = Industry.query.get(data['industry_id'])
+    post.owner = g.current_user
+    post.industries.append(industry)
+    post.save()
+    return social_post_schema.jsonify(post), 201
+
+@api.route('/social_posts/<int:social_post_id>', methods=['PUT'])
+@secure_route
+def social_post_update(social_post_id):
+    post = SocialPost.query.get(social_post_id)
+    post, errors = social_post_schema.load(request.get_json(), instance=post, partial=True)
+    if errors:
+        return jsonify(errors), 422
+
+    if post.owner != g.current_user:
+        return jsonify({'message': 'Unauthorized'}), 401
+
+    post.save()
+    return social_post_schema.jsonify(post), 202
+
+@api.route('/social_posts/<int:social_post_id>', methods=['DELETE'])
+@secure_route
+def social_post_delete(social_post_id):
+    post = SocialPost.query.get(social_post_id)
+    if post.owner != g.current_user:
+        return jsonify({'message': 'Unauthorized'}), 401
+    post.remove()
+    return '', 204
+
+
+# Industries
+
+@api.route('/industries', methods=['GET'])
+def industries_index():
+    industries = Industry.query.all()
+    return industry_schema.jsonify(industries, many=True), 200
