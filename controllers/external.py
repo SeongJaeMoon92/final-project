@@ -1,12 +1,14 @@
-from flask import Blueprint
+import os
+from flask import Blueprint, request
 import requests
 
 api = Blueprint('external', __name__)
 
 @api.route('/companies', methods=['GET'])
-def get_companies():
+def search_companies():
     url = 'https://api.companieshouse.gov.uk/search/companies'
-    headers = {'Authorization': 'rU7Lbq3-MmaQRyq8RL6DJ4uMlF3BsfMV3NztRn89'}
-    payload = {'q': 'General Assembly'}
+    headers = {'Authorization': os.environ.get('COMPANIES_HOUSE_KEY')}
+    company = request.args.get('q')
+    payload = {'q': company}
     r = requests.get(url, headers=headers, params=payload)
     return r.text
