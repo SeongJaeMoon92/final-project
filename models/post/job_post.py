@@ -3,7 +3,6 @@ from marshmallow import fields
 from models.user import User
 from models.base import BaseModel, BaseSchema
 from .industry import Industry
-from user import User
 
 likes = db.Table(
     'likes',
