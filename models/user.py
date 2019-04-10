@@ -61,6 +61,8 @@ class UserSchema(ma.ModelSchema, BaseSchema):
     owned_job_posts = fields.Nested('JobPostSchema', many=True)
     owned_social_posts = fields.Nested('SocialPostSchema', many=True)
     likes = fields.Nested('JobPostSchema', many=True, only=('id', 'name'))
+    sent_messages = fields.Nested('MessageSchema', many=True, only=('id', 'message_content', 'receiver'))
+    received_messages = fields.Nested('MessageSchema', many=True, only=('id', 'message_content', 'sender_id'))
 
     class Meta:
         model = User
