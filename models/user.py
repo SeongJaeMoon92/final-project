@@ -60,6 +60,7 @@ class UserSchema(ma.ModelSchema, BaseSchema):
 
     owned_job_posts = fields.Nested('JobPostSchema', many=True)
     owned_social_posts = fields.Nested('SocialPostSchema', many=True)
+    likes = fields.Nested('JobPostSchema', many=True, only=('id', 'name'))
 
     class Meta:
         model = User
