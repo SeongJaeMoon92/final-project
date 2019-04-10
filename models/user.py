@@ -6,6 +6,11 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from marshmallow import validates_schema, ValidationError, fields, validate
 from .base import BaseModel, BaseSchema
 
+friend_to_friend = db.Table('friend_to_friend',
+    db.Column('friend_a_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('friend_b_id', db.Integer, db.ForeignKey('users.id'), primary_key=True)
+)
+
 class User(db.Model, BaseModel):
 
     __tablename__ = 'users'
@@ -64,6 +69,8 @@ class UserSchema(ma.ModelSchema, BaseSchema):
     likes_social_post = fields.Nested('SocialPostSchema', many=True, only=('id', 'post_title'))
     sent_messages = fields.Nested('MessageSchema', many=True, only=('id', 'message_content', 'receiver'))
     received_messages = fields.Nested('MessageSchema', many=True, only=('id', 'message_content', 'sender_id'))
+    sent_friend_requests = fields.Nested('FriendSchema', many=True)
+    received_friend_requests = fields.Nested('FriendSchema', many=True)
 
     class Meta:
         model = User

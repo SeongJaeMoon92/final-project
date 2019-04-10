@@ -6,6 +6,7 @@ from models.message import Message
 from models.post.job_post import JobPost
 from models.post.social_post import SocialPost, Comment
 from models.post.industry import Industry
+from models.friend import Friend
 
 user_schema = UserSchema()
 
@@ -140,6 +141,10 @@ with app.app_context():
     message1 = Message(message_content='Hello check check', sender=moon, receiver=hall)
     message2 = Message(message_content='Hello 2 check check', sender=moon, receiver=hall)
     message3 = Message(message_content='Hello 3 check check', sender=hall, receiver=moon)
+
+    friend1 = Friend(friend_a=moon, friend_b=hall, status='Accepted')
+
+    db.session.add(friend1)
 
     db.session.add(message1)
     db.session.add(message2)

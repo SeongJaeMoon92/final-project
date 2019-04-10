@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from models.user import User, UserSchema
 from lib.helpers import is_unique
+from lib.secure_route import secure_route
 
 api = Blueprint('auth', __name__)
 user_schema = UserSchema()
