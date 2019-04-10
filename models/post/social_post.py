@@ -4,6 +4,11 @@ from models.base import BaseModel, BaseSchema
 from models.user import User
 from .industry import Industry
 
+likes_social_post = db.Table(
+    'likes_social_post',
+    db.Column('social_post_id', db.Integer, db.ForeignKey('social_posts.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
+)
 
 industries_social_posts = db.Table('industries_social_posts',
     db.Column('industry_id', db.Integer, db.ForeignKey('industries.id'), primary_key=True),
@@ -19,12 +24,29 @@ class SocialPost(db.Model, BaseModel):
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     owner = db.relationship('User', backref='owned_social_posts')
     industries = db.relationship('Industry', secondary=industries_social_posts, backref='social_posts')
+    liked_by = db.relationship('User', secondary=likes_social_post, backref='likes_social_post')
 
+
+class Comment(db.Model, BaseModel):
+
+    __tablename__ = 'comments'
+
+    content = db.Column(db.Text, nullable=False)
+    social_post_id = db.Column(db.Integer, db.ForeignKey('social_posts.id'))
+    social_post = db.relationship('SocialPost', backref='comments')
 
 class SocialPostSchema(ma.ModelSchema, BaseSchema):
 
+    comments = fields.Nested('CommentSchema', many=True, only=('content', 'id'))
+    liked_by = fields.Nested('UserSchema', many=True, only=('id', 'username'))
     owner = fields.Nested('UserSchema', only=('id', 'username'))
     industries = fields.Nested('IndustrySchema', many=True, only=('id', 'industry'))
 
+
     class Meta:
         model = SocialPost
+
+class CommentSchema(ma.ModelSchema):
+
+    class Meta:
+        model = Comment

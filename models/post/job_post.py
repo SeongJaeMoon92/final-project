@@ -3,10 +3,9 @@ from marshmallow import fields
 from models.user import User
 from models.base import BaseModel, BaseSchema
 from .industry import Industry
-from user import User
 
-likes = db.Table(
-    'likes',
+likes_job_post = db.Table(
+    'likes_job_post',
     db.Column('job_post_id', db.Integer, db.ForeignKey('job_posts.id')),
     db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
 )
@@ -27,7 +26,7 @@ class JobPost(db.Model, BaseModel):
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     owner = db.relationship('User', backref='owned_job_posts')
     industries = db.relationship('Industry', secondary=industries_job_posts, backref='job_posts')
-    liked_by = db.relationship('User', secondary=likes, backref='likes')
+    liked_by = db.relationship('User', secondary=likes_job_post, backref='likes_job_post')
 
 
 class JobPostSchema(ma.ModelSchema, BaseSchema):

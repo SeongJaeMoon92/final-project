@@ -4,7 +4,7 @@ from models.user import UserSchema
 from models.profile_folder.profile import Profile, Experience, Education
 
 from models.post.job_post import JobPost
-from models.post.social_post import SocialPost
+from models.post.social_post import SocialPost, Comment
 from models.post.industry import Industry
 
 user_schema = UserSchema()
@@ -70,7 +70,8 @@ with app.app_context():
         post_content='This is a job post. Come and work at our amazing company!',
         post_image='https://ga-core.s3.amazonaws.com/cms/files/files/000/000/886/original/ga-logo-gear.png',
         owner=moon,
-        industries=[consumer_services, insurance]
+        industries=[consumer_services, insurance],
+        liked_by=[hall]
     )
 
     job_post_2 = JobPost(
@@ -79,7 +80,8 @@ with app.app_context():
         post_content='This is another job post. Join our amazing team today!',
         post_image='https://ga-core.s3.amazonaws.com/cms/files/files/000/000/886/original/ga-logo-gear.png',
         owner=hall,
-        industries=[accounting, hospitality]
+        industries=[accounting, hospitality],
+        liked_by=[moon]
     )
 
     db.session.add(job_post_1)
@@ -92,19 +94,26 @@ with app.app_context():
         post_title="Some post title",
         post_content='This is a social post. Read my amazing article!',
         owner=hall,
-        industries=[construction]
+        industries=[construction],
+        liked_by=[moon]
     )
 
     social_post_2 = SocialPost(
         post_title="Some other post title",
         post_content='This is another social post. BLah blah blah',
         owner=moon,
-        industries=[insurance]
+        industries=[insurance],
+        liked_by=[hall]
     )
 
     db.session.add(social_post_1)
     db.session.add(social_post_2)
 
+    # Social Posts Comment
+
+    comment1 = Comment(content="funny hahah", social_post=social_post_1)
+
+    db.session.add(comment1)
 
     test_subject1 = Profile(name='Wesley Hall',
     summary='I like to dance', location='Royal Oak', owner=wes)

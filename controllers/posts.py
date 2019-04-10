@@ -1,12 +1,13 @@
 from flask import Blueprint, jsonify, request, g
 from models.post.job_post import JobPost, JobPostSchema
-from models.post.social_post import SocialPost, SocialPostSchema
+from models.post.social_post import SocialPost, SocialPostSchema, Comment, CommentSchema
 from models.post.industry import Industry, IndustrySchema
 from lib.secure_route import secure_route
 
 job_post_schema = JobPostSchema()
 social_post_schema = SocialPostSchema()
 industry_schema = IndustrySchema()
+comment_schema = CommentSchema()
 
 api = Blueprint('posts', __name__)
 
@@ -58,7 +59,18 @@ def job_post_delete(job_post_id):
     post.remove()
     return '', 204
 
+# likes for job_post
 
+@api.route('/job_post/<int:job_post_id>/like', methods=['PUT'])
+@secure_route
+def like_job_post(job_post_id):
+    job_post = JobPost.query.get(job_post_id)
+    user = g.current_user
+
+    job_post.liked_by.append(user)
+    job_post.save()
+
+    return job_post_schema.jsonify(job_post), 201
 
 # Social Post Routes
 
@@ -109,9 +121,43 @@ def social_post_delete(social_post_id):
     post.remove()
     return '', 204
 
+# likes for social_post
+
+@api.route('/social_posts/<int:social_post_id>/like', methods=['PUT'])
+@secure_route
+def like_social_post(social_post_id):
+    social_post = SocialPost.query.get(social_post_id)
+    user = g.current_user
+
+    social_post.liked_by.append(user)
+    social_post.save()
+
+    return social_post_schema.jsonify(social_post), 201
+
+# comments for social_post
+
+@api.route('/social_posts/<int:social_post_id>/comments', methods=['POST'])
+@secure_route
+def comment_create(social_post_id):
+    data = request.get_json()
+    social_post = SocialPost.query.get(social_post_id)
+    comment, errors = comment_schema.load(data)
+    if errors:
+        return jsonify(errors), 422
+    comment.social_post = social_post
+    comment.save()
+    return comment_schema.jsonify(comment)
+
+@api.route('/social_posts/<int:social_post_id>/comments/<int:comment_id>', methods=['DELETE'])
+@secure_route
+def comment_delete(**kwargs):
+    print(kwargs)
+    comment = Comment.query.get(kwargs['comment_id'])
+    comment.remove()
+
+    return '', 204
 
 # Industries
-
 @api.route('/industries', methods=['GET'])
 def industries_index():
     industries = Industry.query.all()
