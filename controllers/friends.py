@@ -40,3 +40,17 @@ def add_friend():
 
     friend_request.save()
     return friend_schema.jsonify(friend_request), 201
+
+@api.route('/friends/<int:friend_id>', methods=['PUT'])
+@secure_route
+def accept_friend(friend_id):
+    friend_request = Friend.query.get(friend_id)
+    friend_request, errors = friend_schema.load(request.get_json(), instance=friend_request, partial=True)
+    if errors:
+        return jsonify(errors), 422
+
+    if friend_request.friend_b != g.current_user:
+        return jsonify({'message': 'Unauthorized'}), 401
+
+    friend_request.save()
+    return friend_schema.jsonify(friend_request), 202
