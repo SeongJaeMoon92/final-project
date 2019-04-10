@@ -2,7 +2,7 @@ from app import app, db
 
 from models.user import UserSchema
 from models.profile_folder.profile import Profile, Experience, Education
-
+from models.message import Message
 from models.post.job_post import JobPost
 from models.post.social_post import SocialPost
 from models.post.industry import Industry
@@ -127,6 +127,14 @@ with app.app_context():
     experience1 = Experience(title='Marketing Executive',
     company='General Assembly', location='Aldgate',
     start_date=2018, end_date=2019, description='GA is amazing', profile=test_subject2)
+
+    message1 = Message(message_content='Hello check check', sender=moon, receiver=hall)
+    message2 = Message(message_content='Hello 2 check check', sender=moon, receiver=hall)
+    message3 = Message(message_content='Hello 3 check check', sender=hall, receiver=moon)
+
+    db.session.add(message1)
+    db.session.add(message2)
+    db.session.add(message3)
 
     db.session.add(experience1)
 
