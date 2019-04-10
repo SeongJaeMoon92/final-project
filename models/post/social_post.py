@@ -34,10 +34,12 @@ class Comment(db.Model, BaseModel):
     content = db.Column(db.Text, nullable=False)
     social_post_id = db.Column(db.Integer, db.ForeignKey('social_posts.id'))
     social_post = db.relationship('SocialPost', backref='comments')
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user = db.relationship('User')
 
 class SocialPostSchema(ma.ModelSchema, BaseSchema):
 
-    comments = fields.Nested('CommentSchema', many=True, only=('content', 'id'))
+    comments = fields.Nested('CommentSchema', many=True, only=('content', 'user', 'id'))
     liked_by = fields.Nested('UserSchema', many=True, only=('id', 'username'))
     owner = fields.Nested('UserSchema', only=('id', 'username'))
     industries = fields.Nested('IndustrySchema', many=True, only=('id', 'industry'))
@@ -48,5 +50,6 @@ class SocialPostSchema(ma.ModelSchema, BaseSchema):
 
 class CommentSchema(ma.ModelSchema):
 
+    user = fields.Nested('UserSchema', only=('username',) )
     class Meta:
         model = Comment

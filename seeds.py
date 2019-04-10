@@ -112,7 +112,7 @@ with app.app_context():
 
     # Social Posts Comment
 
-    comment1 = Comment(content="funny hahah", social_post=social_post_1)
+    comment1 = Comment(content="funny hahah", social_post=social_post_1, user=hall)
 
     db.session.add(comment1)
 
