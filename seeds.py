@@ -122,17 +122,19 @@ with app.app_context():
     test_subject2 = Profile(name='Seong Jae Moon',
     summary='I dont like to dance', location='Sutton', owner=moon)
 
-    education1 = Education(school='GA',
-    field_of_study='Web Development Immersive',
-    date_from=2019, date_to=2019, grade='D', profile=test_subject1)
+    education1 = Education(school='General Assembly',
+    degree='Web Development Immersive',
+    field_of_study='Web Development',
+    date_from=2019, date_to=2019, profile=test_subject1)
 
-    education2 = Education(school='Kings College',
+    education2 = Education(school='Regent\'s University London',
+    degree='BA (Hons) International Business with Marketing and Chinese (Mandarin)',
+    field_of_study='International Business',
+    date_from=2011, date_to=2014, grade='2:1', profile=test_subject1)
+
+    education3 = Education(school='King\'s College',
     field_of_study='Physics',
     date_from=2017, date_to=2019, grade='First', profile=test_subject2)
-
-    education3 = Education(school='GA2',
-    field_of_study='Web Development Immersive',
-    date_from=2019, date_to=2019, grade='D', profile=test_subject1)
 
     experience1 = Experience(title='Marketing Executive',
     company='General Assembly', location='Aldgate',
