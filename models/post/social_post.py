@@ -50,6 +50,6 @@ class SocialPostSchema(ma.ModelSchema, BaseSchema):
 
 class CommentSchema(ma.ModelSchema):
 
-    user = fields.Nested('UserSchema', only=('username',) )
+    user = fields.Nested('UserSchema', only=('username',))
     class Meta:
         model = Comment

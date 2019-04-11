@@ -18,14 +18,15 @@ class SideProfile extends React.Component{
     axios.get('/api/profiles/1')
       .then(res => this.setState({ data: res.data }))
   }
-  
+
   // getProfileData(){
   //   axios.get(`/api/profiles/${Auth.getPayload().sub}`)
   //     .then(res => this.setState({ data: res.data }))
   // }
 
   render() {
-    const {data} = this.state
+    const { data } = this.state
+    // console.log(data)
     return(
       <div className="sideProfile">
         {data.image && <img src={data.image} />}

@@ -61,7 +61,7 @@ def job_post_delete(job_post_id):
 
 # likes for job_post
 
-@api.route('/job_post/<int:job_post_id>/like', methods=['PUT'])
+@api.route('/job_posts/<int:job_post_id>/like', methods=['PUT'])
 @secure_route
 def like_job_post(job_post_id):
     job_post = JobPost.query.get(job_post_id)
@@ -134,6 +134,7 @@ def like_social_post(social_post_id):
 
     return social_post_schema.jsonify(social_post), 201
 
+
 # comments for social_post
 
 @api.route('/social_posts/<int:social_post_id>/comments', methods=['POST'])
@@ -144,6 +145,7 @@ def comment_create(social_post_id):
     comment, errors = comment_schema.load(data)
     if errors:
         return jsonify(errors), 422
+    comment.user = g.current_user
     comment.social_post = social_post
     comment.save()
     return comment_schema.jsonify(comment)

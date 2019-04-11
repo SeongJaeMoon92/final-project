@@ -22,15 +22,15 @@ class Profile extends React.Component{
   }
 
   createExperience() {
-    axios.post(`/api/profiles.${this.props.match.params.id}/experiences`)
+    axios.post(`/api/profiles/${this.props.match.params.id}/experiences`)
   }
 
   updateExperience(e) {
-    axios.put(`/api/profiles.${this.props.match.params.id}/experiences/${e.value}`)
+    axios.put(`/api/profiles/${this.props.match.params.id}/experiences/${e.value}`)
   }
 
   deleteExperience(e) {
-    axios.delete(`/api/profiles.${this.props.match.params.id}/experiences/${e.value}`)
+    axios.delete(`/api/profiles/${this.props.match.params.id}/experiences/${e.value}`)
   }
 
 
