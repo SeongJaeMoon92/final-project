@@ -6,6 +6,9 @@ import { BrowserRouter as Browser, Route, Link, Switch} from 'react-router-dom'
 
 import Header from './components/common/header'
 import MainPage from './components/home/mainPage'
+import Register from './components/registerLogin/register'
+import Login from './components/registerLogin/login'
+import SecureRoute from './components/lib/secureRoute'
 
 class App extends React.Component{
   constructor(){
@@ -20,7 +23,9 @@ class App extends React.Component{
         <div>
           <Header />
           <Switch>
-            <Route path='/' component={MainPage} />
+            <Route path='/login' component={Login} />
+            <Route path='/register' component={Register} />
+            <SecureRoute exact path='/' component={MainPage} />
           </Switch>
         </div>
       </Browser>

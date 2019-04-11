@@ -11,4 +11,4 @@ def search_companies():
     company = request.args.get('q')
     payload = {'q': company}
     r = requests.get(url, headers=headers, params=payload)
-    return r.text
+    return r.text, {'Content-Type': 'application/json'}
