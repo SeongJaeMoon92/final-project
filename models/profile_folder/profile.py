@@ -18,11 +18,12 @@ class Education(db.Model, BaseModel):
     __tablename__ = 'educations'
 
     school = db.Column(db.String(40), nullable=False)
-    degree = db.Column(db.String(100))
+    degree = db.Column(db.String(100), nullable=False)
     field_of_study = db.Column(db.String(30), nullable=False)
-    date_from = db.Column(db.Integer)
+    date_from = db.Column(db.Integer, nullable=False)
     date_to = db.Column(db.Integer)
     grade = db.Column(db.String(10))
+    description = db.Column(db.Text)
     profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
     profile = db.relationship('Profile', backref='profile_education')
 
@@ -33,7 +34,7 @@ class Experience(db.Model, BaseModel):
     title = db.Column(db.String(40), nullable=False)
     company = db.Column(db.String(40), nullable=False)
     location = db.Column(db.String(30), nullable=False)
-    start_date = db.Column(db.Integer)
+    start_date = db.Column(db.Integer, nullable=False)
     end_date = db.Column(db.Integer)
     description = db.Column(db.Text)
     profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
