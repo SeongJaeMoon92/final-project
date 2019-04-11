@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Browser, Route, Link, Switch} from 'react-router-dom'
 
+import './style.scss'
 // import components
 
 import Header from './components/common/header'
