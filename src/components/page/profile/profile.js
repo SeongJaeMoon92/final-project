@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 import ProfileExperience from './profileExperience'
 import ProfileEducation from './profileEducation'
@@ -26,11 +27,16 @@ class Profile extends React.Component{
   }
 
   updateExperience(e) {
-    axios.put(`/api/profiles.${this.props.match.params.id}/experiences/${e.value}`)
+    axios.put(`/api/profiles.${this.props.match.params.id}/experiences/${e.target.value}`)
   }
 
   deleteExperience(e) {
-    axios.delete(`/api/profiles.${this.props.match.params.id}/experiences/${e.value}`)
+    axios.delete(`/api/profiles.${this.props.match.params.id}/experiences/${e.target.value}`)
+  }
+
+  handleExperienceCreate() {
+
+
   }
 
 
@@ -45,30 +51,35 @@ class Profile extends React.Component{
           <h3>{profile.summary}</h3>
           <h3>{profile.location}</h3>
         </div>
-        {profile.profile_experience.length > 0 &&
-          <div className="profile-experience">
-            <h2>Experience</h2>
-            {profile.profile_experience.map(experience => (
+        <div className="profile-experience">
+          <h2>Experience</h2>
+          <Link to={`/profile/${this.props.match.params.id}/experience`} >Add new experience</Link>
+
+          {profile.profile_experience.length > 0 &&
+            profile.profile_experience.map(experience => (
               <div key={experience.id} className="experience-content">
                 <ProfileExperience
                   experience={experience}
+                  profileId={this.props.match.params.id}
                 />
               </div>
-            ))}
-          </div>
-        }
-        {profile.profile_education.length > 0 &&
-          <div className="profile-education">
-            <h2>Education</h2>
-            {profile.profile_education.map(education => (
+            ))
+          }
+        </div>
+        <div className="profile-education">
+          <h2>Education</h2>
+          <Link to={`/profile/${this.props.match.params.id}/education`} >Add new education</Link>
+          {profile.profile_education.length > 0 &&
+            profile.profile_education.map(education => (
               <div key={education.id} className="education-content">
                 <ProfileEducation
                   education={education}
+                  profileId={this.props.match.params.id}
                 />
               </div>
-            ))}
-          </div>
-        }
+            ))
+          }
+        </div>
       </div>
     )
   }

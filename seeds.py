@@ -126,8 +126,8 @@ with app.app_context():
         school='General Assembly',
         degree='Web Development Immersive',
         field_of_study='Web Development',
-        date_from=2019,
-        date_to=2019,
+        start_date=2019,
+        end_date=2019,
         description='A 12-week immersive course in web development.',
         profile=profile_wes
     )
@@ -136,17 +136,18 @@ with app.app_context():
         school='Regent\'s University London',
         degree='BA (Hons) International Business with Marketing and Chinese (Mandarin)',
         field_of_study='International Business',
-        date_from=2011,
-        date_to=2014,
+        start_date=2011,
+        end_date=2014,
         grade='2:1',
         profile=profile_wes
     )
 
     education3 = Education(
         school='King\'s College',
+        degree='blahblahblah',
         field_of_study='Physics',
-        date_from=2017,
-        date_to=2019,
+        start_date=2017,
+        end_date=2019,
         grade='First',
         profile=profile_moon
     )
@@ -166,7 +167,7 @@ with app.app_context():
         location='London, UK',
         start_date=2016,
         end_date=2017,
-        description='Marketing Assistant for a recruitment company specialising in telecommunications, broadcast media and cybersecurity.',
+        description='Marketing Assistant for a recruitment company',
         profile=profile_wes
     )
 

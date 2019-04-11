@@ -36,6 +36,7 @@ def profile_create():
 @secure_route
 def profile_update(profile_id):
     data = request.get_json()
+    print(data)
     profile = Profile.query.get(profile_id)
     profile, errors = profile_schema.load(data, instance=profile, partial=True)
     if errors:
@@ -43,7 +44,7 @@ def profile_update(profile_id):
     if profile.owner != g.current_user:
         return jsonify({'message': 'Unauthorized'}), 401
     profile.save()
-    return profile_schema.jsonify(profile), 201
+    return profile_schema.jsonify(profile), 202
 
 @api.route('/profiles/<int:profile_id>', methods=['DELETE'])
 @secure_route
@@ -93,7 +94,7 @@ def education_delete(**kwargs):
 
 @api.route('/profiles/<int:profile_id>/experiences', methods=['POST'])
 @secure_route
-def exper_create(profile_id):
+def experience_create(profile_id):
     data = request.get_json()
     profile = Profile.query.get(profile_id)
     experience, errors = experience_schema.load(data)

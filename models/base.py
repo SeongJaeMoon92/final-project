@@ -5,11 +5,11 @@ from marshmallow import fields
 class BaseModel:
 
     id = db.Column(db.Integer, primary_key=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow)
+    # created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    # updated_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def save(self):
-        self.updated_at = datetime.utcnow()
+        # self.updated_at = datetime.utcnow()
 
         db.session.add(self)
         db.session.commit()
@@ -19,5 +19,6 @@ class BaseModel:
         db.session.commit()
 
 class BaseSchema:
-    created_at = fields.DateTime(format='%Y-%m-%d %H:%M:%S %c')
-    updated_at = fields.DateTime(format='%Y-%m-%d %H:%M:%S %c')
+    print('hello')
+#     created_at = fields.DateTime(format='%Y-%m-%d %H:%M:%S %c')
+#     updated_at = fields.DateTime(format='%Y-%m-%d %H:%M:%S %c')

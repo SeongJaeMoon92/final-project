@@ -10,7 +10,13 @@ import MainPage from './components/home/mainPage'
 import Register from './components/registerLogin/register'
 import Login from './components/registerLogin/login'
 import SecureRoute from './components/lib/secureRoute'
-import Profile from './components/page/profile'
+import Profile from './components/page/profile/profile'
+import ProfileCreate from './components/page/profile/profileCreate'
+import ProfileUpdate from './components/page/profile/profileUpdate'
+import ExperienceCreate from './components/page/profile/experienceCreate'
+import ExperienceUpdate from './components/page/profile/experienceUpdate'
+import EducationCreate from './components/page/profile/educationCreate'
+import EducationUpdate from './components/page/profile/educationUpdate'
 
 class App extends React.Component{
   constructor(){
@@ -25,7 +31,13 @@ class App extends React.Component{
         <div>
           <Header />
           <Switch>
-            <Route path='/profile/:id' component={Profile} />
+            <SecureRoute path='/profile/:id/education/:educationId' component={EducationUpdate} />
+            <SecureRoute path='/profile/:id/education' component={EducationCreate} />
+            <SecureRoute path='/profile/:id/experience/:experienceId' component={ExperienceUpdate} />
+            <SecureRoute path='/profile/:id/experience' component={ExperienceCreate} />
+            <SecureRoute path='/profile/:id/update' component={ProfileUpdate} />
+            <SecureRoute path='/profile/add' component={ProfileCreate} />
+            <SecureRoute path='/profile/:id' component={Profile} />
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
             <SecureRoute exact path='/' component={MainPage} />
