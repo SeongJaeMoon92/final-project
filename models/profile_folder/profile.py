@@ -18,7 +18,7 @@ class Education(db.Model, BaseModel):
     __tablename__ = 'educations'
 
     school = db.Column(db.String(40), nullable=False)
-    degree = db.Column(db.String(40))
+    degree = db.Column(db.String(100))
     field_of_study = db.Column(db.String(30), nullable=False)
     date_from = db.Column(db.Integer)
     date_to = db.Column(db.Integer)
