@@ -6,6 +6,7 @@ import { BrowserRouter as Browser, Route, Link, Switch} from 'react-router-dom'
 
 import Header from './components/common/header'
 import MainPage from './components/home/mainPage'
+import Profile from './components/page/profile'
 
 class App extends React.Component{
   constructor(){
@@ -20,7 +21,8 @@ class App extends React.Component{
         <div>
           <Header />
           <Switch>
-            <Route path='/' component={MainPage} />
+            <Route path='/profile/:id' component={Profile} />
+            <Route exact path='/' component={MainPage} />
           </Switch>
         </div>
       </Browser>
