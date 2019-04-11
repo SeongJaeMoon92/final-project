@@ -1,5 +1,9 @@
 import React from 'react'
 
+// import compoenents
+
+import SideProfile from  './sections/sideProfile'
+
 class MainPage extends React.Component{
   constructor(){
     super()
@@ -9,7 +13,9 @@ class MainPage extends React.Component{
 
   render(){
     return (
-      <h1>check</h1>
+      <main>
+        <SideProfile />
+      </main>
     )
   }
 }

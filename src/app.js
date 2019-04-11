@@ -7,6 +7,9 @@ import './style.scss'
 
 import Header from './components/common/header'
 import MainPage from './components/home/mainPage'
+import Register from './components/registerLogin/register'
+import Login from './components/registerLogin/login'
+import SecureRoute from './components/lib/secureRoute'
 import Profile from './components/page/profile'
 
 class App extends React.Component{
@@ -23,7 +26,9 @@ class App extends React.Component{
           <Header />
           <Switch>
             <Route path='/profile/:id' component={Profile} />
-            <Route exact path='/' component={MainPage} />
+            <Route path='/login' component={Login} />
+            <Route path='/register' component={Register} />
+            <SecureRoute exact path='/' component={MainPage} />
           </Switch>
         </div>
       </Browser>
