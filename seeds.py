@@ -144,7 +144,7 @@ with app.app_context():
 
     education3 = Education(
         school='King\'s College',
-        degree='blahblahblah',
+        degree='blah',
         field_of_study='Physics',
         start_date=2017,
         end_date=2019,
