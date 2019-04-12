@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 // import component
 
@@ -55,6 +56,9 @@ class Login extends React.Component{
           {errors.message && <small>{errors.message}</small>}
           <input type="submit" value="Submit"/>
         </form>
+        <div>
+          Not yet registered? <Link to='/register'>Register here</Link>
+        </div>
       </main>
     )
   }

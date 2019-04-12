@@ -1,10 +1,13 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, g
 from models.user import User, UserSchema
+from models.profile_folder.profile import Profile, ProfileSchema
 from lib.helpers import is_unique
 from lib.secure_route import secure_route
 
 api = Blueprint('auth', __name__)
+
 user_schema = UserSchema()
+profile_schema = ProfileSchema()
 
 @api.route('/register', methods=['POST'])
 def register():
@@ -34,3 +37,11 @@ def login():
         'message': 'Welcome back {}!'.format(user.username),
         'token': user.generate_token()
     })
+
+@api.route('/users/<int:user_id>', methods=['GET'])
+@secure_route
+def user_profile(user_id):
+    profile = Profile.query.filter_by(owner_id=user_id).first()
+    if profile.owner != g.current_user:
+        return jsonify({'message': 'Unauthorized'}), 401
+    return profile_schema.jsonify(profile), 200
