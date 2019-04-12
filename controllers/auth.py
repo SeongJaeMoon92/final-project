@@ -41,7 +41,7 @@ def login():
 @api.route('/users/<int:user_id>', methods=['GET'])
 @secure_route
 def user_profile(user_id):
-    profile = Profile.query.filter_by(owner_id=user_id)
+    profile = Profile.query.filter_by(owner_id=user_id).first()
     if profile.owner != g.current_user:
         return jsonify({'message': 'Unauthorized'}), 401
     return profile_schema.jsonify(profile), 200
