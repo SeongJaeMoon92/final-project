@@ -17,6 +17,7 @@ import ExperienceCreate from './components/page/profile/experienceCreate'
 import ExperienceUpdate from './components/page/profile/experienceUpdate'
 import EducationCreate from './components/page/profile/educationCreate'
 import EducationUpdate from './components/page/profile/educationUpdate'
+import SocialPostNew from './components/home/socialPost/createSocialPost'
 
 class App extends React.Component{
   constructor(){
@@ -31,6 +32,7 @@ class App extends React.Component{
         <div>
           <Header />
           <Switch>
+            <SecureRoute path='/social_post/new' component={SocialPostNew}/>
             <SecureRoute path='/profile/:id/education/:educationId' component={EducationUpdate} />
             <SecureRoute path='/profile/:id/education' component={EducationCreate} />
             <SecureRoute path='/profile/:id/experience/:experienceId' component={ExperienceUpdate} />

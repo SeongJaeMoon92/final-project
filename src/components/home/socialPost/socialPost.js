@@ -54,12 +54,10 @@ class SocialPost extends React.Component {
   }
 
   handleSubmitMessage(e, socialPost){
-    console.log(socialPost)
     e.preventDefault()
     const dataM = {...this.state.dataM, receiver_id: socialPost.owner.id}
     this.setState({dataM},
       () =>  {
-        console.log(this.state.dataM)
         axios.post(`/api/messages`, this.state.dataM,
         { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
           .then(() => this.setState({dataM: ''}))
@@ -70,7 +68,6 @@ class SocialPost extends React.Component {
 
   render(){
     const {socialPosts} = this.state
-    console.log(this.state.dataM)
     return(
       <div className="postform">
         {socialPosts && socialPosts.sort((a,b) => {

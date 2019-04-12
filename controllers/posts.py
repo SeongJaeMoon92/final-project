@@ -92,9 +92,13 @@ def social_post_create():
     post, errors = social_post_schema.load(data)
     if errors:
         return jsonify(errors), 422
-    industry = Industry.query.get(data['industry_id'])
+    industries = list(data['industry_id'])
+    industries_lists = []
+    for item in industries:
+        industries_lists.append(Industry.query.get(item))
     post.owner = g.current_user
-    post.industries.append(industry)
+    for item in industries_lists:
+        post.industries.append(item)
     post.save()
     return social_post_schema.jsonify(post), 201
 

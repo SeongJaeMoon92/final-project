@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 
+import SocialPostEdit from  './socialPostEdit'
+
 import Auth from '../../lib/auth'
 
 class SocialPostForm extends React.Component {
@@ -18,6 +20,10 @@ class SocialPostForm extends React.Component {
   }
   handleMessageBox(e){
     this.setState({messageBox: !this.state.messageBox})
+  }
+
+  isOwner() {
+    return Auth.isAuthenticated() && this.props.socialPost.owner.id === Auth.getPayload().sub
   }
 
   render(){
@@ -49,10 +55,14 @@ class SocialPostForm extends React.Component {
       </button>
       <button
         value={socialPost.id}
-        onClick={this.handleMessageBox}>
-      Message</button>
-      <button>Edit</button>
-      <button>Delete</button>
+        onClick={this.handleMessageBox}
+      >
+        Message
+      </button>
+      {this.isOwner() && <SocialPostEdit
+        id={socialPost.id}
+      />}
+      {this.isOwner() && <button>Delete</button>}
       {commentBox &&
         <form onSubmit={(e) => {
           handleSubmit(e, socialPost)

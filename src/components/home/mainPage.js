@@ -2,8 +2,9 @@ import React from 'react'
 
 // import compoenents
 
-import SideProfile from  './sections/sideProfile'
-import SocialPost from  './sections/socialPost'
+import SideProfile from  './sideProfile'
+import SocialPost from  './socialPost/socialPost'
+import SocialPostNew from  './socialPost/createSocialPost'
 
 class MainPage extends React.Component{
   constructor(){
@@ -15,6 +16,8 @@ class MainPage extends React.Component{
   render(){
     return (
       <main>
+        <SocialPostNew />
+        <hr />
         <SideProfile />
         <hr />
         <SocialPost />
