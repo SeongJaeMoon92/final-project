@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import Auth from '../lib/auth'
 import axios from 'axios'
 
@@ -11,8 +11,26 @@ class Header extends React.Component{
   }
 
   componentDidMount() {
-    axios.get(`/api/users/${Auth.getPayload().sub}`)
-      .then(res => console.log(res.data))
+    this.setLocationInState()
+    this.getProfileId()
+  }
+
+  componentDidUpdate() {
+    if (this.state.previousLocation === this.props.history.location) return null
+    this.getProfileId()
+    this.setLocationInState()
+  }
+
+  setLocationInState() {
+    this.setState({ previousLocation: this.props.history.location })
+  }
+
+  getProfileId() {
+    if (Auth.getToken() === null) return null
+    axios.get(`/api/users/${Auth.getPayload().sub}`,
+      { headers: { Authorization: `Bearer ${Auth.getToken()}`}}
+    )
+      .then(res => this.setState({ profileId: res.data.id }))
   }
 
   render() {
@@ -21,10 +39,10 @@ class Header extends React.Component{
         <Link to='/'>Home</Link>
         <Link to='/register'>Register</Link>
         <Link to='/login'>Login</Link>
-        <Link to={`/profile/${Auth.getPayload().sub}`}>My profile</Link>
+        {!Auth.isAuthenticated() && <Link to={`/profile/${this.state.profileId}`}>My profile</Link>}
       </div>
     )
   }
 }
 
-export default Header
+export default withRouter(Header)
