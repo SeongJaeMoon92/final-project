@@ -8,6 +8,7 @@ class Profile(db.Model, BaseModel):
     __tablename__ = 'profiles'
 
     name = db.Column(db.String(20), nullable=False)
+    image = db.Column(db.String)
     summary = db.Column(db.Text)
     location = db.Column(db.String(20), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -43,7 +44,7 @@ class Experience(db.Model, BaseModel):
 class ProfileSchema(ma.ModelSchema, BaseSchema):
     profile_education = fields.Nested('EducationSchema', many=True)
     profile_experience = fields.Nested('ExperienceSchema', many=True)
-    owner = fields.Nested('UserSchema', only=('id', 'username'))
+    owner = fields.Nested('UserSchema', only=('id', 'username',))
     class Meta:
         model = Profile
 
