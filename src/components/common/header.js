@@ -29,7 +29,7 @@ class Header extends React.Component{
 
   getProfileId() {
     if (Auth.getToken() === null) return null
-    axios.get(`/api/users/${Auth.getPayload().sub}`,
+    axios.get(`/api/users/${Auth.getPayload().sub}/profile`,
       { headers: { Authorization: `Bearer ${Auth.getToken()}`}}
     )
       .then(res => this.setState({ profileId: res.data.id }))
@@ -44,7 +44,7 @@ class Header extends React.Component{
     return (
       <div>
         <Link to='/'>Home</Link>
-        <Link to='/network'>My Network</Link>
+        <Link to='/discover'>Discover</Link>
         <Link to={`/profile/${this.state.profileId}`}>My Profile</Link>
         <Link to='/' onClick={this.logout}>Logout</Link>
       </div>
