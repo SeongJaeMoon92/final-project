@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Browser, Route, Link, Switch} from 'react-router-dom'
+import { BrowserRouter as Browser, Route, Switch} from 'react-router-dom'
 
 import './style.scss'
 // import components
@@ -10,7 +10,7 @@ import MainPage from './components/home/mainPage'
 import Register from './components/registerLogin/register'
 import Login from './components/registerLogin/login'
 import SecureRoute from './components/lib/secureRoute'
-import Network from './components/page/network'
+import Network from './components/page/network/network'
 import Profile from './components/page/profile/profile'
 import ProfileCreate from './components/page/profile/profileCreate'
 import ProfileUpdate from './components/page/profile/profileUpdate'
