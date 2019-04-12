@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import Auth from '../../lib/auth'
 
 import ProfileExperience from './profileExperience'
 import ProfileEducation from './profileEducation'
@@ -17,7 +18,9 @@ class Profile extends React.Component{
   }
 
   getProfileData() {
-    axios.get(`/api/profiles/${this.props.match.params.id}`)
+    axios.get(`/api/profiles/${this.props.match.params.id}`,
+      { headers: { Authorization: `Bearer ${Auth.getToken()}`}}
+    )
       .then(res => this.setState({ profile: res.data }, () => console.log(this.state)))
       .catch(err => console.log(err))
   }
