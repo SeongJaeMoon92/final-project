@@ -70,8 +70,8 @@ class UserSchema(ma.ModelSchema, BaseSchema):
     likes_social_post = fields.Nested('SocialPostSchema', many=True, only=('id', 'post_title'))
     sent_messages = fields.Nested('MessageSchema', many=True, only=('id', 'message_content', 'receiver'))
     received_messages = fields.Nested('MessageSchema', many=True, only=('id', 'message_content', 'sender_id'))
-    sent_friend_requests = fields.Nested('FriendSchema', many=True)
-    received_friend_requests = fields.Nested('FriendSchema', many=True)
+    sent_friend_requests = fields.Nested('FriendSchema', many=True, only=('id', 'friend_b_id', 'status'))
+    received_friend_requests = fields.Nested('FriendSchema', many=True, only=('id', 'friend_b_id', 'status'))
 
     class Meta:
         model = User
