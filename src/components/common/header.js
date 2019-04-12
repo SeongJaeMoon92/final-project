@@ -8,6 +8,8 @@ class Header extends React.Component{
     super()
 
     this.state = {}
+
+    this.logout = this.logout.bind(this)
   }
 
   componentDidMount() {
@@ -33,13 +35,18 @@ class Header extends React.Component{
       .then(res => this.setState({ profileId: res.data.id }))
   }
 
+  logout() {
+    Auth.logout()
+  }
+
   render() {
+    if (!Auth.isAuthenticated()) return null
     return (
       <div>
         <Link to='/'>Home</Link>
-        <Link to='/register'>Register</Link>
-        <Link to='/login'>Login</Link>
-        {!Auth.isAuthenticated() && <Link to={`/profile/${this.state.profileId}`}>My profile</Link>}
+        <Link to='/network'>My Network</Link>
+        <Link to={`/profile/${this.state.profileId}`}>My Profile</Link>
+        <Link to='/' onClick={this.logout}>Logout</Link>
       </div>
     )
   }
