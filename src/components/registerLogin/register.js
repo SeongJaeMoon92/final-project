@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 class Register extends React.Component{
   constructor(){
@@ -68,6 +69,9 @@ class Register extends React.Component{
           />
           <input type="submit" value="Submit"/>
         </form>
+        <div>
+          Already have an account? <Link to='/login'>Login here</Link>
+        </div>
       </main>
     )
   }
