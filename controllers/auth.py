@@ -38,9 +38,9 @@ def login():
         'token': user.generate_token()
     })
 
-@api.route('/users/<int:user_id>', methods=['GET'])
+@api.route('/users/<int:user_id>/profile', methods=['GET'])
 @secure_route
-def user_profile(user_id):
+def user_profile_show(user_id):
     profile = Profile.query.filter_by(owner_id=user_id).first()
     if profile.owner != g.current_user:
         return jsonify({'message': 'Unauthorized'}), 401
