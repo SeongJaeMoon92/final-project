@@ -11,7 +11,7 @@ class Profile(db.Model, BaseModel):
     summary = db.Column(db.Text)
     location = db.Column(db.String(20), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    owner = db.relationship('User', backref='owner_profile')
+    owner = db.relationship('User', backref='user_profile')
 
 class Education(db.Model, BaseModel):
 
