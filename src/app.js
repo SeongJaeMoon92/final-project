@@ -10,7 +10,7 @@ import MainPage from './components/home/mainPage'
 import Register from './components/registerLogin/register'
 import Login from './components/registerLogin/login'
 import SecureRoute from './components/lib/secureRoute'
-import Network from './components/page/network/network'
+import NetworkDiscover from './components/page/network/networkDiscover'
 import Profile from './components/page/profile/profile'
 import ProfileCreate from './components/page/profile/profileCreate'
 import ProfileUpdate from './components/page/profile/profileUpdate'
@@ -39,7 +39,7 @@ class App extends React.Component{
             <SecureRoute path='/profile/:id/update' component={ProfileUpdate} />
             <SecureRoute path='/profile/add' component={ProfileCreate} />
             <SecureRoute path='/profile/:id' component={Profile} />
-            <SecureRoute path='/network' component={Network} />
+            <SecureRoute path='/discover' component={NetworkDiscover} />
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
             <SecureRoute exact path='/' component={MainPage} />
