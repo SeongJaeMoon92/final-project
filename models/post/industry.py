@@ -6,7 +6,7 @@ class Industry(db.Model, BaseModel):
 
     __tablename__ = 'industries'
 
-    industry = db.Column(db.String(20), nullable=False)
+    industry = db.Column(db.String(60), nullable=False)
 
 
 class IndustrySchema(ma.ModelSchema, BaseSchema):
