@@ -117,7 +117,7 @@ with app.app_context():
     db.session.add(comment1)
 
     profile_wes = Profile(name='Wesley Hall',
-    summary='I like to dance', location='Royal Oak', owner=wes)
+    summary='I like to dance', image='./assets/images/wes.jpg', location='Royal Oak', owner=wes)
 
     profile_moon = Profile(name='Seong Jae Moon',
     summary='I dont like to dance', location='Sutton', owner=moon)
