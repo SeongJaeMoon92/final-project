@@ -2,9 +2,9 @@ import axios from 'axios'
 import React from 'react'
 
 import Auth from '../../lib/auth'
-import SocialPostForm from './socialPostForm'
+import SocialPostShow from './socialPostShow'
 
-class SocialPost extends React.Component {
+class SocialPostIndex extends React.Component {
   constructor() {
     super()
 
@@ -13,8 +13,7 @@ class SocialPost extends React.Component {
     this.handleLike = this.handleLike.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChangeMessage = this.handleChangeMessage.bind(this)
-    this.handleSubmitMessage = this.handleSubmitMessage.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
@@ -39,11 +38,6 @@ class SocialPost extends React.Component {
     const errors = {...this.state.errors, [name]: ''}
     this.setState({ data, errors })
   }
-  handleChangeMessage({target: {name, value}}){
-    const dataM = {...this.state.dataM, [name]: value}
-    const errors = {...this.state.errors, [name]: ''}
-    this.setState({ dataM, errors })
-  }
 
   handleSubmit(e, socialPost){
     e.preventDefault()
@@ -53,17 +47,10 @@ class SocialPost extends React.Component {
       .catch(err => this.setState({errors: err.response.data}))
   }
 
-  handleSubmitMessage(e, socialPost){
-    e.preventDefault()
-    const dataM = {...this.state.dataM, receiver_id: socialPost.owner.id}
-    this.setState({dataM},
-      () =>  {
-        axios.post(`/api/messages`, this.state.dataM,
-        { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
-          .then(() => this.setState({dataM: ''}))
-          .catch(err => this.setState({errors: err.response.data}))
-      }
-    )
+  handleDelete(e){
+    axios.delete(`/api/social_posts/${e.target.value}`,
+    { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
+      .then(() => this.getPostInfo())
   }
 
   render(){
@@ -75,15 +62,14 @@ class SocialPost extends React.Component {
           return -1
         }).map((socialPost,id) => (
           <div key={id}>
-            <SocialPostForm
+            <SocialPostShow
+              getPostInfo = {this.getPostInfo}
               socialPost = {socialPost}
               handleLike = {this.handleLike}
               handleChange = {this.handleChange}
               handleSubmit = {this.handleSubmit}
-              handleChangeMessage = {this.handleChangeMessage}
-              handleSubmitMessage = {this.handleSubmitMessage}
+              handleDelete = {this.handleDelete}
               data = {this.state.data}
-              dataM = {this.state.dataM}
               errors = {this.state.errors}
             />
           </div>
@@ -93,10 +79,4 @@ class SocialPost extends React.Component {
   }
 }
 
-
-
-
-
-
-
-export default SocialPost
+export default SocialPostIndex
