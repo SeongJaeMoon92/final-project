@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form, Button } from 'react-bootstrap'
 
-import Select from 'react-select';
+import Select from 'react-select'
 import makeAnimated from 'react-select/lib/animated'
 import industriesOptions from '../data/industriesOptions'
 
@@ -56,7 +56,7 @@ const JobPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, sel
           isMulti
           options={industriesOptions}
           onChange={handleSelect}
-          />
+        />
       </Form.Group>
       <Button variant="primary" type="submit">Submit</Button>
     </Form>

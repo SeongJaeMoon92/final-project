@@ -10,7 +10,7 @@ class JobPostIndex extends React.Component {
   constructor() {
     super()
 
-    this.state = { data:{}, errors:{}, search: ''}
+    this.state = { data: {}, errors: {}, search: ''}
 
     this.handleLike = this.handleLike.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -32,7 +32,7 @@ class JobPostIndex extends React.Component {
   handleLike(e) {
     e.preventDefault()
     axios.put(`/api/job_posts/${e.target.name}/like`, {},
-    { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
+      { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => this.getPostInfo())
       .catch(err => console.log(err.response))
   }
@@ -46,14 +46,14 @@ class JobPostIndex extends React.Component {
   handleSubmit(e, jobPost){
     e.preventDefault()
     axios.post(`/api/job_posts/${jobPost.id}/comments`,  this.state.data,
-    { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
+      { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => this.setState({data: ''}, this.getPostInfo()))
       .catch(err => this.setState({errors: err.response.data}))
   }
 
   handleDelete(e){
     axios.delete(`/api/job_posts/${e.target.value}`,
-    { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
+      { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => this.getPostInfo())
   }
 
