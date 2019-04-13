@@ -1,17 +1,14 @@
 import React from 'react'
 import axios from 'axios'
-import Select from 'react-select'
 import Auth from '../../lib/auth'
-import makeAnimated from 'react-select/lib/animated'
-import industriesOptions from '../data/industriesOptions'
-import {Modal, Button, ButtonToolbar} from 'react-bootstrap'
+import {Modal, Button} from 'react-bootstrap'
 import JobPostForm from './jobPostForm'
 
 class EditJobPost extends React.Component {
   constructor() {
     super()
 
-    this.state = { show: false, data: {}, errors:{}}
+    this.state = { show: false, data: {}, errors: {}}
 
     this.handleShow = this.handleShow.bind(this)
     this.handleClose = this.handleClose.bind(this)
@@ -53,7 +50,7 @@ class EditJobPost extends React.Component {
   }
 
   handleNestedObject(){
-    console.log(this.state.data.industries, 'handleNestedObject');
+    console.log(this.state.data.industries, 'handleNestedObject')
     const newdata = this.state.data.industries.map(data => (
       {id: data.id}
     ))
@@ -62,11 +59,11 @@ class EditJobPost extends React.Component {
       data: {
         ...prevState.data,
         industry_id: newdata
-        }
-      }))
-      setTimeout(() => {
-        this.handleDeleteObjectKey()
-     },200)
+      }
+    }))
+    setTimeout(() => {
+      this.handleDeleteObjectKey()
+    },200)
   }
 
   getPostInfo(){
@@ -93,15 +90,16 @@ class EditJobPost extends React.Component {
     axios.put(`/api/job_posts/${this.props.id}`,
       this.state.data,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
-      .then((res) => {
+      .then(() => {
         // console.log(res, 'post axios')
-        this.setState({show: false},(res) =>{
+        this.setState({show: false},() =>{
         // console.log(res, 'Post axios')
         // console.log(this.state.data, 'axios post')
         // console.log(this.fileInput, 'fileInput')
         // this.fileInput.current.select.clearValue()
-        this.props.postInfo()
-      })})
+          this.props.postInfo()
+        })
+      })
       .catch(err => this.setState({ errors: err.response.data}))
   }
 
@@ -129,16 +127,16 @@ class EditJobPost extends React.Component {
           <Modal.Header closeButton>
             <Modal.Title>Job Post Edit</Modal.Title>
           </Modal.Header>
-            <Modal.Body>
-              <JobPostForm
-                selectRef={this.fileInput}
-                data={data}
-                errors={errors}
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
-                handleSelect={this.handleSelect}
-              />
-            </Modal.Body>
+          <Modal.Body>
+            <JobPostForm
+              selectRef={this.fileInput}
+              data={data}
+              errors={errors}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              handleSelect={this.handleSelect}
+            />
+          </Modal.Body>
         </Modal>
       </>
     )
