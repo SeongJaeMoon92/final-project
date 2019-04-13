@@ -47,22 +47,23 @@ class JobPostNew extends React.Component {
       data: {
         ...prevState.data,
         industry_id: newdata
-        }
-      }))
-      setTimeout(() => {
-        this.handleDeleteObjectKey()
-     },200)
+      }
+    }))
+    setTimeout(() => {
+      this.handleDeleteObjectKey()
+    },200)
   }
 
   postAxios(){
     axios.post('/api/job_posts',
       this.state.data,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
-      .then(() => this.setState({data:''},() =>{
+      .then(() => this.setState({data: ''},() =>{
         // console.log(this.state.data, 'axios post')
         // console.log(this.fileInput, 'fileInput')
         this.fileInput.current.select.clearValue()
-        this.props.postInfo()}))
+        this.props.postInfo()
+      }))
       .catch(err => this.setState({ errors: err.response.data}))
   }
 

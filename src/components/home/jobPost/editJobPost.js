@@ -36,8 +36,6 @@ class EditJobPost extends React.Component {
     // console.log(e[e.length-1], 'last value in the array')
     let lastValue = e[e.length-1]
     lastValue = {id: parseInt(lastValue.value), industry: lastValue.label}
-    const arr = []
-    const newArr = arr.concat(lastValue)
     const industry = [...this.state.data.industries, lastValue ]
     this.setState(prevState => ({...prevState, data: {...prevState.data, industries: industry }}))
   }
