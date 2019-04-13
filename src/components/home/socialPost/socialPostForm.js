@@ -6,7 +6,7 @@ import industriesOptions from '../data/industriesOptions'
 
 import { Form, Button} from 'react-bootstrap'
 
-const SocialPostForm = ({handleSubmit,handleSelect, handleChange, data, errors}) => {
+const SocialPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, selectRef}) => {
   return(
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="post_title">
@@ -41,6 +41,7 @@ const SocialPostForm = ({handleSubmit,handleSelect, handleChange, data, errors})
       <Form.Label>Industries</Form.Label>
       <Form.Group controlId="industries">
         <Select
+          ref={selectRef}
           closeMenuOnSelect={false}
           components={makeAnimated()}
           isMulti

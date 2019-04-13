@@ -30,15 +30,21 @@ def job_post_create():
     post, errors = job_post_schema.load(data)
     if errors:
         return jsonify(errors), 422
-    industry = Industry.query.get(data['industry_id'])
+    industries = list(data['industry_id'])
+    industries_lists = []
+    for item in industries:
+        industries_lists.append(Industry.query.get(item))
     post.owner = g.current_user
-    post.industries.append(industry)
+    for item in industries_lists:
+        post.industries.append(item)
     post.save()
     return job_post_schema.jsonify(post), 201
+
 
 @api.route('/job_posts/<int:job_post_id>', methods=['PUT'])
 @secure_route
 def job_post_update(job_post_id):
+    data = request.get_json()
     post = JobPost.query.get(job_post_id)
     post, errors = job_post_schema.load(request.get_json(), instance=post, partial=True)
     if errors:
@@ -46,7 +52,13 @@ def job_post_update(job_post_id):
 
     if post.owner != g.current_user:
         return jsonify({'message': 'Unauthorized'}), 401
-
+    industries = list(data['industry_id'])
+    industries_lists = []
+    for item in industries:
+        industries_lists.append(Industry.query.get(item))
+    post.owner = g.current_user
+    for item in industries_lists:
+        post.industries.append(item)
     post.save()
     return job_post_schema.jsonify(post), 202
 
@@ -105,6 +117,7 @@ def social_post_create():
 @api.route('/social_posts/<int:social_post_id>', methods=['PUT'])
 @secure_route
 def social_post_update(social_post_id):
+    data = request.get_json()
     post = SocialPost.query.get(social_post_id)
     post, errors = social_post_schema.load(request.get_json(), instance=post, partial=True)
     if errors:
@@ -112,7 +125,13 @@ def social_post_update(social_post_id):
 
     if post.owner != g.current_user:
         return jsonify({'message': 'Unauthorized'}), 401
-
+    industries = list(data['industry_id'])
+    industries_lists = []
+    for item in industries:
+        industries_lists.append(Industry.query.get(item))
+    post.owner = g.current_user
+    for item in industries_lists:
+        post.industries.append(item)
     post.save()
     return social_post_schema.jsonify(post), 202
 

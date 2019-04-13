@@ -46,10 +46,10 @@ class JobPostShow extends React.Component {
 
   render(){
   const { commentBox } = this.state
-  const {jobPost, handleLike, handleChange, handleSubmit, data, errors } = this.props
+  const {jobPost, handleLike, handleChange, handleSubmit, data, errors, getPostInfo } = this.props
   return(
     <div>
-      <div>{jobPost.compnay}</div>
+      <div>{jobPost.company}</div>
       <div>{jobPost.job_tile}</div>
       <div>{jobPost.post_content}</div>
       <img src={jobPost.post_image} alt={jobPost.job_title}/>
@@ -77,6 +77,7 @@ class JobPostShow extends React.Component {
       />
       {this.isOwner() && <EditJobPost
         id={jobPost.id}
+        postInfo = {getPostInfo}
       />}
       {this.isOwner() && <button value={jobPost.id} onClick={this.props.handleDelete}>Delete</button>}
       {commentBox &&

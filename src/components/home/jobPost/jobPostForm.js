@@ -5,7 +5,7 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/lib/animated'
 import industriesOptions from '../data/industriesOptions'
 
-const JobPostForm = ({handleSubmit,handleSelect, handleChange, data, errors}) => {
+const JobPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, selectRef}) => {
   return(
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="post_title">
@@ -29,10 +29,10 @@ const JobPostForm = ({handleSubmit,handleSelect, handleChange, data, errors}) =>
         {errors.job_title && <Form.Text>{errors.job_title}</Form.Text>}
       </Form.Group>
       <Form.Group controlId="post_content">
-        <Form.Label>Image</Form.Label>
+        <Form.Label>Content</Form.Label>
         <Form.Control
           name="post_content"
-          placeholder="Post Content"
+          placeholder="Content"
           onChange={handleChange}
           value={data.post_content || ''}
         />
@@ -42,7 +42,7 @@ const JobPostForm = ({handleSubmit,handleSelect, handleChange, data, errors}) =>
         <Form.Label>Image</Form.Label>
         <Form.Control
           name="post_image"
-          placeholder="Post Image"
+          placeholder="Image"
           onChange={handleChange}
           value={data.post_image || ''}
         />
@@ -50,12 +50,13 @@ const JobPostForm = ({handleSubmit,handleSelect, handleChange, data, errors}) =>
       <Form.Group controlId="industries">
         <Form.Label>Industries</Form.Label>
         <Select
+          ref={selectRef}
           closeMenuOnSelect={false}
           components={makeAnimated()}
           isMulti
           options={industriesOptions}
           onChange={handleSelect}
-        />
+          />
       </Form.Group>
       <Button variant="primary" type="submit">Submit</Button>
     </Form>
