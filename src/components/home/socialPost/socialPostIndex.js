@@ -1,19 +1,23 @@
 import axios from 'axios'
 import React from 'react'
+import {Form} from 'react-bootstrap'
 
 import Auth from '../../lib/auth'
 import SocialPostShow from './socialPostShow'
+import SocialPostNew from './createSocialPost'
 
 class SocialPostIndex extends React.Component {
   constructor() {
     super()
 
-    this.state = { data:{}, errors:{}, dataM: {} }
+    this.state = { data:{}, errors:{}, search: ''}
 
     this.handleLike = this.handleLike.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
+    this.getPostInfo = this.getPostInfo.bind(this)
   }
 
   componentDidMount() {
@@ -53,11 +57,26 @@ class SocialPostIndex extends React.Component {
       .then(() => this.getPostInfo())
   }
 
+  handleSearch(e) {
+    this.setState({ search: e.target.value.substr(0, 20) })
+  }
+
   render(){
+    if (!this.state.socialPosts) return null
     const {socialPosts} = this.state
+    const filteredSocialPost = socialPosts.filter(post => post.post_title.toLowerCase().indexOf(this.state.search.toLowerCase())!== -1)
     return(
       <div className="postform">
-        {socialPosts && socialPosts.sort((a,b) => {
+        <SocialPostNew
+          postInfo={this.getPostInfo}
+        />
+        <Form.Control
+          type="text"
+          placeholder="Search by name"
+          value={this.state.search}
+          onChange={this.handleSearch}
+        / >
+        {filteredSocialPost && filteredSocialPost.sort((a,b) => {
           if (a.id > b.id) return 1
           return -1
         }).map((socialPost,id) => (

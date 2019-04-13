@@ -46,7 +46,7 @@ class SocialPostShow extends React.Component {
 
   render(){
   const { commentBox } = this.state
-  const {socialPost, handleLike, handleChange, handleSubmit, data, errors } = this.props
+  const {socialPost, handleLike, handleChange, handleSubmit, data, errors, getPostInfo } = this.props
   return(
     <div>
       <div>{socialPost.post_title}</div>
@@ -79,6 +79,7 @@ class SocialPostShow extends React.Component {
       />
       {this.isOwner() && <EditSocialPost
         id={socialPost.id}
+        postInfo = {getPostInfo}
       />}
       {this.isOwner() && <button value={socialPost.id} onClick={this.props.handleDelete}>Delete</button>}
       {commentBox &&

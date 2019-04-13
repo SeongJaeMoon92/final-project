@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { Form, Button} from 'react-bootstrap'
 
 class Register extends React.Component{
   constructor(){
@@ -29,46 +30,51 @@ class Register extends React.Component{
 
   render(){
     const { data, errors } = this.state
-    console.log(errors)
     return (
       <main>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="username">Username</label>
-          <input
-            name="username"
-            id="username"
-            placeholder='Username'
-            onChange={this.handleChange}
-            value={data.username || ''}
-          />
-          {errors.username && <small>{errors.username}</small>}
-          <label htmlFor="email">Email</label>
-          <input
-            name="email"
-            id="email"
-            onChange={this.handleChange}
-            value={data.email || ''}
-          />
-          {errors.email && <small>{errors.email}</small>}
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="password"
-            onChange={this.handleChange}
-            value={data.password || ''}
-          />
-          <label htmlFor="passwordConfirmation">Password Confirmation</label>
-          <input
-            type="password"
-            name="password_confirmation"
-            id="passwordConfirmation"
-            onChange={this.handleChange}
-            value={data.password_confirmation || ''}
-          />
-          <input type="submit" value="Submit"/>
-        </form>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group controlId="username">
+            <Form.Label>Username</Form.Label>
+              <Form.Control
+                name="username"
+                placeholder='Username'
+                onChange={this.handleChange}
+                value={data.username || ''}
+              />
+          {errors.username && <Form.Text>{errors.username}</Form.Text>}
+          </Form.Group>
+          <Form.Group controlId="email">
+            <Form.Label>Email Address</Form.Label>
+              <Form.Control
+                name="email"
+                placeholder='name@example.com'
+                onChange={this.handleChange}
+                value={data.email || ''}
+              />
+          {errors.email && <Form.Text>{errors.email}</Form.Text>}
+          </Form.Group>
+          <Form.Group controlId="password">
+            <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                placeholder="password"
+                onChange={this.handleChange}
+                value={data.password || ''}
+              />
+          </Form.Group>
+          <Form.Group controlId="password_confirmation">
+            <Form.Label>Password Confirmation</Form.Label>
+              <Form.Control
+                type="password"
+                name="password_confirmation"
+                placeholder='Password Confirmation'
+                onChange={this.handleChange}
+                value={data.password_confirmation || ''}
+              />
+          </Form.Group>
+          <Button variant="primary" type="submit">Submit</Button>
+        </Form>
         <div>
           Already have an account? <Link to='/login'>Login here</Link>
         </div>

@@ -18,6 +18,7 @@ class EditSocialPost extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.fileInput = React.createRef()
   }
 
   handleClose() {
@@ -35,58 +36,79 @@ class EditSocialPost extends React.Component {
   }
 
   handleSelect(e){
-    console.log(this.state.data)
-    console.log(e[e.length-1])
-    const lastValue = e[e.length-1]
+    // console.log(e[e.length-1], 'last value in the array')
+    let lastValue = e[e.length-1]
+    lastValue = {id: parseInt(lastValue.value), industry: lastValue.label}
     const arr = []
     const newArr = arr.concat(lastValue)
-    // const industry = [...this.state.data.industry_id, lastValue ]
-    this.setState(prevState => ({...prevState, data: {...prevState.data, industry_id: newArr }}))
+    const industry = [...this.state.data.industries, lastValue ]
+    this.setState(prevState => ({...prevState, data: {...prevState.data, industries: industry }}))
   }
-// this.setState({ myArray: [...this.state.myArray, 'new value'] })
-//   this.setState(prevState => ({
-//     ...prevState,
-//     someProperty: {
-//         ...prevState.someProperty,
-//         someOtherProperty: {
-//             ...prevState.someProperty.someOtherProperty,
-//             anotherProperty: {
-//                ...prevState.someProperty.someOtherProperty.anotherProperty,
-//                flag: false
-//             }
-//         }
-//     }
-// }))
 
-  handleSubmit(e){
-    // e.preventDefault()
-    axios.put(`/api/social_posts/${this.props.id}`,
-      this.state.data,
-    { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
-      .then(() => this.setState({show: false}, this.getPostInfo()))
-      .catch(err => this.setState({errors: err.response.data}))
+  handleDeleteObjectKey(){
+    // console.log(this.state.data, 'handleDelete');
+    const key = ['industries']
+    delete this.state.data[key]
+    this.postAxios()
+  }
+
+  handleNestedObject(){
+    console.log(this.state.data.industries, 'handleNestedObject');
+    const newdata = this.state.data.industries.map(data => (
+      {id: data.id}
+    ))
+    this.setState(prevState => ({
+      ...prevState,
+      data: {
+        ...prevState.data,
+        industry_id: newdata
+        }
+      }))
+      setTimeout(() => {
+        this.handleDeleteObjectKey()
+     },200)
   }
 
   getPostInfo(){
     axios.get(`/api/social_posts/${this.props.id}`)
       .then(res => this.setState({data: res.data}))
+      .then(()=> {
+        if (!this.state.data) return null
+        const { industries } = this.state.data
+        // console.log(industries, 'industries one')
+        return industries
+      })
+      .then(res => {
+        // console.log(res, 'res two')
+        this.fileInput.current.state.value = res.map(data => (
+          {value: data.id, label: data.industry}))
+      })
+      .catch(err => {
+        // console.log(err.response)
+        this.setState({ errors: err.response.data})
+      })
+  }
+
+  postAxios(){
+    axios.put(`/api/social_posts/${this.props.id}`,
+      this.state.data,
+      { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
+      .then((res) => {
+        // console.log(res, 'post axios')
+        this.setState({show: false},(res) =>{
+        // console.log(res, 'Post axios')
+        // console.log(this.state.data, 'axios post')
+        // console.log(this.fileInput, 'fileInput')
+        // this.fileInput.current.select.clearValue()
+        this.props.postInfo()
+      })})
       .catch(err => this.setState({ errors: err.response.data}))
   }
-  //
-  // componentDidMount(){
-  //   this.getPostInfoAgain()
-  // }
 
-  // getPostInfoAgain(){
-  //   axios.get(`/api/social_posts/${this.props.id}`)
-  //     .then(res => {
-  //
-  //       const dataEdit = {industry_id: data.industries}
-  //       console.log(dataEdit)
-  //     })
-  //     .catch(err => this.setState({ errors: err.response.data}))
-  // }
-
+  handleSubmit(e) {
+    e.preventDefault()
+    this.handleNestedObject()
+  }
   render() {
     const {data, errors} = this.state
     return (
@@ -106,6 +128,7 @@ class EditSocialPost extends React.Component {
           </Modal.Header>
             <Modal.Body>
               <SocialPostForm
+                selectRef={this.fileInput}
                 data={data}
                 errors={errors}
                 handleChange={this.handleChange}
@@ -118,12 +141,6 @@ class EditSocialPost extends React.Component {
     )
   }
 }
-
-// value={!data.industries || data.industries.map(data => (
-//   {value: data.id, label: data.industry}))}
-// <Button variant="primary" onClick={this.handleClose}>
-//   Edit
-// </Button>
 
 
 export default EditSocialPost

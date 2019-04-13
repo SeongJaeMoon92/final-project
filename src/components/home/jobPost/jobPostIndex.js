@@ -1,19 +1,23 @@
 import axios from 'axios'
 import React from 'react'
+import {Form} from 'react-bootstrap'
 
 import Auth from '../../lib/auth'
 import JobPostShow from './jobPostShow'
+import JobPostNew from './createJobPost'
 
 class JobPostIndex extends React.Component {
   constructor() {
     super()
 
-    this.state = { data:{}, errors:{}}
+    this.state = { data:{}, errors:{}, search: ''}
 
     this.handleLike = this.handleLike.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
+    this.getPostInfo = this.getPostInfo.bind(this)
   }
 
   componentDidMount() {
@@ -53,11 +57,26 @@ class JobPostIndex extends React.Component {
       .then(() => this.getPostInfo())
   }
 
+  handleSearch(e) {
+    this.setState({ search: e.target.value.substr(0, 20) })
+  }
+
   render(){
+    if (!this.state.jobPosts) return null
     const {jobPosts} = this.state
+    const filteredJobPost = jobPosts.filter(post => post.company.toLowerCase().indexOf(this.state.search.toLowerCase())!== -1)
     return(
       <div className="postform">
-        {jobPosts && jobPosts.sort((a,b) => {
+        <JobPostNew
+          postInfo={this.getPostInfo}
+        />
+        <Form.Control
+          type="text"
+          placeholder="Search by name"
+          value={this.state.search}
+          onChange={this.handleSearch}
+        / >
+        {filteredJobPost && filteredJobPost.sort((a,b) => {
           if (a.id > b.id) return 1
           return -1
         }).map((jobPost,id) => (

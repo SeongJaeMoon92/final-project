@@ -13,6 +13,7 @@ class JobPostNew extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
+    this.fileInput = React.createRef()
   }
 
   handleChange({ target: { name, value }}) {
@@ -24,31 +25,57 @@ class JobPostNew extends React.Component {
   handleSelect(e){
     const arr = []
     e.forEach(val => {
-      const industries = {id: parseInt(val.value)}
+      const industries = {id: parseInt(val.value), industry: val.label}
       arr.push(industries)
-      const data = {...this.state.data, industry_id: arr }
+      const data = {...this.state.data, industries: arr }
       this.setState({data})
     })
   }
 
-  handleSubmit(e) {
-    // e.preventDefault()
+  handleDeleteObjectKey(){
+    const key = ['industries']
+    delete this.state.data[key]
+    this.postAxios()
+  }
+
+  handleNestedObject(){
+    const newdata = this.state.data.industries.map(data => (
+      {id: data.id}
+    ))
+    this.setState(prevState => ({
+      ...prevState,
+      data: {
+        ...prevState.data,
+        industry_id: newdata
+        }
+      }))
+      setTimeout(() => {
+        this.handleDeleteObjectKey()
+     },200)
+  }
+
+  postAxios(){
     axios.post('/api/job_posts',
       this.state.data,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
-      .then(() => this.getPostInfo())
+      .then(() => this.setState({data:''},() =>{
+        // console.log(this.state.data, 'axios post')
+        // console.log(this.fileInput, 'fileInput')
+        this.fileInput.current.select.clearValue()
+        this.props.postInfo()}))
       .catch(err => this.setState({ errors: err.response.data}))
   }
 
-  getPostInfo(){
-    axios.get('/api/job_posts')
-      .then(res => this.setState({data: res.data}))
+  handleSubmit(e) {
+    e.preventDefault()
+    this.handleNestedObject()
   }
 
   render() {
     return (
       <main>
         <JobPostForm
+          selectRef={this.fileInput}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           handleSelect={this.handleSelect}
