@@ -1,5 +1,7 @@
 import React from 'react'
 import axios from 'axios'
+import { Button, Modal } from 'react-bootstrap'
+
 import Auth from '../../lib/auth'
 
 import ExperienceForm from './experienceForm'
@@ -10,11 +12,14 @@ class ExperienceCreate extends React.Component{
 
     this.state = {
       data: {},
-      errors: {}
+      errors: {},
+      showModal: false
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleShow = this.handleShow.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
 
   handleChange({target: {name, value}}){
@@ -25,24 +30,51 @@ class ExperienceCreate extends React.Component{
 
   handleSubmit(e){
     e.preventDefault()
-    axios.post(`/api/profiles/${this.props.match.params.id}/experiences`, this.state.data,
+    axios.post(`/api/profiles/${this.props.profileId}/experiences`, this.state.data,
       { headers: { Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => {
-        this.props.history.push(`/profile/${this.props.match.params.id}`)
+        this.handleClose()
+        this.props.getProfileData()
+        console.log('on submit', this.state)
       })
-      .catch(err => this.setState({errors: err.response}))
+      .catch(err => err.response && this.setState({errors: err.response.data}))
+  }
+
+  handleShow() {
+    this.setState({ showModal: true })
+  }
+
+  handleClose() {
+    this.setState({ showModal: false })
   }
 
   render(){
     return(
       <div>
-        <h1>Add experience.....</h1>
-        <ExperienceForm
-          data={this.state.data}
-          errors={this.state.errors}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
+        <Button variant="primary" onClick={this.handleShow}>
+         Add new experience
+        </Button>
+
+        <Modal
+          show={this.state.showModal}
+          onHide={this.handleClose}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Add New Experience</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <ExperienceForm
+              data={this.state.data}
+              errors={this.state.errors}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+            />
+          </Modal.Body>
+        </Modal>
+
+
+
+
       </div>
     )
   }

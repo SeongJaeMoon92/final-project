@@ -63,15 +63,16 @@ class UserSchema(ma.ModelSchema, BaseSchema):
 
     password_confirmation = fields.String(required=True)
 
-    user_profile = fields.Nested('ProfileSchema', only=('id'))
+    user_profile = fields.Nested('ProfileSchema', only=('id',))
     owned_job_posts = fields.Nested('JobPostSchema', many=True)
     owned_social_posts = fields.Nested('SocialPostSchema', many=True)
     likes_job_post = fields.Nested('JobPostSchema', many=True, only=('id', 'job_title'))
     likes_social_post = fields.Nested('SocialPostSchema', many=True, only=('id', 'post_title'))
+#pylint: disable=C0301
     sent_messages = fields.Nested('MessageSchema', many=True, only=('id', 'message_content', 'receiver'))
     received_messages = fields.Nested('MessageSchema', many=True, only=('id', 'message_content', 'sender_id'))
-    sent_friend_requests = fields.Nested('FriendSchema', many=True, only=('id', 'friend_b_id', 'status'))
-    received_friend_requests = fields.Nested('FriendSchema', many=True, only=('id', 'friend_b_id', 'status'))
+    sent_friend_requests = fields.Nested('FriendSchema', many=True, only=('id', 'friend_b', 'status'))
+    received_friend_requests = fields.Nested('FriendSchema', many=True, only=('id', 'friend_b', 'status'))
 
     class Meta:
         model = User

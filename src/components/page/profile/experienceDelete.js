@@ -3,45 +3,27 @@ import axios from 'axios'
 import { Button, Modal } from 'react-bootstrap'
 import Auth from '../../lib/auth'
 
-import ExperienceForm from './experienceForm'
-
-class ExperienceUpdate extends React.Component{
+class ExperienceDelete extends React.Component{
   constructor() {
     super()
 
     this.state = {
-      data: {},
-      errors: {},
       showModal: false
     }
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
     this.handleShow = this.handleShow.bind(this)
     this.handleClose = this.handleClose.bind(this)
   }
 
-  componentDidMount() {
-    this.setState({ data: this.props.data})
-  }
-
-
-  handleChange({target: {name, value}}){
-    const data = {...this.state.data, [name]: value}
-    const errors = {...this.state.errors, [name]: ''}
-    this.setState({ data, errors })
-  }
-
-  handleSubmit(e){
-    e.preventDefault()
-    axios.put(`/api/profiles/${this.props.profileId}/experiences/${this.props.experienceId}`, this.state.data,
+  handleDelete() {
+    axios.delete(`/api/profiles/${this.props.profileId}/experiences/${this.props.experienceId}`,
       { headers: { Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => {
         this.handleClose()
         this.props.getProfileData()
-        console.log('on submit', this.state)
       })
-      .catch(err => err.response && this.setState({errors: err.response.data}))
+      .catch(err => console.log(err))
   }
 
   handleShow() {
@@ -53,10 +35,11 @@ class ExperienceUpdate extends React.Component{
   }
 
   render(){
+    const { jobTitle, company } = this.props
     return(
       <div>
         <Button variant="primary" onClick={this.handleShow}>
-         Edit experience
+         Delete experience
         </Button>
 
         <Modal
@@ -64,27 +47,21 @@ class ExperienceUpdate extends React.Component{
           onHide={this.handleClose}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Edit Experience at {this.state.data.company}</Modal.Title>
+            <Modal.Title>Delete Experience at {company}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <ExperienceForm
-              data={this.state.data}
-              errors={this.state.errors}
-              handleChange={this.handleChange}
-              handleSubmit={this.handleSubmit}
-            />
+            <p>Are you sure you want to delete your {jobTitle} experience at {company}? This cannot be undone.</p>
+            <Button variant="primary" onClick={this.handleDelete}>
+             Delete experience
+            </Button>
           </Modal.Body>
         </Modal>
-
-
-
-
       </div>
     )
   }
 }
 
-export default ExperienceUpdate
+export default ExperienceDelete
 
 
 // <Button variant="primary" onClick={handleShow}>

@@ -5,12 +5,14 @@ import Auth from '../../lib/auth'
 
 import ProfileExperience from './profileExperience'
 import ProfileEducation from './profileEducation'
+import ExperienceCreate from './experienceCreate'
 
 class Profile extends React.Component{
   constructor(){
     super()
 
     this.state = {}
+    this.getProfileData = this.getProfileData.bind(this)
   }
 
   componentDidMount() {
@@ -21,25 +23,9 @@ class Profile extends React.Component{
     axios.get(`/api/profiles/${this.props.match.params.id}`,
       { headers: { Authorization: `Bearer ${Auth.getToken()}`}}
     )
-      .then(res => this.setState({ profile: res.data }, () => console.log(this.state)))
+      .then(res => this.setState({ profile: res.data }, () => console.log('getting profile data', this.state)))
       .catch(err => console.log(err))
   }
-
-  createExperience() {
-    axios.post(`/api/profiles/${this.props.match.params.id}/experiences`)
-  }
-
-  updateExperience(e) {
-    axios.put(`/api/profiles/${this.props.match.params.id}/experiences/${e.value}`)
-  }
-
-  deleteExperience(e) {
-    axios.delete(`/api/profiles/${this.props.match.params.id}/experiences/${e.value}`)
-  }
-
-  handleExperienceCreate() {
-  }
-
 
   render(){
     if (!this.state.profile) return null
@@ -54,14 +40,17 @@ class Profile extends React.Component{
         </div>
         <div className="profile-experience">
           <h2>Experience</h2>
-          <Link to={`/profile/${this.props.match.params.id}/experience`} >Add new experience</Link>
-
+          <ExperienceCreate
+            profileId={this.props.match.params.id}
+            getProfileData={this.getProfileData}
+          />
           {profile.profile_experience.length > 0 &&
             profile.profile_experience.map(experience => (
               <div key={experience.id} className="experience-content">
                 <ProfileExperience
                   experience={experience}
                   profileId={this.props.match.params.id}
+                  getProfileData={this.getProfileData}
                 />
               </div>
             ))

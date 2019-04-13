@@ -1,8 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+
+import ExperienceUpdate from './experienceUpdate'
+import ExperienceDelete from './experienceDelete'
 
 const ProfileExperience = (props) => {
-  const { experience, profileId } = props
+  const { experience, profileId, getProfileData } = props
   return(
     <div>
       <h4>{experience.company}</h4>
@@ -10,11 +12,19 @@ const ProfileExperience = (props) => {
       <h5>{experience.location}</h5>
       <h5>{experience.start_date === experience.end_date ? experience.start_date : `${experience.start_date} - ${experience.end_date}`}</h5>
       {experience.description && <p>{experience.description}</p>}
-      <Link to={{
-        pathname: `/profile/${profileId}/experience/${experience.id}`,
-        state: experience}}>
-        Edit experience
-      </Link>
+      <ExperienceUpdate
+        profileId={profileId}
+        experienceId={experience.id}
+        data={experience}
+        getProfileData={getProfileData}
+      />
+      <ExperienceDelete
+        profileId={profileId}
+        experienceId={experience.id}
+        jobTitle={experience.title}
+        company={experience.company}
+        getProfileData={getProfileData}
+      />
     </div>
   )
 

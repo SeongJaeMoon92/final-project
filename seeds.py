@@ -1,4 +1,5 @@
 from app import app, db
+from datetime import datetime
 
 from models.user import UserSchema
 from models.profile_folder.profile import Profile, Experience, Education
@@ -482,7 +483,7 @@ industry186])
     db.session.add(comment1)
 
     profile_wes = Profile(name='Wesley Hall',
-    summary='I like to dance', image='./assets/images/wes.jpg', location='Royal Oak', owner=wes)
+    summary='I like to dance', location='Royal Oak', owner=wes)
 
     profile_moon = Profile(name='Seong Jae Moon',
     summary='I dont like to dance', location='Sutton', owner=moon)
@@ -491,8 +492,8 @@ industry186])
         school='General Assembly',
         degree='Web Development Immersive',
         field_of_study='Web Development',
-        start_date=2019,
-        end_date=2019,
+        start_date=datetime.fromisoformat('2019-01-28'),
+        end_date=datetime.fromisoformat('2019-04-18'),
         description='A 12-week immersive course in web development.',
         profile=profile_wes
     )
@@ -501,8 +502,8 @@ industry186])
         school='Regent\'s University London',
         degree='BA (Hons) International Business with Marketing and Chinese (Mandarin)',
         field_of_study='International Business',
-        start_date=2011,
-        end_date=2014,
+        start_date=datetime.fromisoformat('2011-09-01'),
+        end_date=datetime.fromisoformat('2014-12-15'),
         grade='2:1',
         profile=profile_wes
     )
@@ -511,28 +512,38 @@ industry186])
         school='King\'s College',
         degree='blah',
         field_of_study='Physics',
-        start_date=2017,
-        end_date=2019,
+        start_date=datetime.fromisoformat('2017-09-01'),
+        end_date=datetime.fromisoformat('2019-05-28'),
         grade='First',
         profile=profile_moon
     )
 
     experience1 = Experience(
+        title='Web Development Immersive Student',
+        company='General Assembly',
+        location='London, UK',
+        start_date=datetime.fromisoformat('2019-01-28'),
+        end_date=datetime.fromisoformat('2018-04-18'),
+        description='12-week full-time course in Web Development.',
+        profile=profile_wes
+    )
+
+    experience2 = Experience(
         title='Marketing Executive',
         company='SSL247',
         location='London, UK',
-        start_date=2017,
-        end_date=2018,
+        start_date=datetime.fromisoformat('2017-06-05'),
+        end_date=datetime.fromisoformat('2018-12-21'),
         description='Marketing Executive for a web security and cybersecurity company.',
         profile=profile_wes
     )
-    experience2 = Experience(
+    experience3 = Experience(
         title='Marketing Assistant',
         company='First Point Group',
         location='London, UK',
-        start_date=2016,
-        end_date=2017,
-        description='Marketing Assistant for a recruitment company',
+        start_date=datetime.fromisoformat('2016-11-15'),
+        end_date=datetime.fromisoformat('2017-05-31'),
+        description='Marketing Assistant for a recruitment company.',
         profile=profile_wes
     )
 
@@ -548,11 +559,14 @@ industry186])
     db.session.add(message2)
     db.session.add(message3)
 
-    db.session.add(experience1)
-
     db.session.add(education1)
     db.session.add(education2)
     db.session.add(education3)
+
+    db.session.add(experience1)
+    db.session.add(experience2)
+    db.session.add(experience3)
+
 
     db.session.add(profile_wes)
     db.session.add(profile_moon)
