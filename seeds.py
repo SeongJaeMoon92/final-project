@@ -1,5 +1,5 @@
+#pylint: disable=C0301
 from app import app, db
-from datetime import datetime
 
 from models.user import UserSchema
 from models.profile_folder.profile import Profile, Experience, Education
@@ -15,6 +15,7 @@ with app.app_context():
     db.drop_all()
     db.create_all()
 
+# Users =====================================================================
     moon, errors = user_schema.load({
         'username': 'moon',
     	'email': 'moon@email',
@@ -24,8 +25,6 @@ with app.app_context():
 
     if errors:
         raise Exception(errors)
-
-    db.session.add(moon)
 
     wes, errors = user_schema.load({
         'username': 'wes',
@@ -37,8 +36,6 @@ with app.app_context():
     if errors:
         raise Exception(errors)
 
-    db.session.add(wes)
-
     jack, errors = user_schema.load({
         'username': 'beanslord',
     	'email': 'jack@email',
@@ -49,9 +46,199 @@ with app.app_context():
     if errors:
         raise Exception(errors)
 
-    db.session.add(jack)
+    alex, errors = user_schema.load({
+        'username': 'alex',
+    	'email': 'alex@email',
+    	'password': 'password',
+    	'password_confirmation': 'password'
+    })
 
-# Industries
+    if errors:
+        raise Exception(errors)
+
+    bob, errors = user_schema.load({
+        'username': 'bob',
+    	'email': 'bob@email',
+    	'password': 'password',
+    	'password_confirmation': 'password'
+    })
+
+    if errors:
+        raise Exception(errors)
+
+    janet, errors = user_schema.load({
+        'username': 'janet',
+    	'email': 'janet@email',
+    	'password': 'password',
+    	'password_confirmation': 'password'
+    })
+
+    if errors:
+        raise Exception(errors)
+
+    db.session.add_all([
+        moon,
+        wes,
+        jack,
+        alex,
+        bob,
+        janet
+    ])
+
+
+# Profiles =================================================================
+    profile_moon = Profile(
+        name='Seong Jae Moon',
+        headline='Web Development Immersive Student',
+        summary='I dont like to dance',
+        location='Sutton, UK',
+        owner=moon
+    )
+
+    profile_wes = Profile(
+        name='Wesley Hall',
+        headline='Web Development Immersive Student',
+        summary='I like to dance',
+        location='London, UK',
+        owner=wes
+    )
+
+    profile_jack = Profile(
+        name='Jack May',
+        headline='Instructor at General Assembly',
+        summary='I\'m a Software Engineering Instructor at General Assembly London. My favourite colour is dodger blue!',
+        location='Portsmouth, UK',
+        owner=jack
+    )
+
+    profile_alex = Profile(
+        name='Alex Francis',
+        headline='Teaching Assistant at General Assembly',
+        summary='After finishing as a Teaching Assistant at Generally Assembly I will be starting as a Junior Frontend Engineer at Spotify,',
+        location='Croydon, UK',
+        owner=alex
+    )
+
+
+    db.session.add_all([
+        profile_moon,
+        profile_wes,
+        profile_jack
+    ])
+
+
+# Friend Requests ==========================================================
+    friend1 = Friend(friend_a=moon, friend_b=wes, status='Accepted')
+
+    db.session.add_all([
+        friend1
+    ])
+
+
+# Profile Education =====================================================
+
+    education_1 = Education(
+        school='General Assembly',
+        degree='Web Development Immersive',
+        field_of_study='Web Development',
+        start_date='2019-01-28',
+        end_date='2019-04-18',
+        description='A 12-week immersive course in web development.',
+        profile=profile_wes
+    )
+
+    education_2 = Education(
+        school='Regent\'s University London',
+        degree='BA (Hons) International Business with Marketing and Chinese (Mandarin)',
+        field_of_study='International Business',
+        start_date='2011-09-01',
+        end_date='2014-12-15',
+        grade='2:1',
+        profile=profile_wes
+    )
+
+    education_3 = Education(
+        school='King\'s College',
+        degree='blah',
+        field_of_study='Physics',
+        start_date='2017-09-01',
+        end_date='2019-05-28',
+        grade='First',
+        profile=profile_moon
+    )
+
+    db.session.add_all([
+        education_1,
+        education_2,
+        education_3
+    ])
+
+# Profile Experience ========================================================
+
+    experience_1 = Experience(
+        title='Web Development Immersive Student',
+        company='General Assembly',
+        location='London, UK',
+        start_date='2019-01-28',
+        end_date='2018-04-18',
+        description='12-week full-time course in Web Development.',
+        profile=profile_wes
+    )
+
+    experience_2 = Experience(
+        title='Marketing Executive',
+        company='SSL247',
+        location='London, UK',
+        start_date='2017-06-05',
+        end_date='2018-12-21',
+        description='Marketing Executive for a web security and cybersecurity company.',
+        profile=profile_wes
+    )
+    experience_3 = Experience(
+        title='Marketing Assistant',
+        company='First Point Group',
+        location='London, UK',
+        start_date='2016-11-15',
+        end_date='2017-05-31',
+        description='Marketing Assistant for a recruitment company.',
+        profile=profile_wes
+    )
+
+    db.session.add_all([
+        experience_1,
+        experience_2,
+        experience_3
+    ])
+
+
+# Messages =================================================================
+
+    message_1 = Message(
+        message_content='Hello check check',
+        sender=moon,
+        receiver=wes
+    )
+
+    message_2 = Message(
+        message_content='Hello 2 check check',
+        sender=moon,
+        receiver=wes
+    )
+
+    message_3 = Message(
+        message_content='Hello 3 check check',
+        sender=wes,
+        receiver=moon
+    )
+
+    db.session.add_all([
+        message_1,
+        message_2,
+        message_3
+    ])
+
+
+# Industries ===============================================================
 # pylint: disable=C0326
     industry1 = Industry(industry='Agriculture and Mining')
     industry2 = Industry(industry='Farming and Ranching')
@@ -241,196 +428,196 @@ with app.app_context():
     industry186 = Industry(industry='Wholesale and Distribution Other')
 
     db.session.add_all([
-    industry1,
-industry2,
-industry3,
-industry4,
-industry5,
-industry6,
-industry7,
-industry8,
-industry9,
-industry10,
-industry11,
-industry12,
-industry13,
-industry14,
-industry15,
-industry16,
-industry17,
-industry18,
-industry19,
-industry20,
-industry21,
-industry22,
-industry23,
-industry24,
-industry25,
-industry26,
-industry27,
-industry28,
-industry29,
-industry30,
-industry31,
-industry32,
-industry33,
-industry34,
-industry35,
-industry36,
-industry37,
-industry38,
-industry39,
-industry40,
-industry41,
-industry42,
-industry43,
-industry44,
-industry45,
-industry46,
-industry47,
-industry48,
-industry49,
-industry50,
-industry51,
-industry52,
-industry53,
-industry54,
-industry55,
-industry56,
-industry57,
-industry58,
-industry59,
-industry60,
-industry61,
-industry62,
-industry63,
-industry64,
-industry65,
-industry66,
-industry67,
-industry68,
-industry69,
-industry70,
-industry71,
-industry72,
-industry73,
-industry74,
-industry75,
-industry76,
-industry77,
-industry78,
-industry79,
-industry80,
-industry81,
-industry82,
-industry83,
-industry84,
-industry85,
-industry86,
-industry87,
-industry88,
-industry89,
-industry90,
-industry91,
-industry92,
-industry93,
-industry94,
-industry95,
-industry96,
-industry97,
-industry98,
-industry99,
-industry100,
-industry101,
-industry102,
-industry103,
-industry104,
-industry105,
-industry106,
-industry107,
-industry108,
-industry109,
-industry110,
-industry111,
-industry112,
-industry113,
-industry114,
-industry115,
-industry116,
-industry117,
-industry118,
-industry119,
-industry120,
-industry121,
-industry122,
-industry123,
-industry124,
-industry125,
-industry126,
-industry127,
-industry128,
-industry129,
-industry130,
-industry131,
-industry132,
-industry133,
-industry134,
-industry135,
-industry136,
-industry137,
-industry138,
-industry139,
-industry140,
-industry141,
-industry142,
-industry143,
-industry144,
-industry145,
-industry146,
-industry147,
-industry148,
-industry149,
-industry150,
-industry151,
-industry152,
-industry153,
-industry154,
-industry155,
-industry156,
-industry157,
-industry158,
-industry159,
-industry160,
-industry161,
-industry162,
-industry163,
-industry164,
-industry165,
-industry166,
-industry167,
-industry168,
-industry169,
-industry170,
-industry171,
-industry172,
-industry173,
-industry174,
-industry175,
-industry176,
-industry177,
-industry178,
-industry179,
-industry180,
-industry181,
-industry182,
-industry183,
-industry184,
-industry185,
-industry186])
+        industry1,
+        industry2,
+        industry3,
+        industry4,
+        industry5,
+        industry6,
+        industry7,
+        industry8,
+        industry9,
+        industry10,
+        industry11,
+        industry12,
+        industry13,
+        industry14,
+        industry15,
+        industry16,
+        industry17,
+        industry18,
+        industry19,
+        industry20,
+        industry21,
+        industry22,
+        industry23,
+        industry24,
+        industry25,
+        industry26,
+        industry27,
+        industry28,
+        industry29,
+        industry30,
+        industry31,
+        industry32,
+        industry33,
+        industry34,
+        industry35,
+        industry36,
+        industry37,
+        industry38,
+        industry39,
+        industry40,
+        industry41,
+        industry42,
+        industry43,
+        industry44,
+        industry45,
+        industry46,
+        industry47,
+        industry48,
+        industry49,
+        industry50,
+        industry51,
+        industry52,
+        industry53,
+        industry54,
+        industry55,
+        industry56,
+        industry57,
+        industry58,
+        industry59,
+        industry60,
+        industry61,
+        industry62,
+        industry63,
+        industry64,
+        industry65,
+        industry66,
+        industry67,
+        industry68,
+        industry69,
+        industry70,
+        industry71,
+        industry72,
+        industry73,
+        industry74,
+        industry75,
+        industry76,
+        industry77,
+        industry78,
+        industry79,
+        industry80,
+        industry81,
+        industry82,
+        industry83,
+        industry84,
+        industry85,
+        industry86,
+        industry87,
+        industry88,
+        industry89,
+        industry90,
+        industry91,
+        industry92,
+        industry93,
+        industry94,
+        industry95,
+        industry96,
+        industry97,
+        industry98,
+        industry99,
+        industry100,
+        industry101,
+        industry102,
+        industry103,
+        industry104,
+        industry105,
+        industry106,
+        industry107,
+        industry108,
+        industry109,
+        industry110,
+        industry111,
+        industry112,
+        industry113,
+        industry114,
+        industry115,
+        industry116,
+        industry117,
+        industry118,
+        industry119,
+        industry120,
+        industry121,
+        industry122,
+        industry123,
+        industry124,
+        industry125,
+        industry126,
+        industry127,
+        industry128,
+        industry129,
+        industry130,
+        industry131,
+        industry132,
+        industry133,
+        industry134,
+        industry135,
+        industry136,
+        industry137,
+        industry138,
+        industry139,
+        industry140,
+        industry141,
+        industry142,
+        industry143,
+        industry144,
+        industry145,
+        industry146,
+        industry147,
+        industry148,
+        industry149,
+        industry150,
+        industry151,
+        industry152,
+        industry153,
+        industry154,
+        industry155,
+        industry156,
+        industry157,
+        industry158,
+        industry159,
+        industry160,
+        industry161,
+        industry162,
+        industry163,
+        industry164,
+        industry165,
+        industry166,
+        industry167,
+        industry168,
+        industry169,
+        industry170,
+        industry171,
+        industry172,
+        industry173,
+        industry174,
+        industry175,
+        industry176,
+        industry177,
+        industry178,
+        industry179,
+        industry180,
+        industry181,
+        industry182,
+        industry183,
+        industry184,
+        industry185,
+        industry186
+    ])
 
 
-# Job Posts
-
+# Job Posts =================================================================
     job_post_1 = JobPost(
         company='General Assembly',
         job_title="Some job title",
@@ -451,11 +638,14 @@ industry186])
         liked_by=[moon]
     )
 
-    db.session.add(job_post_1)
-    db.session.add(job_post_2)
+
+    db.session.add_all([
+        job_post_1,
+        job_post_2
+    ])
 
 
-# Social Posts
+# Social Posts ==============================================================
 
     social_post_1 = SocialPost(
         post_title="Some post title",
@@ -473,103 +663,23 @@ industry186])
         liked_by=[wes]
     )
 
-    db.session.add(social_post_1)
-    db.session.add(social_post_2)
+    db.session.add_all([
+        social_post_1,
+        social_post_2
+    ])
 
-    # Social Posts Comment
 
-    comment1 = Comment(content="funny hahah", social_post=social_post_1, user=wes)
+# Social Post Comments =====================================================
 
-    db.session.add(comment1)
-
-    profile_wes = Profile(name='Wesley Hall',
-    summary='I like to dance', location='Royal Oak', owner=wes)
-
-    profile_moon = Profile(name='Seong Jae Moon',
-    summary='I dont like to dance', location='Sutton', owner=moon)
-
-    education1 = Education(
-        school='General Assembly',
-        degree='Web Development Immersive',
-        field_of_study='Web Development',
-        start_date=datetime.fromisoformat('2019-01-28'),
-        end_date=datetime.fromisoformat('2019-04-18'),
-        description='A 12-week immersive course in web development.',
-        profile=profile_wes
+    comment_1 = Comment(
+        content="funny hahah",
+        social_post=social_post_1,
+        user=wes
     )
 
-    education2 = Education(
-        school='Regent\'s University London',
-        degree='BA (Hons) International Business with Marketing and Chinese (Mandarin)',
-        field_of_study='International Business',
-        start_date=datetime.fromisoformat('2011-09-01'),
-        end_date=datetime.fromisoformat('2014-12-15'),
-        grade='2:1',
-        profile=profile_wes
-    )
-
-    education3 = Education(
-        school='King\'s College',
-        degree='blah',
-        field_of_study='Physics',
-        start_date=datetime.fromisoformat('2017-09-01'),
-        end_date=datetime.fromisoformat('2019-05-28'),
-        grade='First',
-        profile=profile_moon
-    )
-
-    experience1 = Experience(
-        title='Web Development Immersive Student',
-        company='General Assembly',
-        location='London, UK',
-        start_date=datetime.fromisoformat('2019-01-28'),
-        end_date=datetime.fromisoformat('2018-04-18'),
-        description='12-week full-time course in Web Development.',
-        profile=profile_wes
-    )
-
-    experience2 = Experience(
-        title='Marketing Executive',
-        company='SSL247',
-        location='London, UK',
-        start_date=datetime.fromisoformat('2017-06-05'),
-        end_date=datetime.fromisoformat('2018-12-21'),
-        description='Marketing Executive for a web security and cybersecurity company.',
-        profile=profile_wes
-    )
-    experience3 = Experience(
-        title='Marketing Assistant',
-        company='First Point Group',
-        location='London, UK',
-        start_date=datetime.fromisoformat('2016-11-15'),
-        end_date=datetime.fromisoformat('2017-05-31'),
-        description='Marketing Assistant for a recruitment company.',
-        profile=profile_wes
-    )
-
-    message1 = Message(message_content='Hello check check', sender=moon, receiver=wes)
-    message2 = Message(message_content='Hello 2 check check', sender=moon, receiver=wes)
-    message3 = Message(message_content='Hello 3 check check', sender=wes, receiver=moon)
-
-    friend1 = Friend(friend_a=moon, friend_b=wes, status='Accepted')
-
-    db.session.add(friend1)
-
-    db.session.add(message1)
-    db.session.add(message2)
-    db.session.add(message3)
-
-    db.session.add(education1)
-    db.session.add(education2)
-    db.session.add(education3)
-
-    db.session.add(experience1)
-    db.session.add(experience2)
-    db.session.add(experience3)
-
-
-    db.session.add(profile_wes)
-    db.session.add(profile_moon)
+    db.session.add_all([
+        comment_1
+    ])
 
 
     db.session.commit()

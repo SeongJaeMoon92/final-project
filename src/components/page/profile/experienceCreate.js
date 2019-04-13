@@ -16,10 +16,18 @@ class ExperienceCreate extends React.Component{
       showModal: false
     }
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleShow = this.handleShow.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleShow() {
+    this.setState({ showModal: true })
+  }
+
+  handleClose() {
+    this.setState({ showModal: false })
   }
 
   handleChange({target: {name, value}}){
@@ -35,17 +43,8 @@ class ExperienceCreate extends React.Component{
       .then(() => {
         this.handleClose()
         this.props.getProfileData()
-        console.log('on submit', this.state)
       })
       .catch(err => err.response && this.setState({errors: err.response.data}))
-  }
-
-  handleShow() {
-    this.setState({ showModal: true })
-  }
-
-  handleClose() {
-    this.setState({ showModal: false })
   }
 
   render(){
@@ -54,7 +53,6 @@ class ExperienceCreate extends React.Component{
         <Button variant="primary" onClick={this.handleShow}>
          Add new experience
         </Button>
-
         <Modal
           show={this.state.showModal}
           onHide={this.handleClose}
@@ -71,10 +69,6 @@ class ExperienceCreate extends React.Component{
             />
           </Modal.Body>
         </Modal>
-
-
-
-
       </div>
     )
   }

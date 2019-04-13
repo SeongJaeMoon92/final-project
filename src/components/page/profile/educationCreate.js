@@ -1,8 +1,10 @@
 import React from 'react'
 import axios from 'axios'
+import { Button, Modal } from 'react-bootstrap'
+
 import Auth from '../../lib/auth'
 
-import EducationFrom from './educationForm'
+import EducationForm from './educationForm'
 
 class EducationCreate extends React.Component{
   constructor() {
@@ -10,11 +12,22 @@ class EducationCreate extends React.Component{
 
     this.state = {
       data: {},
-      errors: {}
+      errors: {},
+      showModal: false
     }
 
+    this.handleShow = this.handleShow.bind(this)
+    this.handleClose = this.handleClose.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleShow() {
+    this.setState({ showModal: true })
+  }
+
+  handleClose() {
+    this.setState({ showModal: false })
   }
 
   handleChange({target: {name, value}}){
@@ -25,10 +38,11 @@ class EducationCreate extends React.Component{
 
   handleSubmit(e){
     e.preventDefault()
-    axios.post(`/api/profiles/${this.props.match.params.id}/educations`, this.state.data,
+    axios.post(`/api/profiles/${this.props.profileId}/educations`, this.state.data,
       { headers: { Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => {
-        this.props.history.push(`/profile/${this.props.match.params.id}`)
+        this.handleClose()
+        this.props.getProfileData()
       })
       .catch(err => this.setState({errors: err.response}))
   }
@@ -36,13 +50,25 @@ class EducationCreate extends React.Component{
   render(){
     return(
       <div>
-        <h1>Add education.....</h1>
-        <EducationFrom
-          data={this.state.data}
-          errors={this.state.errors}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
+        <Button variant="primary" onClick={this.handleShow}>
+         Add new education
+        </Button>
+        <Modal
+          show={this.state.showModal}
+          onHide={this.handleClose}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Add New Education</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <EducationForm
+              data={this.state.data}
+              errors={this.state.errors}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+            />
+          </Modal.Body>
+        </Modal>
       </div>
     )
   }

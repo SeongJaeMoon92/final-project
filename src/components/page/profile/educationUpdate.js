@@ -1,5 +1,7 @@
 import React from 'react'
 import axios from 'axios'
+import { Button, Modal } from 'react-bootstrap'
+
 import Auth from '../../lib/auth'
 
 import EducationForm from './educationForm'
@@ -10,15 +12,26 @@ class EducationUpdate extends React.Component{
 
     this.state = {
       data: {},
-      errors: {}
+      errors: {},
+      showModal: false
     }
 
+    this.handleShow = this.handleShow.bind(this)
+    this.handleClose = this.handleClose.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
-    this.setState({ data: this.props.location.state})
+    this.setState({ data: this.props.data})
+  }
+
+  handleShow() {
+    this.setState({ showModal: true })
+  }
+
+  handleClose() {
+    this.setState({ showModal: false })
   }
 
 
@@ -30,10 +43,11 @@ class EducationUpdate extends React.Component{
 
   handleSubmit(e){
     e.preventDefault()
-    axios.put(`/api/profiles/${this.props.match.params.id}/educations/${this.props.match.params.educationId}`, this.state.data,
+    axios.put(`/api/profiles/${this.props.profileId}/educations/${this.props.educationId}`, this.state.data,
       { headers: { Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => {
-        this.props.history.push(`/profile/${this.props.match.params.id}`)
+        this.handleClose()
+        this.props.getProfileData()
       })
       .catch(err => this.setState({errors: err.response}))
   }
@@ -41,13 +55,25 @@ class EducationUpdate extends React.Component{
   render(){
     return(
       <div>
-        <h1>Update education.....</h1>
-        <EducationForm
-          data={this.state.data}
-          errors={this.state.errors}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
+        <Button variant="primary" onClick={this.handleShow}>
+         Edit education
+        </Button>
+        <Modal
+          show={this.state.showModal}
+          onHide={this.handleClose}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Education at {this.state.data.school}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <EducationForm
+              data={this.state.data}
+              errors={this.state.errors}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+            />
+          </Modal.Body>
+        </Modal>
       </div>
     )
   }

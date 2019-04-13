@@ -1,15 +1,25 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Card, Image, Button, ButtonToolbar } from 'react-bootstrap'
 
 const NetworkProfile = (props) => {
   const { profile } = props
   return(
-    <div>
-      {profile.image && <img src={profile.image} />}
-      <h2>{profile.name}</h2>
-      <h3>{profile.location}</h3>
-      <Link to={`/profile/${profile.id}`}>View Profile</Link>
-    </div>
+    <Card className="text-center">
+      <Card.Body>
+        {<Image src={profile.image ? profile.image : '../../assets/images/no_profile_picture.jpg'} roundedCircle />}
+        <Card.Title>{profile.name}</Card.Title>
+        <Card.Text>
+          {profile.headline} - {profile.location}
+        </Card.Text>
+      </Card.Body>
+      <Card.Footer>
+        <ButtonToolbar>
+          <Button variant="primary" href={`/profile/${profile.id}`}>View Profile</Button>
+          <Button variant="primary" href={`/profile/${profile.id}`}>Request Connection</Button>
+          <Button variant="primary" href={`/profile/${profile.id}`} disabled>Connection Requested</Button>
+        </ButtonToolbar>
+      </Card.Footer>
+    </Card>
   )
 }
 

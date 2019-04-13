@@ -8,9 +8,10 @@ class Profile(db.Model, BaseModel):
     __tablename__ = 'profiles'
 
     name = db.Column(db.String(20), nullable=False)
+    headline = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(20), nullable=False)
     image = db.Column(db.String)
     summary = db.Column(db.Text)
-    location = db.Column(db.String(20), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     owner = db.relationship('User', backref='user_profile')
 
@@ -49,11 +50,15 @@ class ProfileSchema(ma.ModelSchema, BaseSchema):
         model = Profile
 
 class ExperienceSchema(ma.ModelSchema, BaseSchema):
+    start_date = fields.DateTime(format='%Y-%m-%d')
+    end_date = fields.DateTime(format='%Y-%m-%d')
 
     class Meta:
         model = Experience
 
 class EducationSchema(ma.ModelSchema, BaseSchema):
+    start_date = fields.DateTime(format='%Y-%m-%d')
+    end_date = fields.DateTime(format='%Y-%m-%d')
 
     class Meta:
         model = Education

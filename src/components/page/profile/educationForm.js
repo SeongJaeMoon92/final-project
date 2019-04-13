@@ -1,74 +1,86 @@
 import React from 'react'
+import { Form, Button } from 'react-bootstrap'
 
 const EducationForm = (props) => {
   const { data, errors, handleSubmit, handleChange } = props
   return (
-    <main>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="school">School</label>
-        <input
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="school">
+        <Form.Label>School/Institute</Form.Label>
+        <Form.Control
           name="school"
-          id="school"
-          placeholder='School'
+          placeholder="Name of your school/university/educational institute"
           onChange={handleChange}
           value={data.school || ''}
-        />
-        {errors.school && <small>{errors.school}</small>}
-        <label htmlFor="degree">Degree</label>
-        <input
+        / >
+        {errors.school && <Form.Text>{errors.school}</Form.Text>}
+      </Form.Group>
+      <Form.Group controlId="degree">
+        <Form.Label>Degree</Form.Label>
+        <Form.Control
           name="degree"
-          id="degree"
-          placeholder="Degree"
+          placeholder="Title of your degree/diploma/certification"
           onChange={handleChange}
           value={data.degree || ''}
-        />
-        {errors.degree && <small>{errors.degree}</small>}
-        <label htmlFor="field_of_study">Field of Study</label>
-        <input
-          name="field_of_study"
-          id="field_of_study"
-          placeholder="Field of Study"
+        / >
+        {errors.degree && <Form.Text>{errors.degree}</Form.Text>}
+      </Form.Group>
+      <Form.Group controlId="location">
+        <Form.Label>Location</Form.Label>
+        <Form.Control
+          name="location"
+          placeholder="Location of your studies"
           onChange={handleChange}
-          value={data.field_of_study || ''}
-        />
-        {errors.field_of_study && <small>{errors.field_of_study}</small>}
-        <label htmlFor="start_date">Start Date</label>
-        <input
+          value={data.location || ''}
+        / >
+        {errors.location && <Form.Text>{errors.location}</Form.Text>}
+      </Form.Group>
+      <Form.Group controlId="start_date">
+        <Form.Label>Start Date</Form.Label>
+        <Form.Control
+          type="date"
           name="start_date"
-          id="start_date"
+          placeholder="Start Date"
           onChange={handleChange}
           value={data.start_date || ''}
-        />
-        {errors.start_date && <small>{errors.start_date}</small>}
-        <label htmlFor="end_date">End Date</label>
-        <input
+        / >
+        {errors.start_date && <Form.Text>{errors.start_date}</Form.Text>}
+      </Form.Group>
+      <Form.Group controlId="end_date">
+        <Form.Label>End Date</Form.Label>
+        <Form.Control
+          type="date"
           name="end_date"
-          id="end_date"
+          placeholder="End Date"
           onChange={handleChange}
           value={data.end_date || ''}
-        />
-        {errors.end_date && <small>{errors.end_date}</small>}
-        <label htmlFor="grade">Grade</label>
-        <input
+        / >
+        {errors.end_date && <Form.Text>{errors.end_date}</Form.Text>}
+      </Form.Group>
+      <Form.Group controlId="grade">
+        <Form.Label>Grade</Form.Label>
+        <Form.Control
           name="grade"
-          id="grade"
-          placeholder="Grade"
+          placeholder="Overall grade/mark of your studes"
           onChange={handleChange}
           value={data.grade || ''}
-        />
-        {errors.grade && <small>{errors.grade}</small>}
-        <label htmlFor="description">Description</label>
-        <textarea
+        / >
+        {errors.grade && <Form.Text>{errors.grade}</Form.Text>}
+      </Form.Group>
+      <Form.Group controlId="description">
+        <Form.Label>Description</Form.Label>
+        <Form.Control as="textarea" rows="3"
           name="description"
-          id="description"
-          placeholder="Description"
+          placeholder="Description of your studies"
           onChange={handleChange}
           value={data.description || ''}
-        />
-        {errors.description && <small>{errors.description}</small>}
-        <input type="submit" value="Submit"/>
-      </form>
-    </main>
+        / >
+        {errors.description && <Form.Text>{errors.description}</Form.Text>}
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
   )
 }
 

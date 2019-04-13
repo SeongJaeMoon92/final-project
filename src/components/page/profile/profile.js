@@ -6,6 +6,7 @@ import Auth from '../../lib/auth'
 import ProfileExperience from './profileExperience'
 import ProfileEducation from './profileEducation'
 import ExperienceCreate from './experienceCreate'
+import EducationCreate from './educationCreate'
 
 class Profile extends React.Component{
   constructor(){
@@ -45,7 +46,10 @@ class Profile extends React.Component{
             getProfileData={this.getProfileData}
           />
           {profile.profile_experience.length > 0 &&
-            profile.profile_experience.map(experience => (
+            profile.profile_experience.sort((a, b) => {
+              if (a.start_date < b.start_date) return 1
+              return -1
+            }).map(experience => (
               <div key={experience.id} className="experience-content">
                 <ProfileExperience
                   experience={experience}
@@ -58,13 +62,20 @@ class Profile extends React.Component{
         </div>
         <div className="profile-education">
           <h2>Education</h2>
-          <Link to={`/profile/${this.props.match.params.id}/education`} >Add new education</Link>
+          <EducationCreate
+            profileId={this.props.match.params.id}
+            getProfileData={this.getProfileData}
+          />
           {profile.profile_education.length > 0 &&
-            profile.profile_education.map(education => (
+            profile.profile_education.sort((a, b) => {
+              if (a.start_date < b.start_date) return 1
+              return -1
+            }).map(education => (
               <div key={education.id} className="education-content">
                 <ProfileEducation
                   education={education}
                   profileId={this.props.match.params.id}
+                  getProfileData={this.getProfileData}
                 />
               </div>
             ))

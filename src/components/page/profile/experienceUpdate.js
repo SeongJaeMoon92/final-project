@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Button, Modal } from 'react-bootstrap'
+
 import Auth from '../../lib/auth'
 
 import ExperienceForm from './experienceForm'
@@ -15,16 +16,23 @@ class ExperienceUpdate extends React.Component{
       showModal: false
     }
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleShow = this.handleShow.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
     this.setState({ data: this.props.data})
   }
 
+  handleShow() {
+    this.setState({ showModal: true })
+  }
+
+  handleClose() {
+    this.setState({ showModal: false })
+  }
 
   handleChange({target: {name, value}}){
     const data = {...this.state.data, [name]: value}
@@ -42,14 +50,6 @@ class ExperienceUpdate extends React.Component{
         console.log('on submit', this.state)
       })
       .catch(err => err.response && this.setState({errors: err.response.data}))
-  }
-
-  handleShow() {
-    this.setState({ showModal: true })
-  }
-
-  handleClose() {
-    this.setState({ showModal: false })
   }
 
   render(){

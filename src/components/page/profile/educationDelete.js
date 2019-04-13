@@ -4,7 +4,7 @@ import { Button, ButtonToolbar, Modal } from 'react-bootstrap'
 
 import Auth from '../../lib/auth'
 
-class ExperienceDelete extends React.Component{
+class EducationDelete extends React.Component{
   constructor() {
     super()
 
@@ -18,7 +18,7 @@ class ExperienceDelete extends React.Component{
   }
 
   handleDelete() {
-    axios.delete(`/api/profiles/${this.props.profileId}/experiences/${this.props.experienceId}`,
+    axios.delete(`/api/profiles/${this.props.profileId}/educations/${this.props.educationId}`,
       { headers: { Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => {
         this.handleClose()
@@ -36,11 +36,11 @@ class ExperienceDelete extends React.Component{
   }
 
   render(){
-    const { jobTitle, company } = this.props
+    const { school } = this.props
     return(
       <div>
         <Button variant="primary" onClick={this.handleShow}>
-         Delete experience
+         Delete education
         </Button>
 
         <Modal
@@ -48,13 +48,13 @@ class ExperienceDelete extends React.Component{
           onHide={this.handleClose}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Delete Experience at {company}</Modal.Title>
+            <Modal.Title>Delete Education at {school}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>Are you sure you want to delete your {jobTitle} experience at {company}? This cannot be undone.</p>
+            <p>Are you sure you want to delete your {school} education? This cannot be undone.</p>
             <ButtonToolbar>
               <Button variant="primary" onClick={this.handleDelete}>
-              Delete experience
+              Delete education
               </Button>
               <Button variant="danger" onClick={this.handleClose}>
               Cancel
@@ -67,4 +67,4 @@ class ExperienceDelete extends React.Component{
   }
 }
 
-export default ExperienceDelete
+export default EducationDelete
