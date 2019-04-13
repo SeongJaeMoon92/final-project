@@ -3,10 +3,11 @@ import axios from 'axios'
 import Select from 'react-select'
 import Auth from '../../lib/auth'
 import makeAnimated from 'react-select/lib/animated'
-import industriesOptions from './industriesOptions'
+import industriesOptions from '../data/industriesOptions'
 import {Modal, Button, ButtonToolbar} from 'react-bootstrap'
+import SocialPostForm from './socialPostForm'
 
-class SocialPostEdit extends React.Component {
+class EditSocialPost extends React.Component {
   constructor() {
     super()
 
@@ -101,49 +102,17 @@ class SocialPostEdit extends React.Component {
           }}
           onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Social Post Edit</Modal.Title>
           </Modal.Header>
-          <form onSubmit={this.handleSubmit}>
             <Modal.Body>
-              <label htmlFor="post_title">Title</label>
-              <input
-                name="post_title"
-                id="post_title"
-                placeholder='Post title'
-                onChange={this.handleChange}
-                value={data.post_title || ''}
-              />
-              {errors.post_title && <small>{errors.post_title}</small>}
-              <label htmlFor="post_content">Content</label>
-              <input
-                name="post_content"
-                id="post_content"
-                onChange={this.handleChange}
-                value={data.post_content || ''}
-              />
-              {errors.post_content && <small>{errors.post_content}</small>}
-              <label htmlFor="post_image">Image</label>
-              <input
-                name="post_image"
-                id="post_image"
-                placeholder="post_image"
-                onChange={this.handleChange}
-                value={data.post_image || ''}
-              />
-              <label htmlFor="industries">Industries</label>
-              <Select
-                closeMenuOnSelect={false}
-                components={makeAnimated()}
-                isMulti
-                options={industriesOptions}
-                onChange={this.handleSelect}
-
+              <SocialPostForm
+                data={data}
+                errors={errors}
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                handleSelect={this.handleSelect}
               />
             </Modal.Body>
-            <Modal.Footer>
-              <button>send</button>
-            </Modal.Footer>
-          </form>
         </Modal>
       </>
     )
@@ -157,4 +126,4 @@ class SocialPostEdit extends React.Component {
 // </Button>
 
 
-export default SocialPostEdit
+export default EditSocialPost

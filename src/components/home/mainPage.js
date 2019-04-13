@@ -1,26 +1,48 @@
 import React from 'react'
-
+import {Button} from 'react-bootstrap'
 // import compoenents
 
 import SideProfile from  './sideProfile'
-import SocialPost from  './socialPost/socialPost'
+import SocialPostIndex from  './socialPost/socialPostIndex'
 import SocialPostNew from  './socialPost/createSocialPost'
+import JobPostNew from  './jobPost/createJobPost'
+import JobPostIndex from  './jobPost/jobPostIndex'
 
 class MainPage extends React.Component{
   constructor(){
     super()
 
-    this.state = {}
+    this.state = { socialPost: false, jobPost: true}
+
+    this.handlePost = this.handlePost.bind(this)
+  }
+
+  handlePost(e){
+    this.setState({socialPost:!this.state.socialPost, jobPost: !this.state.jobPost})
   }
 
   render(){
+    const {socialPost, jobPost} = this.state
     return (
       <main>
-        <SocialPostNew />
-        <hr />
         <SideProfile />
         <hr />
-        <SocialPost />
+        {socialPost &&
+          <div>
+            <Button onClick={this.handlePost}> Switch to Job Post</Button>
+            <h1>Social Post</h1>
+            <SocialPostNew />
+            <hr />
+            <SocialPostIndex />
+          </div>}
+        {jobPost &&
+          <div>
+            <Button onClick={this.handlePost}> Switch to Social Post</Button>
+            <h1>Job Post</h1>
+            <JobPostNew />
+            <hr/>
+            <JobPostIndex />
+          </div>}
       </main>
     )
   }

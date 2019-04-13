@@ -2,9 +2,9 @@ import axios from 'axios'
 import React from 'react'
 
 import Auth from '../../lib/auth'
-import SocialPostForm from './socialPostForm'
+import SocialPostShow from './socialPostShow'
 
-class SocialPost extends React.Component {
+class SocialPostIndex extends React.Component {
   constructor() {
     super()
 
@@ -62,7 +62,7 @@ class SocialPost extends React.Component {
           return -1
         }).map((socialPost,id) => (
           <div key={id}>
-            <SocialPostForm
+            <SocialPostShow
               getPostInfo = {this.getPostInfo}
               socialPost = {socialPost}
               handleLike = {this.handleLike}
@@ -79,4 +79,4 @@ class SocialPost extends React.Component {
   }
 }
 
-export default SocialPost
+export default SocialPostIndex

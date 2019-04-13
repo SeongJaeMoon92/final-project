@@ -1,5 +1,5 @@
 import React from 'react'
-import {Modal, Button, ButtonToolbar} from 'react-bootstrap'
+import {Modal, Button, ButtonToolbar, Form } from 'react-bootstrap'
 
 class MessageModal extends React.Component {
   constructor() {
@@ -20,34 +20,35 @@ class MessageModal extends React.Component {
   }
 
   render() {
-    const {dataMessage, handleChange, socialPostData, handleSubmit} = this.props
-    console.log(socialPostData)
+    const {dataMessage, handleChange, data, handleSubmit} = this.props
     return (
       <>
         <Button variant="primary" onClick={this.handleShow}>
-         Message to {socialPostData.owner.username}
+         Message to {data.owner.username}
         </Button>
         <Modal
           show={this.state.show}
           onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>To {socialPostData.owner.username}</Modal.Title>
+            <Modal.Title>To {data.owner.username}</Modal.Title>
           </Modal.Header>
-          <form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <Modal.Body>
-              <label htmlFor="message_content">Message</label>
-              <textarea
-                name="message_content"
-                id="message_content"
-                placeholder='Message Content'
-                onChange={handleChange}
-                value={dataMessage.message_content || ''}
-              />
+              <Form.Group controlId="message_content">
+              <Form.Label>Message</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  name="message_content"
+                  placeholder='Message'
+                  onChange={handleChange}
+                  value={dataMessage.message_content || ''}
+                />
+              </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-              <button onClick={this.handleClose}>send</button>
+              <Button onClick={this.handleClose}>Send</Button>
             </Modal.Footer>
-          </form>
+          </Form>
         </Modal>
       </>
     )

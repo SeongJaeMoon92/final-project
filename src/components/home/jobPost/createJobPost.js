@@ -2,9 +2,9 @@ import React from 'react'
 import axios from 'axios'
 
 import Auth from '../../lib/auth'
-import SocialPostForm from './socialPostForm'
+import JobPostForm from './jobPostForm'
 
-class SocialPostNew extends React.Component {
+class JobPostNew extends React.Component {
   constructor() {
     super()
 
@@ -33,7 +33,7 @@ class SocialPostNew extends React.Component {
 
   handleSubmit(e) {
     // e.preventDefault()
-    axios.post('/api/social_posts',
+    axios.post('/api/job_posts',
       this.state.data,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => this.getPostInfo())
@@ -41,14 +41,14 @@ class SocialPostNew extends React.Component {
   }
 
   getPostInfo(){
-    axios.get('/api/social_posts')
+    axios.get('/api/job_posts')
       .then(res => this.setState({data: res.data}))
   }
 
   render() {
     return (
       <main>
-        <SocialPostForm
+        <JobPostForm
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           handleSelect={this.handleSelect}
@@ -60,4 +60,4 @@ class SocialPostNew extends React.Component {
   }
 }
 
-export default SocialPostNew
+export default JobPostNew
