@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import Select from 'react-select';
+import Select from 'react-select'
 import Auth from '../../lib/auth'
 import makeAnimated from 'react-select/lib/animated'
 import industriesOptions from './industriesOptions'
@@ -10,7 +10,7 @@ class SocialPostEdit extends React.Component {
   constructor() {
     super()
 
-    this.state = { show: false, data: {}, errors:{} }
+    this.state = { show: false, data: {}, errors:{}}
 
     this.handleShow = this.handleShow.bind(this)
     this.handleClose = this.handleClose.bind(this)
@@ -34,14 +34,28 @@ class SocialPostEdit extends React.Component {
   }
 
   handleSelect(e){
+    console.log(this.state.data)
+    console.log(e[e.length-1])
+    const lastValue = e[e.length-1]
     const arr = []
-    e.forEach(val => {
-      const industries = {id: parseInt(val.value)}
-      arr.push(industries)
-      const data = {...this.state.data, industry_id: arr }
-      this.setState({data})
-    })
+    const newArr = arr.concat(lastValue)
+    // const industry = [...this.state.data.industry_id, lastValue ]
+    this.setState(prevState => ({...prevState, data: {...prevState.data, industry_id: newArr }}))
   }
+// this.setState({ myArray: [...this.state.myArray, 'new value'] })
+//   this.setState(prevState => ({
+//     ...prevState,
+//     someProperty: {
+//         ...prevState.someProperty,
+//         someOtherProperty: {
+//             ...prevState.someProperty.someOtherProperty,
+//             anotherProperty: {
+//                ...prevState.someProperty.someOtherProperty.anotherProperty,
+//                flag: false
+//             }
+//         }
+//     }
+// }))
 
   handleSubmit(e){
     // e.preventDefault()
@@ -57,24 +71,23 @@ class SocialPostEdit extends React.Component {
       .then(res => this.setState({data: res.data}))
       .catch(err => this.setState({ errors: err.response.data}))
   }
+  //
+  // componentDidMount(){
+  //   this.getPostInfoAgain()
+  // }
 
-  componentDidMount(){
-    this.getPostInfoAgain()
-  }
-
-  getPostInfoAgain(){
-    axios.get(`/api/social_posts/${this.props.id}`)
-      .then(res => {
-        const data = {...this.state.data, data: res.data}
-        const dataEdit = {industry_id: data.industries}
-        console.log(dataEdit)
-      })
-      .catch(err => this.setState({ errors: err.response.data}))
-  }
+  // getPostInfoAgain(){
+  //   axios.get(`/api/social_posts/${this.props.id}`)
+  //     .then(res => {
+  //
+  //       const dataEdit = {industry_id: data.industries}
+  //       console.log(dataEdit)
+  //     })
+  //     .catch(err => this.setState({ errors: err.response.data}))
+  // }
 
   render() {
     const {data, errors} = this.state
-    // console.log(data);
     return (
       <>
         <Button variant="primary" onClick={this.handleShow}>
@@ -124,8 +137,7 @@ class SocialPostEdit extends React.Component {
                 isMulti
                 options={industriesOptions}
                 onChange={this.handleSelect}
-                value={!data.industries || data.industries.map(data => (
-                  {value: data.id, label: data.industry}))}
+
               />
             </Modal.Body>
             <Modal.Footer>
@@ -138,6 +150,8 @@ class SocialPostEdit extends React.Component {
   }
 }
 
+// value={!data.industries || data.industries.map(data => (
+//   {value: data.id, label: data.industry}))}
 // <Button variant="primary" onClick={this.handleClose}>
 //   Edit
 // </Button>

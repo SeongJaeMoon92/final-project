@@ -40,7 +40,7 @@ const SocialPostEditForm = ({handleSubmit,handleSelect, handleChange, data, erro
         options={industriesOptions}
         onChange={handleSelect}
       />
-      <input type="submit" value="Submit"/>
+      <button>submit</button>
     </form>
   )
 }

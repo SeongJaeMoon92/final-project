@@ -42,7 +42,7 @@ class SocialPostNew extends React.Component {
 
   getPostInfo(){
     axios.get('/api/social_posts')
-      .then(res => this.setState({socialPosts: res.data}))
+      .then(res => this.setState({data: res.data}))
   }
 
   render() {
