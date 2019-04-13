@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Select from 'react-select';
+import Select from 'react-select'
 import makeAnimated from 'react-select/lib/animated'
 import industriesOptions from '../data/industriesOptions'
 

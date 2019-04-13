@@ -17,7 +17,7 @@ class SocialPostShow extends React.Component {
     this.handleSubmitMessage = this.handleSubmitMessage.bind(this)
   }
 
-  handleCommentBox(e){
+  handleCommentBox(){
     this.setState({commentBox: !this.state.commentBox})
   }
 
@@ -32,8 +32,8 @@ class SocialPostShow extends React.Component {
     const data = {...this.state.data, receiver_id: this.props.socialPost.owner.id}
     this.setState({data},
       () =>  {
-        axios.post(`/api/messages`, this.state.data,
-        { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
+        axios.post('/api/messages', this.state.data,
+          { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
           .then((res) => this.setState({data: ''},() => console.log(res.data)))
           .catch(err => this.setState({errors: err.response.data}))
       }
@@ -45,60 +45,60 @@ class SocialPostShow extends React.Component {
   }
 
   render(){
-  const { commentBox } = this.state
-  const {socialPost, handleLike, handleChange, handleSubmit, data, errors, getPostInfo } = this.props
-  return(
-    <div>
-      <div>{socialPost.post_title}</div>
-      <div>{socialPost.post_content}</div>
-      <img src={socialPost.post_image} alt={socialPost.post_title}/>
-      <div>{socialPost.industries.map(category => (
-        category.industry
-      ))}</div>
-      <div>{socialPost.owner.username}</div>
-      <div>{socialPost.liked_by.length}</div>
-      <div>{socialPost.comments.map(comment => (
-        `${comment.content} by ${comment.user.username}`
-      ))}</div>
-      <input
-        type='button'
-        name={socialPost.id}
-        value='like'
-        onClick={handleLike}
-      />
-      <button
-        value={socialPost.id}
-        onClick={this.handleCommentBox}>
-        Comment
-      </button>
-      <MessageModal
-        dataMessage={this.state.data}
-        handleChange={this.handleChangeMessage}
-        handleSubmit={this.handleSubmitMessage}
-        data ={socialPost}
-      />
-      {this.isOwner() && <EditSocialPost
-        id={socialPost.id}
-        postInfo = {getPostInfo}
-      />}
-      {this.isOwner() && <button value={socialPost.id} onClick={this.props.handleDelete}>Delete</button>}
-      {commentBox &&
-        <form onSubmit={(e) => {
-          handleSubmit(e, socialPost)
-          this.handleCommentBox()
-        }}>
-          <div>Comment</div>
-          <textarea
-            name='content'
-            onChange={handleChange}
-            value={data.content || ''}
-          />
-          <button>submit</button>
-        </form>
-      }
-      <hr />
-    </div>
-  )
+    const { commentBox } = this.state
+    const {socialPost, handleLike, handleChange, handleSubmit, data, errors, getPostInfo } = this.props
+    return(
+      <div>
+        <div>{socialPost.post_title}</div>
+        <div>{socialPost.post_content}</div>
+        <img src={socialPost.post_image} alt={socialPost.post_title}/>
+        <div>{socialPost.industries.map(category => (
+          category.industry
+        ))}</div>
+        <div>{socialPost.owner.username}</div>
+        <div>{socialPost.liked_by.length}</div>
+        <div>{socialPost.comments.map(comment => (
+          `${comment.content} by ${comment.user.username}`
+        ))}</div>
+        <input
+          type='button'
+          name={socialPost.id}
+          value='like'
+          onClick={handleLike}
+        />
+        <button
+          value={socialPost.id}
+          onClick={this.handleCommentBox}>
+          Comment
+        </button>
+        <MessageModal
+          dataMessage={this.state.data}
+          handleChange={this.handleChangeMessage}
+          handleSubmit={this.handleSubmitMessage}
+          data ={socialPost}
+        />
+        {this.isOwner() && <EditSocialPost
+          id={socialPost.id}
+          postInfo = {getPostInfo}
+        />}
+        {this.isOwner() && <button value={socialPost.id} onClick={this.props.handleDelete}>Delete</button>}
+        {commentBox &&
+          <form onSubmit={(e) => {
+            handleSubmit(e, socialPost)
+            this.handleCommentBox()
+          }}>
+            <div>Comment</div>
+            <textarea
+              name='content'
+              onChange={handleChange}
+              value={data.content || ''}
+            />
+            <button>submit</button>
+          </form>
+        }
+        <hr />
+      </div>
+    )
   }
 }
 
