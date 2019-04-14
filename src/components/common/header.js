@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import Auth from '../lib/auth'
 import axios from 'axios'
+import {Navbar, Nav, NavItem} from 'react-bootstrap'
 
 class Header extends React.Component{
   constructor(){
@@ -43,11 +44,28 @@ class Header extends React.Component{
     if (!Auth.isAuthenticated()) return null
     return (
       <div>
-        <Link to='/'>Home</Link>
-        <Link to='/inbox'>Inbox</Link>
-        <Link to='/discover'>Discover</Link>
-        <Link to={`/profile/${this.state.profileId}`}>My Profile</Link>
-        <Link to='/' onClick={this.logout}>Logout</Link>
+        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+            <Navbar.Brand>
+              <Link to="/">Home</Link>
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav"  />
+          <Navbar.Collapse id="responsive-navbar-nav entireNavbarHeader">
+            <Nav className="navbarHeader">
+              <Nav.Item className="navbarHeaderItem">
+                <Link to='/inbox'>Inbox</Link>
+              </Nav.Item>
+              <Nav.Item className="navbarHeaderItem">
+                <Link to='/discover'>Discover</Link>
+              </Nav.Item>
+              <Nav.Item className="navbarHeaderItem">
+                <Link to={`/profile/${this.state.profileId}`}>My Profile</Link>
+              </Nav.Item>
+              <Nav.Item className="navbarHeaderItem">
+                <Link to='/' onClick={this.logout}>Logout</Link>
+              </Nav.Item>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
       </div>
     )
   }

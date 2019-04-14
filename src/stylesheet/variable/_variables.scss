@@ -1,0 +1,19 @@
+$color-alpha: #084C61;
+$color-alpha-light: lighten($color-alpha, 10%);
+$color-alpha-dark: darken($color-alpha, 10%);
+
+$color-beta: #3E505B;
+$color-beta-light: lighten($color-beta, 10%);
+$color-beta-dark: darken($color-beta, 10%);
+
+$color-gamma: #CCC5B9;
+$color-gamma-light: lighten($color-gamma, 10%);
+$color-gamma-dark: darken($color-gamma, 10%);
+
+$color-psi: #403D39;
+$color-psi-light: lighten($color-psi, 10%);
+$color-psi-dark: darken($color-psi, 10%);
+
+$color-omega: #FFFCF2;
+$color-omega-light: lighten($color-omega, 30%);
+$color-omega-dark: darken($color-omega, 10%);
