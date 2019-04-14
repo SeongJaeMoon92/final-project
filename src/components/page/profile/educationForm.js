@@ -25,6 +25,16 @@ const EducationForm = (props) => {
         / >
         {errors.degree && <Form.Text>{errors.degree}</Form.Text>}
       </Form.Group>
+      <Form.Group controlId="field_of_study">
+        <Form.Label>Field of Study</Form.Label>
+        <Form.Control
+          name="field_of_study"
+          placeholder="Field of study of your degree/diploma/certification"
+          onChange={handleChange}
+          value={data.field_of_study || ''}
+        / >
+        {errors.field_of_study && <Form.Text>{errors.field_of_study}</Form.Text>}
+      </Form.Group>
       <Form.Group controlId="location">
         <Form.Label>Location</Form.Label>
         <Form.Control
@@ -40,7 +50,6 @@ const EducationForm = (props) => {
         <Form.Control
           type="date"
           name="start_date"
-          placeholder="Start Date"
           onChange={handleChange}
           value={data.start_date || ''}
         / >
@@ -51,7 +60,6 @@ const EducationForm = (props) => {
         <Form.Control
           type="date"
           name="end_date"
-          placeholder="End Date"
           onChange={handleChange}
           value={data.end_date || ''}
         / >
