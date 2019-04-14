@@ -1,5 +1,6 @@
+#pylint: disable=R0201
 from app import db, ma
-from marshmallow import fields
+from marshmallow import validates_schema, ValidationError, fields
 from models.base import BaseModel, BaseSchema
 from models.user import User, UserSchema
 
@@ -50,15 +51,118 @@ class ProfileSchema(ma.ModelSchema, BaseSchema):
         model = Profile
 
 class ExperienceSchema(ma.ModelSchema, BaseSchema):
-    start_date = fields.DateTime(format='%Y-%m-%d')
+    title = fields.String(
+        required=True,
+        error_messages={'required': ''}
+    )
+    company = fields.String(
+        required=True,
+        error_messages={'required': ''}
+    )
+    location = fields.String(
+        required=True,
+        error_messages={'required': ''}
+    )
+    start_date = fields.DateTime(
+        format='%Y-%m-%d',
+        required=True,
+        error_messages={'required': ''}
+    )
     end_date = fields.DateTime(format='%Y-%m-%d')
+
+    @validates_schema
+    def validate_title(self, data):
+        print(f'validate title data is {data}')
+        if not data.get('title') or data.get('title') == '':
+            raise ValidationError(
+                'Title is required',
+                'title'
+            )
+
+    @validates_schema
+    def validate_company(self, data):
+        if not data.get('company'):
+            raise ValidationError(
+                'Company is required',
+                'company'
+            )
+
+    @validates_schema
+    def validate_location(self, data):
+        if not data.get('location'):
+            raise ValidationError(
+                'Location is required',
+                'location'
+            )
+
+    @validates_schema
+    def validate_dates(self, data):
+        if not data.get('start_date'):
+            raise ValidationError(
+                'Start date is required',
+                'start_date'
+            )
 
     class Meta:
         model = Experience
 
 class EducationSchema(ma.ModelSchema, BaseSchema):
-    start_date = fields.DateTime(format='%Y-%m-%d')
+
+    school = fields.String(
+        required=True,
+        error_messages={'required': ''}
+    )
+
+    degree = fields.String(
+        required=True,
+        error_messages={'required': ''}
+    )
+
+    field_of_study = fields.String(
+        required=True,
+        error_messages={'required': ''}
+    )
+
+    start_date = fields.DateTime(
+        format='%Y-%m-%d',
+        required=True,
+        error_messages={'required': ''}
+    )
+
     end_date = fields.DateTime(format='%Y-%m-%d')
+
+
+    @validates_schema
+    def validate_school(self, data):
+        if not data.get('school') or data.get('school') == '':
+            raise ValidationError(
+                'School is required',
+                'school'
+            )
+
+    @validates_schema
+    def validate_degree(self, data):
+        if not data.get('degree') or data.get('degree') == '':
+            raise ValidationError(
+                'Degree is required',
+                'degree'
+            )
+
+    @validates_schema
+    def validate_field_of_study(self, data):
+        if not data.get('field_of_study') or data.get('field_of_study') == '':
+            raise ValidationError(
+                'Field of Study is required',
+                'field_of_study'
+            )
+
+    @validates_schema
+    def validate_education_date(self, data):
+        if not data.get('start_date') or data.get('start_date') == '':
+            raise ValidationError(
+                'Start Date is required',
+                'start_date'
+            )
 
     class Meta:
         model = Education
