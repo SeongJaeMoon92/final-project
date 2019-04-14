@@ -19,6 +19,7 @@ class NetworkDiscover extends React.Component{
 
   componentDidMount() {
     this.getProfilesData()
+    this.getFriendData()
   }
 
   getProfilesData() {
@@ -34,12 +35,27 @@ class NetworkDiscover extends React.Component{
       })
   }
 
-  getUserData() {
+  getFriendData() {
     axios.get(`/api/users/${Auth.getPayload().sub}`,
       { headers: { Authorization: `Bearer ${Auth.getToken()}`}}
     )
-      .then(res => this.setState({ user: res.data }))
+      .then(res => {
+        console.log('res.data', res.data)
+        // const friends = res.
+        // const pending =
+        // const = notFriends =
+      })
+      // .then(res => this.setState({ user: res.data }, () => console.log(this.state.user)))
       .catch(err => console.log(err))
+  }
+
+
+  isFriend(profile) {
+    // if (profile.id === this.state.user.)
+  }
+
+  isPending(profile) {
+
   }
 
 

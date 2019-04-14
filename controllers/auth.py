@@ -46,8 +46,10 @@ def user_profile_show(user_id):
         return jsonify({'message': 'Unauthorized'}), 401
     return profile_schema.jsonify(profile), 200
 
-
-# @api.route('/users/<int:user_id>/network', methods=['GET'])
-# @secure_route
-# def user_network(user_id):
-#
+    @api.route('/users/<int:user_id>', methods=['GET'])
+    @secure_route
+    def user(user_id):
+        user = User.query.get(user_id)
+        if user != g.current_user:
+            return jsonify({'message': 'Unauthorized'}), 401
+        return user_schema.jsonify(user), 200

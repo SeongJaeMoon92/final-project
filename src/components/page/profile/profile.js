@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 import Auth from '../../lib/auth'
 
 import ProfileExperience from './profileExperience'
@@ -38,6 +37,7 @@ class Profile extends React.Component{
           <h2>{profile.name}</h2>
           <h3>{profile.summary}</h3>
           <h3>{profile.location}</h3>
+          <img src={profile.image ? profile.img : '../../../assets/images/profiles/no_image.jpg'} />
         </div>
         <div className="profile-experience">
           <h2>Experience</h2>

@@ -6,7 +6,7 @@ const NetworkProfile = (props) => {
   return(
     <Card className="text-center">
       <Card.Body>
-        {<Image src={profile.image ? profile.image : '../../assets/images/no_profile_picture.jpg'} roundedCircle />}
+        {<Image src={profile.image ? profile.image : '../../../assets/images/profiles/no_image.jpg'} roundedCircle />}
         <Card.Title>{profile.name}</Card.Title>
         <Card.Text>
           {profile.headline} - {profile.location}
