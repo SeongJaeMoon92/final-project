@@ -158,6 +158,16 @@ with app.app_context():
     )
 
     education_3 = Education(
+        school='General Assembly',
+        degree='Web Development Immersive',
+        field_of_study='Web Development',
+        start_date='2019-01-28',
+        end_date='2019-04-18',
+        description='A 12-week immersive course in web development.',
+        profile=profile_moon
+    )
+
+    education_4 = Education(
         school='King\'s College',
         degree='blah',
         field_of_study='Physics',
@@ -170,7 +180,8 @@ with app.app_context():
     db.session.add_all([
         education_1,
         education_2,
-        education_3
+        education_3,
+        education_4
     ])
 
 # Profile Experience ========================================================
@@ -180,7 +191,7 @@ with app.app_context():
         company='General Assembly',
         location='London, UK',
         start_date='2019-01-28',
-        end_date='2018-04-18',
+        end_date='2019-04-18',
         description='12-week full-time course in Web Development.',
         profile=profile_wes
     )
