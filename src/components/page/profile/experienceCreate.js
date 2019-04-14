@@ -13,11 +13,13 @@ class ExperienceCreate extends React.Component{
     this.state = {
       data: {},
       errors: {},
-      showModal: false
+      showModal: false,
+      endDate: false
     }
 
     this.handleShow = this.handleShow.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleEndDate = this.handleEndDate.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -28,6 +30,10 @@ class ExperienceCreate extends React.Component{
 
   handleClose() {
     this.setState({ showModal: false })
+  }
+
+  handleEndDate(){
+    this.setState({ endDate: true })
   }
 
   handleChange({target: {name, value}}){
@@ -64,6 +70,8 @@ class ExperienceCreate extends React.Component{
             <ExperienceForm
               data={this.state.data}
               errors={this.state.errors}
+              endDate={this.state.endDate}
+              handleEndDate={this.handleEndDate}
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
             />
