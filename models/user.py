@@ -72,7 +72,7 @@ class UserSchema(ma.ModelSchema, BaseSchema):
     sent_messages = fields.Nested('MessageSchema', many=True, only=('id', 'message_content', 'receiver', 'sender'))
     received_messages = fields.Nested('MessageSchema', many=True, only=('id', 'message_content', 'sender', 'receiver'))
     sent_friend_requests = fields.Nested('FriendSchema', many=True, only=('id', 'friend_b', 'status'))
-    received_friend_requests = fields.Nested('FriendSchema', many=True, only=('id', 'friend_b', 'status'))
+    received_friend_requests = fields.Nested('FriendSchema', many=True, only=('id', 'friend_a', 'status'))
 
     class Meta:
         model = User
