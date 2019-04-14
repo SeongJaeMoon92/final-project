@@ -14,10 +14,6 @@ import NetworkDiscover from './components/page/network/networkDiscover'
 import Profile from './components/page/profile/profile'
 import ProfileCreate from './components/page/profile/profileCreate'
 import ProfileUpdate from './components/page/profile/profileUpdate'
-import ExperienceCreate from './components/page/profile/experienceCreate'
-import ExperienceUpdate from './components/page/profile/experienceUpdate'
-import EducationCreate from './components/page/profile/educationCreate'
-import EducationUpdate from './components/page/profile/educationUpdate'
 import SocialPostNew from './components/home/socialPost/createSocialPost'
 
 class App extends React.Component{
@@ -34,10 +30,6 @@ class App extends React.Component{
           <Header />
           <Switch>
             <SecureRoute path='/social_post/new' component={SocialPostNew}/>
-            <SecureRoute path='/profile/:id/education/:educationId' component={EducationUpdate} />
-            <SecureRoute path='/profile/:id/education' component={EducationCreate} />
-            <SecureRoute path='/profile/:id/experience/:experienceId' component={ExperienceUpdate} />
-            <SecureRoute path='/profile/:id/experience' component={ExperienceCreate} />
             <SecureRoute path='/profile/:id/update' component={ProfileUpdate} />
             <SecureRoute path='/profile/add' component={ProfileCreate} />
             <SecureRoute path='/profile/:id' component={Profile} />
