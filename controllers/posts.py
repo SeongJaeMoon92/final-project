@@ -52,6 +52,7 @@ def job_post_update(job_post_id):
 
     if post.owner != g.current_user:
         return jsonify({'message': 'Unauthorized'}), 401
+    post.industries = []
     industries = list(data['industry_id'])
     industries_lists = []
     for item in industries:
@@ -125,6 +126,7 @@ def social_post_update(social_post_id):
 
     if post.owner != g.current_user:
         return jsonify({'message': 'Unauthorized'}), 401
+    post.industries = []
     industries = list(data['industry_id'])
     industries_lists = []
     for item in industries:

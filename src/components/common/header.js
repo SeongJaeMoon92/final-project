@@ -44,6 +44,7 @@ class Header extends React.Component{
     return (
       <div>
         <Link to='/'>Home</Link>
+        <Link to='/inbox'>Inbox</Link>
         <Link to='/discover'>Discover</Link>
         <Link to={`/profile/${this.state.profileId}`}>My Profile</Link>
         <Link to='/' onClick={this.logout}>Logout</Link>

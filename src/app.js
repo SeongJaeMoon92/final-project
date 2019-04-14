@@ -14,7 +14,7 @@ import NetworkDiscover from './components/page/network/networkDiscover'
 import Profile from './components/page/profile/profile'
 import ProfileCreate from './components/page/profile/profileCreate'
 import ProfileUpdate from './components/page/profile/profileUpdate'
-import SocialPostNew from './components/home/socialPost/createSocialPost'
+import Inbox from './components/inbox/inbox'
 
 class App extends React.Component{
   constructor(){
@@ -29,7 +29,7 @@ class App extends React.Component{
         <div>
           <Header />
           <Switch>
-            <SecureRoute path='/social_post/new' component={SocialPostNew}/>
+            <SecureRoute path='/inbox' component={Inbox} />
             <SecureRoute path='/profile/:id/update' component={ProfileUpdate} />
             <SecureRoute path='/profile/add' component={ProfileCreate} />
             <SecureRoute path='/profile/:id' component={Profile} />

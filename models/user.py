@@ -70,7 +70,7 @@ class UserSchema(ma.ModelSchema, BaseSchema):
     likes_social_post = fields.Nested('SocialPostSchema', many=True, only=('id', 'post_title'))
 #pylint: disable=C0301
     sent_messages = fields.Nested('MessageSchema', many=True, only=('id', 'message_content', 'receiver'))
-    received_messages = fields.Nested('MessageSchema', many=True, only=('id', 'message_content', 'sender_id'))
+    received_messages = fields.Nested('MessageSchema', many=True, only=('id', 'message_content', 'sender'))
     sent_friend_requests = fields.Nested('FriendSchema', many=True, only=('id', 'friend_b', 'status'))
     received_friend_requests = fields.Nested('FriendSchema', many=True, only=('id', 'friend_b', 'status'))
 

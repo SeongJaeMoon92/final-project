@@ -32,33 +32,47 @@ class EditSocialPost extends React.Component {
     this.setState({ data, errors })
   }
 
-  handleSelect(e){
-    // console.log(e[e.length-1], 'last value in the array')
-    let lastValue = e[e.length-1]
-    lastValue = {id: parseInt(lastValue.value), industry: lastValue.label}
-    const industry = [...this.state.data.industries, lastValue ]
-    this.setState(prevState => ({...prevState, data: {...prevState.data, industries: industry }}))
+  handleSelect(e, actionMeta){
+    if (actionMeta.action === 'remove-value') {
+      const remove = this.state.data.industries.filter(industry => industry.id !== actionMeta.removedValue.value)
+      this.setState(prevState => ({...prevState, data: {...prevState.data, industries: remove }}))
+    } else if (actionMeta.action === 'select-option') {
+      let lastValue = e[e.length-1]
+      lastValue = {id: parseInt(lastValue.value), industry: lastValue.label}
+      const industry = [...this.state.data.industries, lastValue ]
+      this.setState(prevState => ({...prevState, data: {...prevState.data, industries: industry }}))
+    } else if (actionMeta.action === 'clear') {
+      this.state.data.industries = []
+    }
   }
 
   handleDeleteObjectKey(){
-    // console.log(this.state.data, 'handleDelete');
     const key = ['industries']
     delete this.state.data[key]
     this.postAxios()
   }
 
   handleNestedObject(){
-    console.log(this.state.data.industries, 'handleNestedObject')
-    const newdata = this.state.data.industries.map(data => (
-      {id: data.id}
-    ))
-    this.setState(prevState => ({
-      ...prevState,
-      data: {
-        ...prevState.data,
-        industry_id: newdata
-      }
-    }))
+    if (!this.state.data.industries) {
+      this.setState(prevState => ({
+        ...prevState,
+        data: {
+          ...prevState.data,
+          industry_id: ''
+        }
+      }))
+    } else {
+      const newdata = this.state.data.industries.map(data => (
+        {id: data.id}
+      ))
+      this.setState(prevState => ({
+        ...prevState,
+        data: {
+          ...prevState.data,
+          industry_id: newdata
+        }
+      }))
+    }
     setTimeout(() => {
       this.handleDeleteObjectKey()
     },200)
@@ -70,16 +84,13 @@ class EditSocialPost extends React.Component {
       .then(()=> {
         if (!this.state.data) return null
         const { industries } = this.state.data
-        // console.log(industries, 'industries one')
         return industries
       })
       .then(res => {
-        // console.log(res, 'res two')
         this.fileInput.current.state.value = res.map(data => (
           {value: data.id, label: data.industry}))
       })
       .catch(err => {
-        // console.log(err.response)
         this.setState({ errors: err.response.data})
       })
   }
@@ -89,12 +100,7 @@ class EditSocialPost extends React.Component {
       this.state.data,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => {
-        // console.log(res, 'post axios')
         this.setState({show: false},() =>{
-        // console.log(res, 'Post axios')
-        // console.log(this.state.data, 'axios post')
-        // console.log(this.fileInput, 'fileInput')
-        // this.fileInput.current.select.clearValue()
           this.props.postInfo()
         })
       })

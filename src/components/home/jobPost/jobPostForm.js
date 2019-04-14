@@ -55,7 +55,7 @@ const JobPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, sel
           components={makeAnimated()}
           isMulti
           options={industriesOptions}
-          onChange={handleSelect}
+          onChange={(e, actionMeta) => handleSelect(e, actionMeta)}
         />
       </Form.Group>
       <Button variant="primary" type="submit">Submit</Button>
