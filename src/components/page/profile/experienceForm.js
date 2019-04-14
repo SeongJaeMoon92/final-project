@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Button } from 'react-bootstrap'
 
 const ExperienceForm = (props) => {
-  const { data, errors, handleSubmit, handleChange } = props
+  const { data, errors, handleSubmit, handleChange, handleEndDate, endDate } = props
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="title">
@@ -45,16 +45,19 @@ const ExperienceForm = (props) => {
         / >
         {errors.start_date && <Form.Text>{errors.start_date}</Form.Text>}
       </Form.Group>
-      <Form.Group controlId="end_date">
-        <Form.Label>End Date</Form.Label>
-        <Form.Control
-          type="date"
-          name="end_date"
-          onChange={handleChange}
-          value={data.end_date || ''}
-        / >
-        <Form.Text>{errors.end_date ? errors.end_date : 'Leave blank if this is your current job/role.'}</Form.Text>
-      </Form.Group>
+      {!endDate && <Button size="sm" onClick={handleEndDate}>Add End Date</Button>}
+      {endDate &&
+        <Form.Group controlId="end_date">
+          <Form.Label>End Date</Form.Label>
+          <Form.Control
+            type="date"
+            name="end_date"
+            onChange={handleChange}
+            value={data.end_date || ''}
+          / >
+          {errors.end_date && <Form.Text>{errors.end_date}</Form.Text>}
+        </Form.Group>
+      }
       <Form.Group controlId="description">
         <Form.Label>Description</Form.Label>
         <Form.Control as="textarea" rows="3"
