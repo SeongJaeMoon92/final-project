@@ -10,12 +10,13 @@ const ProfileExperience = (props) => {
       <h4>{experience.company}</h4>
       <h5>{experience.title}</h5>
       <h5>{experience.location}</h5>
-      <h5>{experience.start_date === experience.end_date ? experience.start_date : `${experience.start_date} to ${experience.end_date}`}</h5>
+      <h5>{!experience.end_date || experience.start_date === experience.end_date  ? experience.start_date : `${experience.start_date} to ${experience.end_date}`}</h5>
       {experience.description && <p>{experience.description}</p>}
       <ExperienceUpdate
         profileId={profileId}
         experienceId={experience.id}
         data={experience}
+        endDate={experience.end_date}
         getProfileData={getProfileData}
       />
       <ExperienceDelete
