@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { Form, Button} from 'react-bootstrap'
 
 // import component
 
@@ -35,31 +36,36 @@ class Login extends React.Component{
   render(){
     const { data, errors } = this.state
     return (
-      <main>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
-            name="email"
-            id="email"
-            onChange={this.handleChange}
-            value={data.email || ''}
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="password"
-            onChange={this.handleChange}
-            value={data.password || ''}
-          />
-          {errors.message && <small>{errors.message}</small>}
-          <input type="submit" value="Submit"/>
-        </form>
-        <div>
-          Not yet registered? <Link to='/register'>Register here</Link>
+      <div className="login animated fadeIn slow">
+        <div className="loginForm animated zoomIn">
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group controlId="email">
+              <Form.Label>Email</Form.Label>
+                <Form.Control
+                  name="email"
+                  placeholder="Email"
+                  onChange={this.handleChange}
+                  value={data.email || ''}
+                />
+            </Form.Group>
+            <Form.Group controlId="password">
+              <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  onChange={this.handleChange}
+                  value={data.password || ''}
+                />
+            </Form.Group>
+            {errors.message && <Form.Text>{errors.message}</Form.Text>}
+            <Button type="submit">Submit</Button>
+          </Form>
+          <div>
+            Not yet registered? <Link to='/register'>Register here</Link>
+          </div>
         </div>
-      </main>
+      </div>
     )
   }
 }

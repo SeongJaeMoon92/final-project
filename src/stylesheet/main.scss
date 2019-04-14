@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+// #root{
+//   background: url(https://images.pexels.com/photos/265702/pexels-photo-265702.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500);
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// }
+
+@import 'variable/variables';
+
+@import 'common/header';
+
+@import 'page/login';
+@import 'page/register';

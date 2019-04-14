@@ -1,0 +1,37 @@
+.register {
+  background: url(https://images.pexels.com/photos/265702/pexels-photo-265702.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .registerForm{
+    width: 28%;
+    height: 60%;
+    background-color: rgba(255, 252, 242, 0.4);
+    border-radius: 10px 10px 10px 10px;
+    border: 4px solid #000000;
+    // box-shadow: inset 0px 0px 28px 7px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 28px 7px rgba(0,0,0,0.5);
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    button{
+      background-color: $color-beta-light;
+      border-color: $color-omega;
+    }
+    small {
+      color: $color-alpha;
+      margin-bottom: 1em;
+    }
+    div {
+      a {
+        color: $color-alpha;
+      }
+    }
+  }
+}

@@ -31,54 +31,56 @@ class Register extends React.Component{
   render(){
     const { data, errors } = this.state
     return (
-      <main>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="username">
-            <Form.Label>Username</Form.Label>
-              <Form.Control
-                name="username"
-                placeholder='Username'
-                onChange={this.handleChange}
-                value={data.username || ''}
-              />
-          {errors.username && <Form.Text>{errors.username}</Form.Text>}
-          </Form.Group>
-          <Form.Group controlId="email">
-            <Form.Label>Email Address</Form.Label>
-              <Form.Control
-                name="email"
-                placeholder='name@example.com'
-                onChange={this.handleChange}
-                value={data.email || ''}
-              />
-          {errors.email && <Form.Text>{errors.email}</Form.Text>}
-          </Form.Group>
-          <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="password"
-                onChange={this.handleChange}
-                value={data.password || ''}
-              />
-          </Form.Group>
-          <Form.Group controlId="password_confirmation">
-            <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control
-                type="password"
-                name="password_confirmation"
-                placeholder='Password Confirmation'
-                onChange={this.handleChange}
-                value={data.password_confirmation || ''}
-              />
-          </Form.Group>
-          <Button variant="primary" type="submit">Submit</Button>
-        </Form>
-        <div>
-          Already have an account? <Link to='/login'>Login here</Link>
+      <div className="register animated fadeIn slow">
+        <div className="registerForm animated zoomIn">
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group controlId="username">
+              <Form.Label>Username</Form.Label>
+                <Form.Control
+                  name="username"
+                  placeholder='Username'
+                  onChange={this.handleChange}
+                  value={data.username || ''}
+                />
+            {errors.username && <Form.Text>{errors.username}</Form.Text>}
+            </Form.Group>
+            <Form.Group controlId="email">
+              <Form.Label>Email Address</Form.Label>
+                <Form.Control
+                  name="email"
+                  placeholder='name@example.com'
+                  onChange={this.handleChange}
+                  value={data.email || ''}
+                />
+            {errors.email && <Form.Text>{errors.email}</Form.Text>}
+            </Form.Group>
+            <Form.Group controlId="password">
+              <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  onChange={this.handleChange}
+                  value={data.password || ''}
+                />
+            </Form.Group>
+            <Form.Group controlId="password_confirmation">
+              <Form.Label>Password Confirmation</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password_confirmation"
+                  placeholder='Password Confirmation'
+                  onChange={this.handleChange}
+                  value={data.password_confirmation || ''}
+                />
+            </Form.Group>
+            <Button variant="primary" type="submit">Submit</Button>
+          </Form>
+          <div>
+            Already have an account? <Link to='/login'>Login here</Link>
+          </div>
         </div>
-      </main>
+      </div>
     )
   }
 }
