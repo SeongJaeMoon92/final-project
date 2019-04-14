@@ -69,12 +69,12 @@ class JobPostShow extends React.Component {
           onClick={this.handleCommentBox}>
           Comment
         </button>
-        <MessageModal
+        {!this.isOwner() && <MessageModal
           dataMessage={this.state.data}
           handleChange={this.handleChangeMessage}
           handleSubmit={this.handleSubmitMessage}
           data ={jobPost}
-        />
+        />}
         {this.isOwner() && <EditJobPost
           id={jobPost.id}
           postInfo = {getPostInfo}

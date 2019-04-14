@@ -71,12 +71,12 @@ class SocialPostShow extends React.Component {
           onClick={this.handleCommentBox}>
           Comment
         </button>
-        <MessageModal
+        {!this.isOwner() && <MessageModal
           dataMessage={this.state.data}
           handleChange={this.handleChangeMessage}
           handleSubmit={this.handleSubmitMessage}
           data ={socialPost}
-        />
+        />}
         {this.isOwner() && <EditSocialPost
           id={socialPost.id}
           postInfo = {getPostInfo}

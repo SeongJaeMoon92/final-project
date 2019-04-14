@@ -46,7 +46,7 @@ class MessageModal extends React.Component {
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.handleClose}>Send</Button>
+              <Button type="submit" onClick={this.handleClose}>Send</Button>
             </Modal.Footer>
           </Form>
         </Modal>
