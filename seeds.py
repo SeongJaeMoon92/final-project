@@ -119,6 +119,22 @@ with app.app_context():
         owner=alex
     )
 
+    profile_bob = Profile(
+        name='Bob de Builder',
+        headline='Junior web developer at Dark Trace',
+        summary='I am a Junior web developer at Dark trace',
+        location='Essex, UK',
+        owner=bob
+    )
+
+    profile_janet = Profile(
+        name='Janet Brown',
+        headline='Junior web developer at BBC',
+        summary='I am a Junior web developer at BBC',
+        location='Canary Wharf, UK',
+        owner=janet
+    )
+
 
     db.session.add_all([
         profile_moon,
