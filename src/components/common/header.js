@@ -40,13 +40,24 @@ class Header extends React.Component{
     Auth.logout()
   }
 
+
+
   render() {
     if (!Auth.isAuthenticated()) return null
     return (
       <div>
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
             <Navbar.Brand>
-              <Link to="/">Home</Link>
+              <Link to="/">
+                <img
+                  alt=""
+                  src="./assets/images/link-512.png"
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                />
+                {' Joined Up'}
+              </Link>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav"  />
           <Navbar.Collapse id="responsive-navbar-nav entireNavbarHeader">
