@@ -49,7 +49,7 @@ class EducationUpdate extends React.Component{
         this.handleClose()
         this.props.getProfileData()
       })
-      .catch(err => this.setState({errors: err.response}))
+      .catch(err => err.response && this.setState({errors: err.response.data}))
   }
 
   render(){
