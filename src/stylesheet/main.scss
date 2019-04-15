@@ -1,16 +1,13 @@
 * {
   box-sizing: border-box;
 }
+@import '~bootstrap/scss/bootstrap.scss';
 
 @import 'variable/variables';
 
 @import 'layout/header';
 @import 'layout/main';
 @import 'layout/footer';
-
-@import '~bootstrap/scss/bootstrap.scss';
-
-@import 'common/header';
 
 @import 'page/home';
 @import 'page/login';
