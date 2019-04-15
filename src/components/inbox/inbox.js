@@ -106,17 +106,17 @@ class Inbox extends React.Component{
     const {data, profiles, sortMessages, dataMessage} = this.state
     console.log(sortMessages)
     return (
-      <Container className="container-fluid my-3 h-100 inboxContainer">
+      <Container className="container-fluid my-3 inboxContainer container-min-height">
         <div className="messageSidebar">
           <div className="sideBar">
             <Badge variant="secondary" className="text">Messaging</Badge>
             <div ref={el => this.DivButton = el} className="scrollSideBar">
-            {profiles && profiles.map((profile, id) => (
+              {profiles && profiles.map((profile, id) => (
                 <div className="listItem" key={id} onClick={(e) => {
                   this.handleClick(e, profile)
                   this.handleClickColor(e)
                 } }>
-                  <div>{profile.image}</div>
+                  <div><img width="100" src={profile.image ? profile.image : 'https://cdn.filestackcontent.com/r2EcoZ4uR0Wh8bgGlZkV'} /></div>
                   <div>{profile.name}</div>
                   <div>{profile.location}</div>
                   <hr/>

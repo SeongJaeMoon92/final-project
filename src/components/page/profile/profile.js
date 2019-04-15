@@ -51,7 +51,7 @@ class Profile extends React.Component{
     if (!this.state.profile) return null
     const { profile, pendingRequests } = this.state
     return(
-      <Container className="container-fluid my-3 h-100">
+      <Container className="container-fluid my-3 container-min-height">
         {this.isOwner() && pendingRequests > 0 &&
           <Col xs={12} className=" mb-2 text-left">
             <Button href="/discover" variant="warning">

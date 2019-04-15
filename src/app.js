@@ -26,7 +26,7 @@ class App extends React.Component{
   render(){
     return (
       <Browser>
-        <main className="bg-light mainPage">
+        <main className="bg-light appHeight">
           <Header />
           <Switch>
             <SecureRoute path='/inbox' component={Inbox} />

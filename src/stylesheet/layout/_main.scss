@@ -2,14 +2,21 @@
 	height: 100vh;
 }
 
+.appHeight {
+  height: 100%;
+}
 .mainPage {
-		min-height: calc(100vh - 120px);
+		height: 100%;
 		  // background:	#E8E8E8;
 	}
 
 // .container {
 // 	height: calc(95% - 56px);
 // }
+
+.container-min-height {
+  min-height: calc(100vh - 140px);
+}
 
 .active {
 	color: $success;

@@ -104,7 +104,7 @@ class NetworkIndex extends React.Component{
     if (!userProfile || !otherProfiles || !allRequests) return null
     const filteredProfiles = otherProfiles.filter(profiles => profiles.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
     return(
-      <Container className="container-fluid my-3">
+      <Container className="container-fluid my-3 container-min-height">
         <Row className="justify-content-center mb-4">
           <Col xs={12} md={10}>
             <Form.Control
