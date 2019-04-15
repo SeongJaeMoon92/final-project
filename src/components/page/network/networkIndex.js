@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Form } from 'react-bootstrap'
 
 import Auth from '../../lib/auth'
 
@@ -104,14 +104,17 @@ class NetworkIndex extends React.Component{
     if (!userProfile || !otherProfiles || !allRequests) return null
     const filteredProfiles = otherProfiles.filter(profiles => profiles.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
     return(
-      <div>
-        <h1>Network</h1>
-        <input
-          type="text"
-          placeholder="Search by name"
-          value={search}
-          onChange={this.handleSearch}
-        / >
+      <Container className="container-fluid my-3">
+        <Row className="justify-content-center mb-4">
+          <Col xs={12} md={10}>
+            <Form.Control
+              type="text"
+              placeholder="Search by name"
+              value={search}
+              onChange={this.handleSearch}
+            / >
+          </Col>
+        </Row>
         <Container>
           <Row>
             {filteredProfiles.map((profile, id) => (
@@ -129,7 +132,7 @@ class NetworkIndex extends React.Component{
             ))}
           </Row>
         </Container>
-      </div>
+      </Container>
     )
   }
 }
