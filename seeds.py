@@ -98,6 +98,7 @@ with app.app_context():
     profile_wes = Profile(
         name='Wesley Hall',
         headline='Web Development Immersive Student',
+        image='https://cdn.filestackcontent.com/88IBDPLURXu6NDEH3W54',
         summary='''With a strong interest in technology and a logical and creative approach to problem solving, I decided to leave my job as a generalist Marketing Executive and join the Web Development Immersive course at General Assembly London in January 2018.
 
         I am looking for an opportunity to continue my career change in an environment that both supports my desire to learn and grow as a full-stack developer and my desire to collaborate with and help others working towards similar goals.''',
@@ -662,11 +663,12 @@ with app.app_context():
 
 
 # Job Posts =================================================================
+    image_logo_ga = 'https://cdn.filestackcontent.com/UUkTk6VgSTmfpX4gq8TW'
     job_post_1 = JobPost(
         company='General Assembly',
         job_title="Some job title",
         post_content='This is a job post. Come and work at our amazing company!',
-        post_image='./src/assets/images/profiles/general_assembly.png',
+        post_image=image_logo_ga,
         owner=moon,
         industries=[industry2, industry5],
         liked_by=[wes]
@@ -676,7 +678,7 @@ with app.app_context():
         company='General Assembly',
         job_title="Some other job title",
         post_content='This is another job post. Join our amazing team today!',
-        post_image='./src/assets/images/companies/general_assembly.png',
+        post_image=image_logo_ga,
         owner=wes,
         industries=[industry8, industry4],
         liked_by=[moon]
