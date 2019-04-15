@@ -67,32 +67,39 @@ class SocialPostIndex extends React.Component {
     const filteredSocialPost = socialPosts.filter(post => post.post_title.toLowerCase().indexOf(this.state.search.toLowerCase())!== -1)
     return(
       <div className="postform">
-        <SocialPostNew
-          postInfo={this.getPostInfo}
-        />
-        <Form.Control
-          type="text"
-          placeholder="Search by name"
-          value={this.state.search}
-          onChange={this.handleSearch}
-        / >
+        <div className="sectionOne">
+          <div className="searchBox">
+          <span>Social Post</span>
+          <Form.Control
+            type="text"
+            placeholder="Search by name"
+            value={this.state.search}
+            onChange={this.handleSearch}
+          / >
+        </div>
+        <div className="jobPostWrapperOverFlow">
         {filteredSocialPost && filteredSocialPost.sort((a,b) => {
-          if (a.id > b.id) return 1
-          return -1
-        }).map((socialPost,id) => (
-          <div key={id}>
-            <SocialPostShow
-              getPostInfo = {this.getPostInfo}
-              socialPost = {socialPost}
-              handleLike = {this.handleLike}
-              handleChange = {this.handleChange}
-              handleSubmit = {this.handleSubmit}
-              handleDelete = {this.handleDelete}
-              data = {this.state.data}
-              errors = {this.state.errors}
-            />
+            if (a.id > b.id) return 1
+            return -1
+          }).map((socialPost,id) => (
+            <div key={id} className="jobPostWrapper">
+              <SocialPostShow
+                getPostInfo = {this.getPostInfo}
+                socialPost = {socialPost}
+                handleLike = {this.handleLike}
+                handleChange = {this.handleChange}
+                handleSubmit = {this.handleSubmit}
+                handleDelete = {this.handleDelete}
+                data = {this.state.data}
+                errors = {this.state.errors}
+              />
+            </div>
+          ))}
           </div>
-        ))}
+        </div>
+        <SocialPostNew
+        postInfo={this.getPostInfo}
+        />
       </div>
     )
   }

@@ -87,7 +87,10 @@ class EditJobPost extends React.Component {
         return industries
       })
       .then(res => {
+        console.log(res)
         this.fileInput.current.state.value = res.map(data => (
+          {value: data.id, label: data.industry}))
+        this.fileInput.current._reactInternalFiber.stateNode.state.value = res.map(data => (
           {value: data.id, label: data.industry}))
       })
       .catch(err => {
@@ -116,7 +119,7 @@ class EditJobPost extends React.Component {
     const {data, errors} = this.state
     return (
       <>
-        <Button variant="primary" onClick={this.handleShow}>
+        <Button className="buttonColor" onClick={this.handleShow}>
          Edit
         </Button>
 

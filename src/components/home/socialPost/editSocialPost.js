@@ -115,7 +115,7 @@ class EditSocialPost extends React.Component {
     const {data, errors} = this.state
     return (
       <>
-        <Button variant="primary" onClick={this.handleShow}>
+        <Button className="buttonColor" onClick={this.handleShow}>
          Edit
         </Button>
 

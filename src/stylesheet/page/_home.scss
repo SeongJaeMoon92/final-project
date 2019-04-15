@@ -1,0 +1,84 @@
+.mainHomePage{
+  display: flex;
+  height: calc(95% - 56px);
+  width: 100%;
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1em;
+    width: 15%;
+    height: 100%;
+    div {
+      display: flex;
+      justify-content: center;
+      .switchButton{
+        margin-top: 2em;
+        width: 50%;
+      }
+    }
+
+    .sideProfile {
+      height: 50%;
+      width: 100%;
+      border: 1px solid black;
+    }
+  }
+  .postform {
+    display: flex;
+    width: 85%;
+    height: 100%;
+    .sectionOne {
+      width: 70%;
+      height: 100%;
+      .jobPostWrapperOverFlow{
+        height: calc(100% - 72px);
+        overflow-y: scroll;
+        .jobPostWrapper {
+          padding: 1em;
+          margin: 1em;
+          border: 1px solid black;
+          .showPage {
+            width: 100%;
+            height: 100%;
+            img {
+              height: 40%;
+              width: 40%;
+            }
+          }
+        }
+      }
+      }
+
+    .sectionTwo {
+      width: 30%;
+      height: 100%;
+      background-color: rgba(255, 252, 242, 0.4);
+      border-radius: 10px 10px 10px 10px;
+      padding: 2em;
+      display: flex;
+      flex-direction: column;
+      // justify-content: center;
+      text-align: center;
+      button{
+        background-color: $color-beta-light;
+        border-color: $color-omega;
+      }
+      small {
+        color: $color-alpha;
+        margin-bottom: 1em;
+      }
+      div {
+        a {
+          color: $color-alpha;
+        }
+      }
+    }
+  }
+}
+
+.buttonColor {
+  background-color: $color-beta-light;
+  border-color: $color-omega;
+}
+// #root > div > main > div.postform > div.sectionOne

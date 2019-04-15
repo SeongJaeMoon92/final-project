@@ -13,8 +13,6 @@ class JobPostIndex extends React.Component {
     this.state = { data: {}, errors: {}, search: ''}
 
     this.handleLike = this.handleLike.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.getPostInfo = this.getPostInfo.bind(this)
@@ -37,20 +35,6 @@ class JobPostIndex extends React.Component {
       .catch(err => console.log(err.response))
   }
 
-  handleChange({target: {name, value}}){
-    const data = {...this.state.data, [name]: value}
-    const errors = {...this.state.errors, [name]: ''}
-    this.setState({ data, errors })
-  }
-
-  handleSubmit(e, jobPost){
-    e.preventDefault()
-    axios.post(`/api/job_posts/${jobPost.id}/comments`,  this.state.data,
-      { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
-      .then(() => this.setState({data: ''}, this.getPostInfo()))
-      .catch(err => this.setState({errors: err.response.data}))
-  }
-
   handleDelete(e){
     axios.delete(`/api/job_posts/${e.target.value}`,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
@@ -67,32 +51,37 @@ class JobPostIndex extends React.Component {
     const filteredJobPost = jobPosts.filter(post => post.company.toLowerCase().indexOf(this.state.search.toLowerCase())!== -1)
     return(
       <div className="postform">
-        <JobPostNew
-          postInfo={this.getPostInfo}
-        />
-        <Form.Control
-          type="text"
-          placeholder="Search by name"
-          value={this.state.search}
-          onChange={this.handleSearch}
-        / >
-        {filteredJobPost && filteredJobPost.sort((a,b) => {
-          if (a.id > b.id) return 1
-          return -1
-        }).map((jobPost,id) => (
-          <div key={id}>
-            <JobPostShow
-              getPostInfo = {this.getPostInfo}
-              jobPost = {jobPost}
-              handleLike = {this.handleLike}
-              handleChange = {this.handleChange}
-              handleSubmit = {this.handleSubmit}
-              handleDelete = {this.handleDelete}
-              data = {this.state.data}
-              errors = {this.state.errors}
-            />
+        <div className="sectionOne">
+          <div className="searchBox">
+            <span>Job Post</span>
+            <Form.Control
+              type="text"
+              placeholder="Search by name"
+              value={this.state.search}
+              onChange={this.handleSearch}
+            / >
           </div>
-        ))}
+          <div className="jobPostWrapperOverFlow">
+          {filteredJobPost && filteredJobPost.sort((a,b) => {
+            if (a.id > b.id) return 1
+            return -1
+          }).map((jobPost,id) => (
+            <div key={id} className="jobPostWrapper">
+              <JobPostShow
+                getPostInfo = {this.getPostInfo}
+                jobPost = {jobPost}
+                handleLike = {this.handleLike}
+                handleDelete = {this.handleDelete}
+                data = {this.state.data}
+                errors = {this.state.errors}
+              />
+            </div>
+          ))}
+          </div>
+        </div>
+        <JobPostNew
+        postInfo={this.getPostInfo}
+        />
       </div>
     )
   }

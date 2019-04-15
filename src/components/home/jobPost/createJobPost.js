@@ -22,7 +22,9 @@ class JobPostNew extends React.Component {
     this.setState({ data, errors })
   }
 
-  handleSelect(e){
+  handleSelect(e, actionMeta){
+    console.log(actionMeta, 'action')
+    console.log(this.fileInput, 'status')
     const arr = []
     e.forEach(val => {
       const industries = {id: parseInt(val.value), industry: val.label}
@@ -59,8 +61,6 @@ class JobPostNew extends React.Component {
       this.state.data,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => this.setState({data: ''},() =>{
-        // console.log(this.state.data, 'axios post')
-        // console.log(this.fileInput, 'fileInput')
         this.fileInput.current.select.clearValue()
         this.props.postInfo()
       }))
@@ -74,7 +74,9 @@ class JobPostNew extends React.Component {
 
   render() {
     return (
-      <main>
+      <div className="sectionTwo">
+        <span>Create a new post</span>
+        <hr/>
         <JobPostForm
           selectRef={this.fileInput}
           handleChange={this.handleChange}
@@ -83,7 +85,7 @@ class JobPostNew extends React.Component {
           data={this.state.data}
           errors={this.state.errors}
         />
-      </main>
+      </div>
     )
   }
 }

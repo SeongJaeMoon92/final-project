@@ -23,7 +23,7 @@ class MessageModal extends React.Component {
     const {dataMessage, handleChange, data, handleSubmit} = this.props
     return (
       <>
-        <Button variant="primary" onClick={this.handleShow}>
+        <Button className="buttonColor" onClick={this.handleShow}>
          Message to {data.owner.username}
         </Button>
         <Modal
@@ -46,7 +46,7 @@ class MessageModal extends React.Component {
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-              <Button type="submit" onClick={this.handleClose}>Send</Button>
+              <Button className="buttonColor" type="submit" onClick={this.handleClose}>Send</Button>
             </Modal.Footer>
           </Form>
         </Modal>

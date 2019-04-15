@@ -19,6 +19,17 @@ const SocialPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, 
         />
         {errors.post_title && <Form.Text>{errors.post_title}</Form.Text>}
       </Form.Group>
+      <Form.Group controlId="industries">
+      <Form.Label>Industries</Form.Label>
+        <Select
+          ref={selectRef}
+          closeMenuOnSelect={false}
+          components={makeAnimated()}
+          isMulti
+          options={industriesOptions}
+          onChange={(e, actionMeta) => handleSelect(e, actionMeta)}
+        />
+      </Form.Group>
       <Form.Group controlId="post_content">
         <Form.Label>Content</Form.Label>
         <Form.Control
@@ -36,17 +47,6 @@ const SocialPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, 
           placeholder="Image"
           onChange={handleChange}
           value={data.post_image || ''}
-        />
-      </Form.Group>
-      <Form.Label>Industries</Form.Label>
-      <Form.Group controlId="industries">
-        <Select
-          ref={selectRef}
-          closeMenuOnSelect={false}
-          components={makeAnimated()}
-          isMulti
-          options={industriesOptions}
-          onChange={(e, actionMeta) => handleSelect(e, actionMeta)}
         />
       </Form.Group>
       <Button variant="primary" type="submit">Submit</Button>

@@ -1,8 +1,9 @@
 import React from 'react'
 import axios from 'axios'
+import { withRouter } from 'react-router-dom'
+import { Button, Form } from 'react-bootstrap'
 
 import EditSocialPost from  './editSocialPost'
-import { withRouter } from 'react-router-dom'
 import Auth from '../../lib/auth'
 import MessageModal from '../message/messageModal'
 
@@ -48,7 +49,7 @@ class SocialPostShow extends React.Component {
     const { commentBox } = this.state
     const {socialPost, handleLike, handleChange, handleSubmit, data, errors, getPostInfo } = this.props
     return(
-      <div>
+      <div className="showPage">
         <div>{socialPost.post_title}</div>
         <div>{socialPost.post_content}</div>
         <img src={socialPost.post_image} alt={socialPost.post_title}/>
@@ -60,17 +61,19 @@ class SocialPostShow extends React.Component {
         <div>{socialPost.comments.map(comment => (
           `${comment.content} by ${comment.user.username}`
         ))}</div>
-        <input
-          type='button'
+        <Button
+          className="buttonColor"
           name={socialPost.id}
-          value='like'
           onClick={handleLike}
-        />
-        <button
+        >
+        Like
+        </Button>
+        <Button
+          className="buttonColor"
           value={socialPost.id}
           onClick={this.handleCommentBox}>
           Comment
-        </button>
+        </Button>
         {!this.isOwner() && <MessageModal
           dataMessage={this.state.data}
           handleChange={this.handleChangeMessage}
@@ -81,20 +84,23 @@ class SocialPostShow extends React.Component {
           id={socialPost.id}
           postInfo = {getPostInfo}
         />}
-        {this.isOwner() && <button value={socialPost.id} onClick={this.props.handleDelete}>Delete</button>}
+        {this.isOwner() && <Button  className="buttonColor" value={socialPost.id} onClick={this.props.handleDelete}>Delete</Button>}
         {commentBox &&
-          <form onSubmit={(e) => {
+          <Form onSubmit={(e) => {
             handleSubmit(e, socialPost)
             this.handleCommentBox()
           }}>
-            <div>Comment</div>
-            <textarea
+            <Form.Group controlId="content">
+            <Form.Label>Comment</Form.Label>
+            <Form.Control
+              as="textarea"
               name='content'
               onChange={handleChange}
               value={data.content || ''}
             />
-            <button>submit</button>
-          </form>
+            </Form.Group>
+            <Button type="submit" className="buttonColor">submit</Button>
+          </Form>
         }
         <hr />
       </div>

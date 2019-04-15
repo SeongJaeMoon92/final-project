@@ -22,24 +22,19 @@ class MainPage extends React.Component{
   render(){
     const {socialPost, jobPost} = this.state
     return (
-      <main>
-        <SideProfile />
-        <hr />
-        {socialPost &&
+      <main className="mainHomePage">
+        <div className="sidebar">
+          <SideProfile />
           <div>
-            <Button onClick={this.handlePost}> Switch to Job Post</Button>
-            <h1>Social Post</h1>
-            <SocialPostIndex />
-          </div>}
-        {jobPost &&
-          <div>
-            <Button onClick={this.handlePost}> Switch to Social Post</Button>
-            <h1>Job Post</h1>
-            <JobPostIndex />
-          </div>}
+          <Button className="buttonColor switchButton" onClick={this.handlePost}> Switch</Button>   
+          </div>   
+        </div>
+        {socialPost && <SocialPostIndex />}
+        {jobPost && <JobPostIndex />}
       </main>
     )
   }
 }
 
+// <Button onClick={this.handlePost}> Switch to Social Post</Button>
 export default MainPage

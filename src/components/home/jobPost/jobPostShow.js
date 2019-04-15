@@ -1,8 +1,9 @@
 import React from 'react'
 import axios from 'axios'
+import { withRouter } from 'react-router-dom'
+import {Button} from 'react-bootstrap'
 
 import EditJobPost from  './editJobPost'
-import { withRouter } from 'react-router-dom'
 import Auth from '../../lib/auth'
 import MessageModal from '../message/messageModal'
 
@@ -10,15 +11,10 @@ class JobPostShow extends React.Component {
   constructor(){
     super()
 
-    this.state = {commentBox: false, messageBox: false, data: {}}
+    this.state = { data: {}}
 
-    this.handleCommentBox = this.handleCommentBox.bind(this)
     this.handleChangeMessage = this.handleChangeMessage.bind(this)
     this.handleSubmitMessage = this.handleSubmitMessage.bind(this)
-  }
-
-  handleCommentBox(){
-    this.setState({commentBox: !this.state.commentBox})
   }
 
   handleChangeMessage({target: {name, value}}){
@@ -45,10 +41,9 @@ class JobPostShow extends React.Component {
   }
 
   render(){
-    const { commentBox } = this.state
-    const {jobPost, handleLike, handleChange, handleSubmit, data, errors, getPostInfo } = this.props
+    const {jobPost, handleLike, handleChange, data, errors, getPostInfo } = this.props
     return(
-      <div>
+      <div className="showPage">
         <div>{jobPost.company}</div>
         <div>{jobPost.job_tile}</div>
         <div>{jobPost.post_content}</div>
@@ -58,17 +53,13 @@ class JobPostShow extends React.Component {
         ))}</div>
         <div>{jobPost.owner.username}</div>
         <div>{jobPost.liked_by.length}</div>
-        <input
-          type='button'
+        <Button
           name={jobPost.id}
-          value='like'
+          className="buttonColor"
           onClick={handleLike}
-        />
-        <button
-          value={jobPost.id}
-          onClick={this.handleCommentBox}>
-          Comment
-        </button>
+        >
+        Like
+        </Button>
         {!this.isOwner() && <MessageModal
           dataMessage={this.state.data}
           handleChange={this.handleChangeMessage}
@@ -79,22 +70,7 @@ class JobPostShow extends React.Component {
           id={jobPost.id}
           postInfo = {getPostInfo}
         />}
-        {this.isOwner() && <button value={jobPost.id} onClick={this.props.handleDelete}>Delete</button>}
-        {commentBox &&
-          <form onSubmit={(e) => {
-            handleSubmit(e, jobPost)
-            this.handleCommentBox()
-          }}>
-            <div>Comment</div>
-            <textarea
-              name='content'
-              onChange={handleChange}
-              value={data.content || ''}
-            />
-            <button>submit</button>
-          </form>
-        }
-        <hr />
+        {this.isOwner() && <Button className="buttonColor" value={jobPost.id} onClick={this.props.handleDelete}>Delete</Button>}
       </div>
     )
   }

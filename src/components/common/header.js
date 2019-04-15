@@ -45,7 +45,7 @@ class Header extends React.Component{
   render() {
     if (!Auth.isAuthenticated()) return null
     return (
-      <div>
+      <div className="navHeader">
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
             <Navbar.Brand>
               <Link to="/">

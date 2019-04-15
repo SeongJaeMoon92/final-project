@@ -6,6 +6,7 @@ import './stylesheet/main.scss'
 // import components
 
 import Header from './components/common/header'
+import Footer from './components/common/footer'
 import MainPage from './components/home/mainPage'
 import Register from './components/registerLogin/register'
 import Login from './components/registerLogin/login'
@@ -26,7 +27,7 @@ class App extends React.Component{
   render(){
     return (
       <Browser>
-        <div>
+        <div className="mainPage">
           <Header />
           <Switch>
             <SecureRoute path='/inbox' component={Inbox} />
@@ -38,6 +39,7 @@ class App extends React.Component{
             <Route path='/register' component={Register} />
             <SecureRoute exact path='/' component={MainPage} />
           </Switch>
+          <Footer />
         </div>
       </Browser>
     )

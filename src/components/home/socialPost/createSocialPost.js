@@ -59,8 +59,6 @@ class SocialPostNew extends React.Component {
       this.state.data,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => this.setState({data: ''},() =>{
-        // console.log(this.state.data, 'axios post')
-        // console.log(this.fileInput, 'fileInput')
         this.fileInput.current.select.clearValue()
         this.props.postInfo()
       }))
@@ -74,7 +72,9 @@ class SocialPostNew extends React.Component {
 
   render() {
     return (
-      <main>
+      <div className="sectionTwo">
+        <span>Create a new post</span>
+        <hr/>
         <SocialPostForm
           selectRef={this.fileInput}
           handleChange={this.handleChange}
@@ -83,7 +83,7 @@ class SocialPostNew extends React.Component {
           data={this.state.data}
           errors={this.state.errors}
         />
-      </main>
+      </div>
     )
   }
 }

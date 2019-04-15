@@ -18,6 +18,17 @@ const JobPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, sel
         />
         {errors.company && <Form.Text>{errors.company}</Form.Text>}
       </Form.Group>
+      <Form.Group controlId="industries">
+        <Form.Label>Industries</Form.Label>
+        <Select
+          ref={selectRef}
+          closeMenuOnSelect={false}
+          components={makeAnimated()}
+          isMulti
+          options={industriesOptions}
+          onChange={(e, actionMeta) => handleSelect(e, actionMeta)}
+        />
+      </Form.Group>
       <Form.Group controlId="job_title">
         <Form.Label>Job Title</Form.Label>
         <Form.Control
@@ -47,18 +58,7 @@ const JobPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, sel
           value={data.post_image || ''}
         />
       </Form.Group>
-      <Form.Group controlId="industries">
-        <Form.Label>Industries</Form.Label>
-        <Select
-          ref={selectRef}
-          closeMenuOnSelect={false}
-          components={makeAnimated()}
-          isMulti
-          options={industriesOptions}
-          onChange={(e, actionMeta) => handleSelect(e, actionMeta)}
-        />
-      </Form.Group>
-      <Button variant="primary" type="submit">Submit</Button>
+      <Button className="buttonColor" type="submit">Submit</Button>
     </Form>
   )
 }
