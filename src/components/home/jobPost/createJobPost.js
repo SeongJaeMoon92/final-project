@@ -76,12 +76,14 @@ class JobPostNew extends React.Component {
       .catch(err => this.setState({ errors: err.response.data}))
   }
 
+
   handleSubmit(e) {
     e.preventDefault()
     this.handleNestedObject()
   }
 
   render() {
+    console.log(this.state.errors);
     return (
       <div className="sectionTwo">
         <span>Create a new post</span>
@@ -93,6 +95,7 @@ class JobPostNew extends React.Component {
           handleSelect={this.handleSelect}
           data={this.state.data}
           errors={this.state.errors}
+          validated={this.state.validated}
         />
       </div>
     )

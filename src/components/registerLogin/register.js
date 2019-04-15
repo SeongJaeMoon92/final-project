@@ -7,7 +7,7 @@ class Register extends React.Component{
   constructor(){
     super()
 
-    this.state = { data: {}, errors: {}}
+    this.state = { data: {username: '', email: ''}, errors: {}, validated: false}
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -21,58 +21,78 @@ class Register extends React.Component{
 
   handleSubmit(e){
     e.preventDefault()
-    axios.post('/api/register', this.state.data)
-      .then(() => {
-        this.props.history.push('/login')
-      })
-      .catch(err => this.setState({errors: err.response.data}))
+    const form = e.currentTarget
+    if (form.checkValidity() === false) {
+      e.stopPropagation()
+    }
+    this.setState({ validated: true }, () => {
+      axios.post('/api/register', this.state.data)
+        .then(() => {
+          this.props.history.push('/login')
+        })
+        .catch(err => this.setState({errors: err.response.data}))
+    })
   }
 
   render(){
-    const { data, errors } = this.state
+    const { data, errors, validated } = this.state
     return (
       <div className="register">
         <div className="registerForm animated fadeIn">
-          <Form onSubmit={this.handleSubmit}>
+          <Form
+            noValidate
+            validated={validated}
+            onSubmit={this.handleSubmit}
+          >
             <Form.Group controlId="username">
-              <Form.Label>Username</Form.Label>
+              <Form.Label className={errors.username ? 'text-danger' : ''}>Username</Form.Label>
                 <Form.Control
+                  required
+                  className={errors.username ? 'border-danger' : ''}
                   name="username"
                   placeholder='Username'
                   onChange={this.handleChange}
                   value={data.username || ''}
                 />
-            {errors.username && <Form.Text>{errors.username}</Form.Text>}
+            {errors.username && <Form.Text className="text-danger">{errors.username}</Form.Text>}
             </Form.Group>
             <Form.Group controlId="email">
-              <Form.Label>Email Address</Form.Label>
+              <Form.Label className={errors.email ? 'text-danger' : ''}>Email Address</Form.Label>
                 <Form.Control
+                  required
+                  className={errors.email ? 'border-danger' : ''}
                   name="email"
                   placeholder='name@example.com'
                   onChange={this.handleChange}
                   value={data.email || ''}
                 />
-            {errors.email && <Form.Text>{errors.email}</Form.Text>}
+            {errors.email && <Form.Text className="text-danger">{errors.email}</Form.Text>}
             </Form.Group>
             <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
+              <Form.Label className={errors.password ? 'text-danger' : ''}>Password</Form.Label>
                 <Form.Control
+                  required
+                  className={errors.password ? 'border-danger' : ''}
                   type="password"
                   name="password"
                   placeholder="password"
                   onChange={this.handleChange}
                   value={data.password || ''}
                 />
+                {errors.password && <Form.Text className="text-danger">{errors.password}</Form.Text>}
             </Form.Group>
             <Form.Group controlId="password_confirmation">
-              <Form.Label>Password Confirmation</Form.Label>
+              <Form.Label className={errors.password_confirmation ? 'text-danger' : ''}>Password Confirmation</Form.Label>
                 <Form.Control
+                  required
+                  className={errors.password_confirmation ? 'border-danger' : ''}
                   type="password"
                   name="password_confirmation"
                   placeholder='Password Confirmation'
                   onChange={this.handleChange}
                   value={data.password_confirmation || ''}
                 />
+                {errors.password_confirmation && <Form.Text className="text-danger">{errors.password_confirmation}</Form.Text>}
             </Form.Group>
             <Button variant="primary" type="submit">Submit</Button>
           </Form>

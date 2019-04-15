@@ -10,14 +10,15 @@ const SocialPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, 
   return(
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="post_title">
-        <Form.Label>Title</Form.Label>
+        <Form.Label className={errors.post_title ? 'text-danger' : ''}>Title</Form.Label>
         <Form.Control
+          className={errors.post_title ? 'border-danger' : ''}
           name="post_title"
           placeholder='Title'
           onChange={handleChange}
           value={data.post_title || ''}
         />
-        {errors.post_title && <Form.Text>{errors.post_title}</Form.Text>}
+        {errors.post_title && <Form.Text className="text-danger">{errors.post_title}</Form.Text>}
       </Form.Group>
       <Form.Group controlId="industries">
       <Form.Label>Industries</Form.Label>
@@ -31,14 +32,15 @@ const SocialPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, 
         />
       </Form.Group>
       <Form.Group controlId="post_content">
-        <Form.Label>Content</Form.Label>
+        <Form.Label className={errors.post_content ? 'text-danger' : ''}>Content</Form.Label>
         <Form.Control
+          className={errors.post_content ? 'border-danger' : ''}
           name="post_content"
           placeholder='Content'
           onChange={handleChange}
           value={data.post_content || ''}
         />
-        {errors.post_content && <Form.Text>{errors.post_content}</Form.Text>}
+        {errors.post_content && <Form.Text className="text-danger">{errors.post_content}</Form.Text>}
       </Form.Group>
       <Form.Group controlId="post_image">
         <Form.Label>Image</Form.Label>

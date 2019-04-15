@@ -47,6 +47,41 @@ class User(db.Model, BaseModel):
 
 class UserSchema(ma.ModelSchema, BaseSchema):
 
+    username = fields.String(
+        required=True,
+        error_messages={'required': ''}
+    )
+
+    email = fields.String(
+        required=True,
+        error_messages={'required': ''}
+    )
+
+    password = fields.String(
+        required=True,
+        validate=[validate.Length(min=8, max=50)]
+    )
+
+    password_confirmation = fields.String(required=True)
+
+    @validates_schema
+    #pylint: disable=R0201
+    def validate_username(self, data):
+        if not data.get('username'):
+            raise ValidationError(
+                'Username is required',
+                'username'
+            )
+
+    @validates_schema
+    #pylint: disable=R0201
+    def validate_email(self, data):
+        if not data.get('email'):
+            raise ValidationError(
+                'Email is required',
+                'email'
+            )
+
     @validates_schema
     #pylint: disable=R0201
     def check_passwords_match(self, data):
@@ -55,13 +90,6 @@ class UserSchema(ma.ModelSchema, BaseSchema):
             'Passwords do not match',
             'password_confirmation'
             )
-
-    password = fields.String(
-        required=True,
-        validate=[validate.Length(min=8, max=50)]
-    )
-
-    password_confirmation = fields.String(required=True)
 
     user_profile = fields.Nested('ProfileSchema', only=('id',))
     owned_job_posts = fields.Nested('JobPostSchema', many=True)

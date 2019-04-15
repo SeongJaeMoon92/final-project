@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import {Form, Button, Container, Row, Col} from 'react-bootstrap'
+import {Form, Button, Container, Row, Col, Badge} from 'react-bootstrap'
 
 // import component
 import Auth from '../lib/auth'
@@ -14,6 +14,7 @@ class Inbox extends React.Component{
     this.handleChangeMessage = this.handleChangeMessage.bind(this)
     this.handleSubmitMessage = this.handleSubmitMessage.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleClickColor = this.handleClickColor.bind(this)
   }
 
   componentDidMount(){
@@ -62,6 +63,7 @@ class Inbox extends React.Component{
     })
     this.setState({sortMessages})
   }
+
   handleMessageUpdate(){
     this.getMessagesInfo()
     setTimeout(() => {
@@ -91,49 +93,66 @@ class Inbox extends React.Component{
     )
   }
 
+  handleClickColor(e){
+    const divArray = [...this.DivButton.children]
+    if(divArray.some(x => x.classList.contains('active'))){
+      const newarray = divArray.filter(x => x.classList.contains('active'))
+      newarray[0].classList.remove('active')
+    }
+    e.currentTarget.classList.add('active')
+  }
+
   render(){
     const {data, profiles, sortMessages, dataMessage} = this.state
+    console.log(sortMessages)
     return (
-      <div className="container">
-        <Container className="h-100">
-          <Col className="messageSidebar">
-          Side Bar
-          {profiles && profiles.map((profile, id) => (
-              <div  key={id} onClick={(e) => this.handleClick(e, profile)}>
-                <div>{profile.image}</div>
-                <div>{profile.name}</div>
-                <div>{profile.location}</div>
-                <hr/>
-              </div>
-            ))
-          }
-          </Col>
-          <Col xs={9} className="messageBox">
-              <Container className="border-bottom message">
-              {sortMessages && sortMessages.map((message, id) => (
-                  <Row className="my-4" key={id}>
-                    <div className="mx-4"> {message.message_content}</div>
-                    <div>Sent by: {message.sender.username}</div>
-                  </Row>
+      <div className="container inboxContainer">
+        <div className="messageSidebar">
+          <div className="sideBar">
+            <Badge variant="secondary" className="text">Messaging</Badge>
+            <div ref={el => this.DivButton = el} className="scrollSideBar">
+            {profiles && profiles.map((profile, id) => (
+                <div className="listItem" key={id} onClick={(e) => {
+                  this.handleClick(e, profile)
+                  this.handleClickColor(e)
+                } }>
+                  <div>{profile.image}</div>
+                  <div>{profile.name}</div>
+                  <div>{profile.location}</div>
+                  <hr/>
+                </div>
               ))}
-              </Container>
-              <Container className="messageContent">
-                <Form onSubmit={this.handleSubmitMessage}>
-                  <Form.Group controlId="message_content">
-                    <Form.Label>Message</Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        name="message_content"
-                        placeholder='Message'
-                        onChange={this.handleChangeMessage}
-                        value={dataMessage.message_content || ''}
-                      />
-                  </Form.Group>
-                  <Button type="submit">Send</Button>
-                </Form>
-              </Container>
-          </Col>
-        </Container>
+            </div>
+          </div>
+        </div>
+        <div className="messageBox">
+            <div className="border-bottom message">
+            {sortMessages && sortMessages.map((message, id) => (
+                <Row className="my-4" key={id}>
+                  <Col className={message.sender.id === Auth.getPayload().sub ? 'mx-4 text-right' : 'mx-4 text-left'}>
+                    <div>{message.message_content}</div>
+                    <div>Sent by: {message.sender.username}</div>
+                    <hr />
+                  </Col>
+                </Row>
+            ))}
+            </div>
+            <div className="messageContent">
+              <Form onSubmit={this.handleSubmitMessage}>
+                <Form.Group controlId="message_content">
+                  <Form.Label>Message</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      name="message_content"
+                      placeholder='Message'
+                      onChange={this.handleChangeMessage}
+                      value={dataMessage.message_content || ''}
+                    />
+                </Form.Group>
+                <Button type="submit">Send</Button>
+              </Form>
+            </div>
+        </div>
       </div>
     )
   }
