@@ -14,7 +14,6 @@ import SecureRoute from './components/lib/secureRoute'
 import NetworkIndex from './components/page/network/networkIndex'
 import Profile from './components/page/profile/profile'
 import ProfileCreate from './components/page/profile/profileCreate'
-import ProfileUpdate from './components/page/profile/profileUpdate'
 import Inbox from './components/inbox/inbox'
 
 class App extends React.Component{
@@ -31,7 +30,6 @@ class App extends React.Component{
           <Header />
           <Switch>
             <SecureRoute path='/inbox' component={Inbox} />
-            <SecureRoute path='/profile/:id/update' component={ProfileUpdate} />
             <SecureRoute path='/profile/new' component={ProfileCreate} />
             <SecureRoute path='/profile/:id' component={Profile} />
             <SecureRoute path='/discover' component={NetworkIndex} />
