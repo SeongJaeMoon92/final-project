@@ -4,6 +4,7 @@ from marshmallow import fields
 from models.base import BaseModel, BaseSchema
 from models.user import User
 from .industry import Industry
+from marshmallow import validates_schema, ValidationError, fields, validate
 
 likes_social_post = db.Table(
     'likes_social_post',
@@ -40,10 +41,38 @@ class Comment(db.Model, BaseModel):
 
 class SocialPostSchema(ma.ModelSchema, BaseSchema):
 
+    post_title = fields.String(
+        required=True,
+        error_messages={'required': ''}
+    )
+
+    post_content = fields.String(
+        required=True,
+        error_messages={'required': ''}
+    )
+
     comments = fields.Nested('CommentSchema', many=True, only=('content', 'user', 'id'))
     liked_by = fields.Nested('UserSchema', many=True, only=('id', 'username'))
     owner = fields.Nested('UserSchema', only=('id', 'username'))
     industries = fields.Nested('IndustrySchema', many=True, only=('id', 'industry'))
+
+    @validates_schema
+    #pylint: disable=R0201
+    def validate_post_title(self, data):
+        if not data.get('post_title'):
+            raise ValidationError(
+                'Title field is required',
+                'post_title'
+            )
+
+    @validates_schema
+    #pylint: disable=R0201
+    def validate_post_contente(self, data):
+        if not data.get('post_content'):
+            raise ValidationError(
+                'Content is required',
+                'post_content'
+            )
 
 
     class Meta:

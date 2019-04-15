@@ -10,12 +10,14 @@ img {
 @import '~bootstrap/scss/bootstrap.scss';
 @import 'animate';
 
+@import 'layout/footer';
 @import 'layout/header';
 @import 'layout/main';
 
 @import 'page/home';
 @import 'page/login';
 @import 'page/register';
+@import 'page/inbox';
 
 @import 'components/homeSideBar';
 

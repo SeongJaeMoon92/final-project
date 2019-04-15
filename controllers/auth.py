@@ -23,6 +23,7 @@ def register():
 
     if errors:
         return jsonify(errors), 422
+
     user.save()
     return jsonify({'message': 'Registration successful'}), 201
 
@@ -32,11 +33,12 @@ def login():
     user = User.query.filter_by(email=data.get('email')).first()
 
     if not user or not user.validate_password(data.get('password', '')):
-        return jsonify({'message': 'Unauthorized'}), 401
+        return jsonify({'email': 'Missing data for required field or Unauthorized', 'password': 'Missing data for required field or Unauthorized'}), 401
     return jsonify({
-        'message': 'Welcome back {}!'.format(user.username),
-        'token': user.generate_token()
+    'message': 'Welcome back {}!'.format(user.username),
+    'token': user.generate_token()
     })
+
 
 @api.route('/users/<int:user_id>/profile', methods=['GET'])
 @secure_route
