@@ -3,13 +3,13 @@
 }
 
 .mainPage {
-		height: 100%;
-		  background:	#E8E8E8;
+		min-height: calc(100vh - 120px);
+		  // background:	#E8E8E8;
 	}
 
-.container {
-	height: calc(95% - 56px);
-}
+// .container {
+// 	height: calc(95% - 56px);
+// }
 
 .active {
 	color: $success;
