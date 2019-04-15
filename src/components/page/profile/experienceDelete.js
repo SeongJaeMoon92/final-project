@@ -39,8 +39,8 @@ class ExperienceDelete extends React.Component{
     const { jobTitle, company } = this.props
     return(
       <div>
-        <Button variant="primary" onClick={this.handleShow}>
-         Delete experience
+        <Button className="m-1 px-3" size="sm" variant="danger" onClick={this.handleShow}>
+         Delete
         </Button>
 
         <Modal
@@ -51,12 +51,13 @@ class ExperienceDelete extends React.Component{
             <Modal.Title>Delete Experience at {company}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>Are you sure you want to delete your {jobTitle} experience at {company}? This cannot be undone.</p>
+            <p>Are you sure you want to delete your {jobTitle} experience at {company}?</p>
+            <p>This cannot be undone.</p>
             <ButtonToolbar>
-              <Button variant="primary" onClick={this.handleDelete}>
-              Delete experience
+              <Button className="m-1 px-3" variant="danger" onClick={this.handleDelete}>
+              Delete
               </Button>
-              <Button variant="danger" onClick={this.handleClose}>
+              <Button className="m-1 px-3" variant="secondary" onClick={this.handleClose}>
               Cancel
               </Button>
             </ButtonToolbar>

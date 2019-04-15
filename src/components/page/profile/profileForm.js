@@ -1,10 +1,10 @@
 import React from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Col, Form, Button } from 'react-bootstrap'
 
 const ProfileForm = (props) => {
   const { data, errors, handleSubmit, handleChange } = props
   return (
-    <main>
+    <Col xs={12}>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="name">
           <Form.Label>Full Name</Form.Label>
@@ -46,11 +46,11 @@ const ProfileForm = (props) => {
           />
           {errors.summary && <Form.Text>{errors.summary}</Form.Text>}
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="success" type="submit">
           Submit
         </Button>
       </Form>
-    </main>
+    </Col>
   )
 }
 

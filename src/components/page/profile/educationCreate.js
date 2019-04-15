@@ -50,9 +50,11 @@ class EducationCreate extends React.Component{
   render(){
     return(
       <div>
-        <Button variant="primary" onClick={this.handleShow}>
-         Add new education
-        </Button>
+        {this.props.isOwner() &&
+          <Button size="sm" variant="primary" onClick={this.handleShow}>
+            Add new education
+          </Button>
+        }
         <Modal
           show={this.state.showModal}
           onHide={this.handleClose}

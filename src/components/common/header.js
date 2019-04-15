@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import Auth from '../lib/auth'
 import axios from 'axios'
-import {Navbar, Nav, NavItem} from 'react-bootstrap'
+import { Navbar, Nav } from 'react-bootstrap'
 
 class Header extends React.Component{
   constructor(){
@@ -47,19 +47,19 @@ class Header extends React.Component{
     return (
       <div className="navHeader">
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-            <Navbar.Brand>
-              <Link to="/">
-                <img
-                  alt=""
-                  src="./assets/images/link-512.png"
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-                />
-                {' Joined Up'}
-              </Link>
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav"  />
+          <Navbar.Brand>
+            <Link to="/">
+              <img
+                alt=""
+                src="../../assets/images/link-512.png"
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />
+              {' Joined Up'}
+            </Link>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav entireNavbarHeader">
             <Nav className="navbarHeader">
               <Nav.Item className="navbarHeaderItem">
