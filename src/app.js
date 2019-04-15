@@ -26,7 +26,7 @@ class App extends React.Component{
   render(){
     return (
       <Browser>
-        <div className="mainPage">
+        <main className="bg-light mainPage">
           <Header />
           <Switch>
             <SecureRoute path='/inbox' component={Inbox} />
@@ -38,7 +38,7 @@ class App extends React.Component{
             <SecureRoute exact path='/' component={MainPage} />
           </Switch>
           <Footer />
-        </div>
+        </main>
       </Browser>
     )
   }

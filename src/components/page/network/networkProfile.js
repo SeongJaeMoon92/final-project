@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Image, Button } from 'react-bootstrap'
+import { Card, Button } from 'react-bootstrap'
 
 const NetworkProfile = (props) => {
   const { profile, ownerId, isConnection, isPendingReceived, isPendingSent, requestConnection, approveConnection } = props
@@ -7,30 +7,30 @@ const NetworkProfile = (props) => {
   console.log('isPendingReceived', profile.id, isPendingReceived(profile))
   console.log('isPendingSent', profile.id, isPendingSent(profile))
   return(
-    <Card className="text-center">
-      <Card.Image>
-        {<Image src={profile.image ? profile.image : '../../../assets/images/profiles/no_image.jpg'} rounded />}
-      </Card.Image>
-      <Card.Body>
-        <Card.Title>{profile.name}</Card.Title>
-        <Card.Text>{profile.headline}</Card.Text>
-        {isConnection(profile) && <Card.Text>JoinedUp</Card.Text>}
-      </Card.Body>
-      <Card.Footer>
-        <Button
-          variant="primary"
-          size="sm"
-          href={`/profile/${profile.id}`}
-        >
-          View Profile
-        </Button>
-      </Card.Footer>
+    <Card className="text-center mb-3">
+      <a className="clear-text-decoration" href={`/profile/${profile.id}`}>
+        <Card.Img src={profile.image ? profile.image : '../../../assets/images/profiles/no_image.jpg'} />
+        <Card.Body>
+          <Card.Title>{profile.name}</Card.Title>
+          <Card.Text>{profile.headline}</Card.Text>
+        </Card.Body>
+      </a>
+      {isConnection(profile) &&
+        <Card.Footer className="bg-primary">
+          <p className="m-0 py-1 text-white">JoinedUp!</p>
+        </Card.Footer>
+      }
+      {isPendingSent(profile) &&
+        <Card.Footer className="bg-secondary">
+          <p className="m-0 py-1 text-white font-italic">Pending</p>
+        </Card.Footer>
+      }
       {!isConnection(profile) &&
         !isPendingReceived(profile) &&
         !isPendingSent(profile) &&
-        <Card.Footer>
+        <Card.Footer className="bg-info">
           <Button
-            variant="primary"
+            variant="secondary"
             size="sm"
             value={ownerId}
             onClick={requestConnection}
@@ -40,24 +40,17 @@ const NetworkProfile = (props) => {
         </Card.Footer>
       }
       {isPendingReceived(profile) &&
-        <Card.Footer>
+        <Card.Footer className="bg-secondary">
           <Button
-            variant="primary"
+            variant="warning"
             size="sm"
             value={isPendingReceived(profile).id}
             onClick={approveConnection}
           >
-            Approve Connection Request
+            Approve Request
           </Button>
         </Card.Footer>
       }
-      {isPendingSent(profile) &&
-        <Card.Footer>
-          <p className="m-0"><em>Connection Requested</em></p>
-        </Card.Footer>
-      }
-
-
     </Card>
   )
 }

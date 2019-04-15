@@ -12,10 +12,19 @@ img {
 
 @import 'layout/header';
 @import 'layout/main';
-@import 'layout/footer';
 
 @import 'page/home';
 @import 'page/login';
 @import 'page/register';
 
 @import 'components/homeSideBar';
+
+
+a.clear-text-decoration {
+  text-decoration: none;
+  color: black;
+  &:hover {
+    text-decoration: none;
+    color: $primary
+  }
+}

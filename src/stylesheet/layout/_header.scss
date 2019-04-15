@@ -1,17 +1,9 @@
-
-
-#responsive-navbar-nav\20 entireNavbarHeader {
-  div {
-    div {
-      a{
-        color: $color-alpha-dark;
-        margin-left: 10px;
-      }
-    }
+.navbar-dark {
+  .navbar-nav .nav-link {
+    color: white;
   }
-}
-
-#root > div > div:nth-child(1) > nav > span > a {
-  color: $color-beta;
-  margin-left: 10px;
+  a {
+    text-decoration: none;
+    color: white;
+  }
 }

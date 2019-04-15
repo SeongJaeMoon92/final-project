@@ -45,39 +45,29 @@ class Header extends React.Component{
   render() {
     if (!Auth.isAuthenticated()) return null
     return (
-      <div className="navHeader">
-        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-          <Navbar.Brand>
-            <Link to="/">
-              <img
-                alt=""
-                src="../../assets/images/link-512.png"
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-              />
-              {' Joined Up'}
-            </Link>
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav entireNavbarHeader">
-            <Nav className="navbarHeader">
-              <Nav.Item className="navbarHeaderItem">
-                <Link to='/inbox'>Inbox</Link>
-              </Nav.Item>
-              <Nav.Item className="navbarHeaderItem">
-                <Link to='/discover'>Discover</Link>
-              </Nav.Item>
-              <Nav.Item className="navbarHeaderItem">
-                <Link to={`/profile/${this.state.profileId}`}>My Profile</Link>
-              </Nav.Item>
-              <Nav.Item className="navbarHeaderItem">
-                <Link to='/' onClick={this.logout}>Logout</Link>
-              </Nav.Item>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-      </div>
+      <Navbar collapseOnSelect sticky="top" expand="lg" bg="secondary" variant="dark">
+        <Navbar.Brand>
+          <Link to="/">
+            <img
+              alt=""
+              src="../../assets/images/link-512.png"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />
+            {' JoinedUp'}
+          </Link>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbar-joinedup" />
+        <Navbar.Collapse id="navbar-joinedup" className="justify-content-end">
+          <Nav>
+            <Nav.Link href="/discover">Discover</Nav.Link>
+            <Nav.Link href="/inbox">Inbox</Nav.Link>
+            <Nav.Link href={`/profile/${this.state.profileId}`}>My Profile</Nav.Link>
+            <Nav.Link href="/" onClick={this.logout}>Logout</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     )
   }
 }

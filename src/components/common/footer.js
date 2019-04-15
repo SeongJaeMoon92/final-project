@@ -1,19 +1,23 @@
 import React from 'react'
+import { Navbar, Nav } from 'react-bootstrap'
 
 const Footer = () => {
 
   return(
-    <div className="footer">
-      <div>
-      &copy;
-        <img
-          src="../../assets/images/link-512.png"
-          width="30"
-          height="30"
+
+    <Navbar collapseOnSelect sticky="bottom" expand="lg" bg="primary" variant="dark" className="justify-content-center">
+      <Nav>
+        <Nav.Link href="/">
+          &copy;
+          <img
+            src="../../assets/images/link-512.png"
+            width="30"
+            height="30"
           />
-        Joined Up
-      </div>
-    </div>
+          Joined Up
+        </Nav.Link>
+      </Nav>
+    </Navbar>
   )
 }
 

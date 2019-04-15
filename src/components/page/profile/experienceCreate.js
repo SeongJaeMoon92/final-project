@@ -57,7 +57,7 @@ class ExperienceCreate extends React.Component{
     return(
       <div>
         {this.props.isOwner() &&
-          <Button size="sm" variant="primary" onClick={this.handleShow}>
+          <Button size="sm" variant="dark" onClick={this.handleShow}>
             Add new experience
           </Button>
         }

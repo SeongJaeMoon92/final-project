@@ -7,7 +7,7 @@ import ExperienceDelete from './experienceDelete'
 const ProfileExperience = (props) => {
   const { experience, profileId, getProfileData, isOwner } = props
   return(
-    <Col className="m-2 p-4 rounded bg-light">
+    <Col className="mx-4 my-2 p-4 rounded bg-white border border-dark">
       <h4>{experience.company}</h4>
       <h5>{experience.title}</h5>
       <h5>{experience.location}</h5>

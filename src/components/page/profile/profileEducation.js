@@ -7,7 +7,7 @@ import EducationDelete from './educationDelete'
 const ProfileEducation = (props) => {
   const { education, profileId, getProfileData, isOwner } = props
   return(
-    <Col className="m-2 p-4 rounded bg-light">
+    <Col className="mx-4 my-2 p-4 rounded bg-white border border-dark">
       <h4>{education.school}</h4>
       <h5>{education.degree}{education.grade && `, ${education.grade}`}</h5>
       <h5>{education.field_of_study}</h5>
