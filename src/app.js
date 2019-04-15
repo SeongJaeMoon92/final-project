@@ -31,7 +31,7 @@ class App extends React.Component{
           <Switch>
             <SecureRoute path='/inbox' component={Inbox} />
             <SecureRoute path='/profile/:id/update' component={ProfileUpdate} />
-            <SecureRoute path='/profile/add' component={ProfileCreate} />
+            <SecureRoute path='/profile/new' component={ProfileCreate} />
             <SecureRoute path='/profile/:id' component={Profile} />
             <SecureRoute path='/discover' component={NetworkIndex} />
             <Route path='/login' component={Login} />
