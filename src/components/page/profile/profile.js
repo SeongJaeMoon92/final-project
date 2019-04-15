@@ -1,8 +1,9 @@
 import React from 'react'
 import axios from 'axios'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import Auth from '../../lib/auth'
 
+import ProfileUpdate from './profileUpdate'
 import ProfileExperience from './profileExperience'
 import ProfileEducation from './profileEducation'
 import ExperienceCreate from './experienceCreate'
@@ -41,7 +42,7 @@ class Profile extends React.Component{
         <Container>
           <Row className="align-items-center">
             <Col xs={8} md={3} className="mx-auto">
-              <img src={profile.image ? profile.img : '../../../assets/images/profiles/no_image.jpg'} />
+              <img src={profile.image ? profile.image : 'https://cdn.filestackcontent.com/r2EcoZ4uR0Wh8bgGlZkV'} />
             </Col>
             <Col xs={12} md={9} className="text-sm-center text-md-left">
               <h2 >{profile.name}</h2>
@@ -49,9 +50,11 @@ class Profile extends React.Component{
               <h3>{profile.location}</h3>
             </Col>
             {this.isOwner() && <Col md={12} className="text-sm-right text-lg-right">
-              <Button size="sm" variant="primary">
-               Edit profile
-              </Button>
+              <ProfileUpdate
+                data={this.state.profile}
+                profileId={this.props.match.params.id}
+                getProfileData={this.getProfileData}
+              />
             </Col>}
           </Row>
           <Row className="m-2 text-justify">

@@ -16,6 +16,19 @@ class Profile(db.Model, BaseModel):
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     owner = db.relationship('User', backref='user_profile')
 
+class Experience(db.Model, BaseModel):
+
+    __tablename__ = 'experiences'
+
+    title = db.Column(db.String(40), nullable=False)
+    company = db.Column(db.String(40), nullable=False)
+    location = db.Column(db.String(30), nullable=False)
+    start_date = db.Column(db.DateTime, nullable=False)
+    end_date = db.Column(db.DateTime)
+    description = db.Column(db.Text)
+    profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
+    profile = db.relationship('Profile', backref='profile_experience')
+
 class Education(db.Model, BaseModel):
 
     __tablename__ = 'educations'
@@ -30,23 +43,52 @@ class Education(db.Model, BaseModel):
     profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
     profile = db.relationship('Profile', backref='profile_education')
 
-class Experience(db.Model, BaseModel):
-
-    __tablename__ = 'experiences'
-
-    title = db.Column(db.String(40), nullable=False)
-    company = db.Column(db.String(40), nullable=False)
-    location = db.Column(db.String(30), nullable=False)
-    start_date = db.Column(db.DateTime, nullable=False)
-    end_date = db.Column(db.DateTime)
-    description = db.Column(db.Text)
-    profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
-    profile = db.relationship('Profile', backref='profile_experience')
 
 class ProfileSchema(ma.ModelSchema, BaseSchema):
+    name = fields.String(
+        required=True,
+        error_messages={'required': ''}
+    )
+
+    headline = fields.String(
+        required=True,
+        error_messages={'required': ''}
+    )
+
+    location = fields.String(
+        required=True,
+        error_messages={'required': ''}
+    )
+
     profile_education = fields.Nested('EducationSchema', many=True)
     profile_experience = fields.Nested('ExperienceSchema', many=True)
     owner = fields.Nested('UserSchema', only=('id', 'username',))
+
+
+    @validates_schema
+    def validate_name(self, data):
+        if not data.get('name'):
+            raise ValidationError(
+                'Name is required',
+                'name'
+            )
+
+    @validates_schema
+    def validate_headline(self, data):
+        if not data.get('headline'):
+            raise ValidationError(
+                'Headline is required',
+                'headline'
+            )
+
+    @validates_schema
+    def validate_location(self, data):
+        if not data.get('location'):
+            raise ValidationError(
+                'Location is required',
+                'location'
+            )
+
     class Meta:
         model = Profile
 
@@ -72,7 +114,6 @@ class ExperienceSchema(ma.ModelSchema, BaseSchema):
 
     @validates_schema
     def validate_title(self, data):
-        print(f'validate title data is {data}')
         if not data.get('title') or data.get('title') == '':
             raise ValidationError(
                 'Title is required',
@@ -97,7 +138,7 @@ class ExperienceSchema(ma.ModelSchema, BaseSchema):
 
     @validates_schema
     def validate_dates(self, data):
-        if not data.get('start_date'):
+        if not data.get('start_date') or data.get('start_date') == '':
             raise ValidationError(
                 'Start date is required',
                 'start_date'
@@ -134,7 +175,7 @@ class EducationSchema(ma.ModelSchema, BaseSchema):
 
     @validates_schema
     def validate_school(self, data):
-        if not data.get('school') or data.get('school') == '':
+        if not data.get('school'):
             raise ValidationError(
                 'School is required',
                 'school'
@@ -142,7 +183,7 @@ class EducationSchema(ma.ModelSchema, BaseSchema):
 
     @validates_schema
     def validate_degree(self, data):
-        if not data.get('degree') or data.get('degree') == '':
+        if not data.get('degree'):
             raise ValidationError(
                 'Degree is required',
                 'degree'
@@ -150,7 +191,7 @@ class EducationSchema(ma.ModelSchema, BaseSchema):
 
     @validates_schema
     def validate_field_of_study(self, data):
-        if not data.get('field_of_study') or data.get('field_of_study') == '':
+        if not data.get('field_of_study'):
             raise ValidationError(
                 'Field of Study is required',
                 'field_of_study'

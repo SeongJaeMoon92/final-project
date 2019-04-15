@@ -1,7 +1,11 @@
 import React from 'react'
 import axios from 'axios'
-import Auth from '../../lib/auth'
+import * as filestack from 'filestack-js'
+import { Button, Modal } from 'react-bootstrap'
 
+const client = filestack.init(process.env.FILESTACK_KEY)
+
+import Auth from '../../lib/auth'
 import ProfileForm from './profileForm'
 
 class ProfileUpdate extends React.Component{
@@ -10,19 +14,29 @@ class ProfileUpdate extends React.Component{
 
     this.state = {
       data: {},
-      errors: {}
+      errors: {},
+      showModal: false,
+      image: ''
     }
 
+    this.handleShow = this.handleShow.bind(this)
+    this.handleClose = this.handleClose.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleImageUpload = this.handleImageUpload.bind(this)
   }
 
   componentDidMount() {
-    axios.get(`/api/profiles/${this.props.match.params.id}`)
-      .then(res => this.setState({ data: res.data }))
-      .catch(err => console.log(err.message))
+    this.setState({ data: this.props.data}, () => console.log('data is in', this.state))
   }
 
+  handleShow() {
+    this.setState({ showModal: true })
+  }
+
+  handleClose() {
+    this.setState({ showModal: false })
+  }
 
   handleChange({target: {name, value}}){
     const data = {...this.state.data, [name]: value}
@@ -32,24 +46,52 @@ class ProfileUpdate extends React.Component{
 
   handleSubmit(e){
     e.preventDefault()
-    axios.put(`/api/profiles/${this.props.match.params.id}`, this.state.data,
+    axios.put(`/api/profiles/${this.props.profileId}`, this.state.data,
       { headers: { Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => {
-        this.props.history.push(`/profile/${this.props.match.params.id}`)
+        this.handleClose()
+        this.props.getProfileData()
       })
-      .catch(err => this.setState({errors: err.response}))
+      .catch(err => err.response && this.setState({errors: err.response.data}))
+  }
+
+  handleImageUpload() {
+    const options = {
+      fromSources: ['local_file_system','url','googledrive','dropbox','instagram','facebook'],
+      accept: ['image/*'],
+      onFileUploadFinished: file => {
+        this.setState({ image: file.url })
+      }
+    }
+    client.picker(options).open()
   }
 
   render(){
+
     return(
       <div>
-        <h1>Update profile.....</h1>
-        <ProfileForm
-          data={this.state.data}
-          errors={this.state.errors}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
+        <Button className="m-1 px-3" size="sm" variant="primary" onClick={this.handleShow}>
+         Edit profile
+        </Button>
+
+        <Modal
+          show={this.state.showModal}
+          onHide={this.handleClose}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Profile</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <ProfileForm
+              data={this.state.data}
+              errors={this.state.errors}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              handleImageUpload={this.handleImageUpload}
+              imageUrl={this.state.image}
+            />
+          </Modal.Body>
+        </Modal>
       </div>
     )
   }

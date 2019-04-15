@@ -1,8 +1,11 @@
 import React from 'react'
 import axios from 'axios'
+import * as filestack from 'filestack-js'
 import { Container, Row } from 'react-bootstrap'
-import Auth from '../../lib/auth'
 
+const client = filestack.init(process.env.FILESTACK_KEY)
+
+import Auth from '../../lib/auth'
 import ProfileForm from './profileForm'
 
 class ProfileCreate extends React.Component{
@@ -11,11 +14,13 @@ class ProfileCreate extends React.Component{
 
     this.state = {
       data: {},
-      errors: {}
+      errors: {},
+      image: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleImageUpload = this.handleImageUpload.bind(this)
   }
 
   handleChange({target: {name, value}}){
@@ -26,12 +31,25 @@ class ProfileCreate extends React.Component{
 
   handleSubmit(e){
     e.preventDefault()
-    axios.post('/api/profiles', this.state.data,
+    const image = this.state.image
+    const data = {...this.state.data, image}
+    axios.post('/api/profiles', data,
       { headers: { Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => {
         this.props.history.push(`/profile/${Auth.getPayload().sub}`)
       })
-      .catch(err => this.setState({errors: err.response}))
+      .catch(err => err.response && this.setState({errors: err.response.data}))
+  }
+
+  handleImageUpload() {
+    const options = {
+      fromSources: ['local_file_system','url','googledrive','dropbox','instagram','facebook'],
+      accept: ['image/*'],
+      onFileUploadFinished: file => {
+        this.setState({ image: file.url })
+      }
+    }
+    client.picker(options).open()
   }
 
   render(){
@@ -46,6 +64,8 @@ class ProfileCreate extends React.Component{
             errors={this.state.errors}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
+            handleImageUpload={this.handleImageUpload}
+            imageUrl={this.state.image}
           />
         </Row>
       </Container>
