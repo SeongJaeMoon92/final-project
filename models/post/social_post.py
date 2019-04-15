@@ -1,3 +1,4 @@
+from datetime import datetime
 from app import db, ma
 from marshmallow import fields
 from models.base import BaseModel, BaseSchema

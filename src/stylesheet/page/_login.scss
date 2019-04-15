@@ -8,8 +8,8 @@
   justify-content: center;
   align-items: center;
   .loginForm{
-    width: 28%;
-    height: 60%;
+    width: 80%;
+    height: 90%;
     background-color: rgba(255, 252, 242, 0.4);
     border-radius: 10px 10px 10px 10px;
     border: 4px solid #000000;
@@ -32,6 +32,42 @@
       a {
         color: $color-alpha;
       }
+    }
+  }
+}
+
+@media (min-width: 550px) {
+  .login{
+    .loginForm{
+      width: 70%;
+      height: 80%;
+    }
+  }
+}
+
+@media (min-width: 750px) {
+  .login{
+    .loginForm{
+      width: 50%;
+      height: 70%;
+    }
+  }
+}
+
+@media (min-width: 1000px) {
+  .login{
+    .loginForm{
+      width: 35%;
+      height: 60%;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .login{
+    .loginForm{
+      width: 25%;
+      height: 60%;
     }
   }
 }

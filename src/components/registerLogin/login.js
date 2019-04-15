@@ -36,8 +36,8 @@ class Login extends React.Component{
   render(){
     const { data, errors } = this.state
     return (
-      <div className="login animated fadeIn slow">
-        <div className="loginForm animated zoomIn">
+      <div className="login">
+        <div className="loginForm animated fadeIn">
           <Form onSubmit={this.handleSubmit}>
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>

@@ -4,7 +4,15 @@ const Footer = () => {
 
   return(
     <div className="footer">
-      This is footer
+      <div>
+      &copy;
+        <img
+          src="../../assets/images/link-512.png"
+          width="30"
+          height="30"
+          />
+        Joined Up
+      </div>
     </div>
   )
 }

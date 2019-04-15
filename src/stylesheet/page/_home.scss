@@ -24,6 +24,7 @@
       border: 1px solid black;
     }
   }
+
   .postform {
     display: flex;
     width: 85%;
@@ -31,6 +32,20 @@
     .sectionOne {
       width: 70%;
       height: 100%;
+      .searchBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        font-weight: bold;
+        text-shadow: 4px 6px 6px rgba(0,0,0,0.26);
+        text-transform: uppercase;
+        margin: 5px;
+        input {
+          width: 50%;
+        }
+      }
       .jobPostWrapperOverFlow{
         height: calc(100% - 72px);
         overflow-y: scroll;
@@ -38,12 +53,29 @@
           padding: 1em;
           margin: 1em;
           border: 1px solid black;
+          box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.45);
           .showPage {
             width: 100%;
             height: 100%;
             img {
-              height: 40%;
-              width: 40%;
+              height: 30%;
+              width: 50%;
+            }
+            .industriesList{
+              display: flex;
+              flex-wrap: wrap;
+              .industries{
+                background: rgba(62, 80, 91, 0.3);
+                // border: 1px solid $color-alpha;
+                // box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.3);
+                margin: 10px 10px 0 0 ;
+                border-radius: 2px;
+              }
+            }
+
+            .buttonsAndUser {
+              display: flex;
+              justify-content: space-between;
             }
           }
         }
@@ -58,12 +90,7 @@
       padding: 2em;
       display: flex;
       flex-direction: column;
-      // justify-content: center;
       text-align: center;
-      button{
-        background-color: $color-beta-light;
-        border-color: $color-omega;
-      }
       small {
         color: $color-alpha;
         margin-bottom: 1em;

@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import {Form, Button} from 'react-bootstrap'
+import {Form, Button, Container, Row, Col} from 'react-bootstrap'
 
 // import component
 import Auth from '../lib/auth'
@@ -94,41 +94,46 @@ class Inbox extends React.Component{
   render(){
     const {data, profiles, sortMessages, dataMessage} = this.state
     return (
-      <div className="messages">
-        <div className="messageSidebar">Side Bar
-        {profiles && profiles.map((profile, id) => (
-            <div  key={id} onClick={(e) => this.handleClick(e, profile)}>
-              <div>{profile.image}</div>
-              <div>{profile.name}</div>
-              <div>{profile.location}</div>
-              <hr/>
-            </div>
-          ))
-        }
-        </div>
-        <div className="message">
-        {sortMessages && sortMessages.map((message, id) => (
-            <div key={id}>
-              <div>Message: {message.message_content}</div>
-              <div>Sent by: {message.sender.username}</div>
-            </div>
-        ))}
-        </div>
-        <div>
-          <Form onSubmit={this.handleSubmitMessage}>
-            <Form.Group controlId="message_content">
-              <Form.Label>Message</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  name="message_content"
-                  placeholder='Message'
-                  onChange={this.handleChangeMessage}
-                  value={dataMessage.message_content || ''}
-                />
-            </Form.Group>
-            <Button type="submit">Send</Button>
-          </Form>
-        </div>
+      <div className="container">
+        <Container className="h-100">
+          <Col className="messageSidebar">
+          Side Bar
+          {profiles && profiles.map((profile, id) => (
+              <div  key={id} onClick={(e) => this.handleClick(e, profile)}>
+                <div>{profile.image}</div>
+                <div>{profile.name}</div>
+                <div>{profile.location}</div>
+                <hr/>
+              </div>
+            ))
+          }
+          </Col>
+          <Col xs={9} className="messageBox">
+              <Container className="border-bottom message">
+              {sortMessages && sortMessages.map((message, id) => (
+                  <Row className="my-4" key={id}>
+                    <div className="mx-4"> {message.message_content}</div>
+                    <div>Sent by: {message.sender.username}</div>
+                  </Row>
+              ))}
+              </Container>
+              <Container className="messageContent">
+                <Form onSubmit={this.handleSubmitMessage}>
+                  <Form.Group controlId="message_content">
+                    <Form.Label>Message</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        name="message_content"
+                        placeholder='Message'
+                        onChange={this.handleChangeMessage}
+                        value={dataMessage.message_content || ''}
+                      />
+                  </Form.Group>
+                  <Button type="submit">Send</Button>
+                </Form>
+              </Container>
+          </Col>
+        </Container>
       </div>
     )
   }

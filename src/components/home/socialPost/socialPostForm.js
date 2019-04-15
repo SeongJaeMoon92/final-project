@@ -49,7 +49,7 @@ const SocialPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, 
           value={data.post_image || ''}
         />
       </Form.Group>
-      <Button variant="primary" type="submit">Submit</Button>
+      <Button className="buttonColor" type="submit">Submit</Button>
     </Form>
   )
 }

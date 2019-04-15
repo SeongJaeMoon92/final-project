@@ -39,16 +39,26 @@ class SocialPostNew extends React.Component {
   }
 
   handleNestedObject(){
-    const newdata = this.state.data.industries.map(data => (
-      {id: data.id}
-    ))
-    this.setState(prevState => ({
-      ...prevState,
-      data: {
-        ...prevState.data,
-        industry_id: newdata
-      }
-    }))
+    if (!this.state.data.industries) {
+      this.setState(prevState => ({
+        ...prevState,
+        data: {
+          ...prevState.data,
+          industry_id: ''
+        }
+      }))
+    } else {
+      const newdata = this.state.data.industries.map(data => (
+        {id: data.id}
+      ))
+      this.setState(prevState => ({
+        ...prevState,
+        data: {
+          ...prevState.data,
+          industry_id: newdata
+        }
+      }))
+    }
     setTimeout(() => {
       this.handleDeleteObjectKey()
     },200)

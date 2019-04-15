@@ -31,8 +31,8 @@ class Register extends React.Component{
   render(){
     const { data, errors } = this.state
     return (
-      <div className="register animated fadeIn slow">
-        <div className="registerForm animated zoomIn">
+      <div className="register">
+        <div className="registerForm animated fadeIn">
           <Form onSubmit={this.handleSubmit}>
             <Form.Group controlId="username">
               <Form.Label>Username</Form.Label>

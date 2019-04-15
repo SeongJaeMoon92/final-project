@@ -23,8 +23,7 @@ class JobPostNew extends React.Component {
   }
 
   handleSelect(e, actionMeta){
-    console.log(actionMeta, 'action')
-    console.log(this.fileInput, 'status')
+    console.log(actionMeta)
     const arr = []
     e.forEach(val => {
       const industries = {id: parseInt(val.value), industry: val.label}
@@ -41,16 +40,26 @@ class JobPostNew extends React.Component {
   }
 
   handleNestedObject(){
-    const newdata = this.state.data.industries.map(data => (
-      {id: data.id}
-    ))
-    this.setState(prevState => ({
-      ...prevState,
-      data: {
-        ...prevState.data,
-        industry_id: newdata
-      }
-    }))
+    if (!this.state.data.industries) {
+      this.setState(prevState => ({
+        ...prevState,
+        data: {
+          ...prevState.data,
+          industry_id: ''
+        }
+      }))
+    } else {
+      const newdata = this.state.data.industries.map(data => (
+        {id: data.id}
+      ))
+      this.setState(prevState => ({
+        ...prevState,
+        data: {
+          ...prevState.data,
+          industry_id: newdata
+        }
+      }))
+    }
     setTimeout(() => {
       this.handleDeleteObjectKey()
     },200)

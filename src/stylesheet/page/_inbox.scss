@@ -1,0 +1,19 @@
+.container{
+  height: 100%;
+  div {
+    height: 100%;
+    div.messageBox.col-9 {
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      .message {
+        height: 70%;
+      }
+      .messageContent {
+        height: 20%;
+      }
+    }
+  }
+}
+
+#root > div > div.container.container > div > div.messageBox.col-9
