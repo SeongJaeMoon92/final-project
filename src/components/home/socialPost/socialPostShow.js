@@ -11,15 +11,20 @@ class SocialPostShow extends React.Component {
   constructor(){
     super()
 
-    this.state = {commentBox: false, messageBox: false, data: {}}
+    this.state = {commentBox: false, deleteButton: false, deleteButtonShow: true, data: {}}
 
     this.handleCommentBox = this.handleCommentBox.bind(this)
+    this.handleDeleteButton = this.handleDeleteButton.bind(this)
     this.handleChangeMessage = this.handleChangeMessage.bind(this)
     this.handleSubmitMessage = this.handleSubmitMessage.bind(this)
   }
 
   handleCommentBox(){
     this.setState({commentBox: !this.state.commentBox})
+  }
+
+  handleDeleteButton(){
+    this.setState({deleteButton: !this.state.deleteButton, deleteButtonShow: !this.state.deleteButtonShow})
   }
 
   handleChangeMessage({target: {name, value}}){
@@ -46,63 +51,91 @@ class SocialPostShow extends React.Component {
   }
 
   render(){
-    const { commentBox } = this.state
+    const { commentBox, deleteButton, deleteButtonShow } = this.state
     const {socialPost, handleLike, handleChange, handleSubmit, data, errors, getPostInfo } = this.props
     return(
       <div className="showPage">
-        <div>{socialPost.post_title}</div>
-        <div>{socialPost.post_content}</div>
-        <img src={socialPost.post_image} alt={socialPost.post_title}/>
-        <div>{socialPost.industries.map(category => (
-          category.industry
-        ))}</div>
-        <div>{socialPost.owner.username}</div>
-        <div>{socialPost.liked_by.length}</div>
-        <div>{socialPost.comments.map(comment => (
-          `${comment.content} by ${comment.user.username}`
-        ))}</div>
-        <Button
-          className="buttonColor"
-          name={socialPost.id}
-          onClick={handleLike}
-        >
-        Like
-        </Button>
-        <Button
-          className="buttonColor"
-          value={socialPost.id}
-          onClick={this.handleCommentBox}>
-          Comment
-        </Button>
-        {!this.isOwner() && <MessageModal
-          dataMessage={this.state.data}
-          handleChange={this.handleChangeMessage}
-          handleSubmit={this.handleSubmitMessage}
-          data ={socialPost}
-        />}
-        {this.isOwner() && <EditSocialPost
-          id={socialPost.id}
-          postInfo = {getPostInfo}
-        />}
-        {this.isOwner() && <Button  className="buttonColor" value={socialPost.id} onClick={this.props.handleDelete}>Delete</Button>}
-        {commentBox &&
-          <Form onSubmit={(e) => {
-            handleSubmit(e, socialPost)
-            this.handleCommentBox()
-          }}>
-            <Form.Group controlId="content">
-            <Form.Label>Comment</Form.Label>
-            <Form.Control
-              as="textarea"
-              name='content'
-              onChange={handleChange}
-              value={data.content || ''}
-            />
-            </Form.Group>
-            <Button type="submit" className="buttonColor">submit</Button>
-          </Form>
-        }
+        <div>
+          <div>Title : {socialPost.post_title}</div>
+          <div>Content : {socialPost.post_content}</div>
+          <img src={socialPost.post_image} alt={socialPost.post_title}/>
+        </div>
         <hr />
+        <div>Industries : </div>
+          <div className="industriesList">
+            {socialPost.industries.map((category, id) => (
+              <div key={id} className="industries">{category.industry}</div>
+            ))}
+          </div>
+        <hr />
+        <div className="buttonsAndUser">
+          <div>
+          <Button
+            className="buttonColor"
+            name={socialPost.id}
+            onClick={handleLike}
+          >
+          {socialPost.liked_by.length} Like(s)
+          </Button>
+          <Button
+            className="buttonColor"
+            value={socialPost.id}
+            onClick={this.handleCommentBox}>
+            {socialPost.comments.length} Comment(s)
+          </Button>
+          {!this.isOwner() && <MessageModal
+            dataMessage={this.state.data}
+            handleChange={this.handleChangeMessage}
+            handleSubmit={this.handleSubmitMessage}
+            data ={socialPost}
+          />}
+          {this.isOwner() && <EditSocialPost
+            id={socialPost.id}
+            postInfo = {getPostInfo}
+          />}
+          {(this.isOwner() && deleteButton) &&
+            <span >
+              <Button variant="danger animated fadeIn" value={socialPost.id} onClick={(e)=> {
+                this.props.handleDelete(e)
+                this.handleDeleteButton()
+              }}>Confirm</Button>
+              <Button className="buttonColor animated fadeIn" onClick={this.handleDeleteButton}>Cancel</Button>
+            </span>
+          }
+          {(this.isOwner() && deleteButtonShow) &&
+            <Button variant="danger animated fadeIn" onClick={this.handleDeleteButton}>Delete</Button>
+          }
+
+          {commentBox &&
+            <div>
+              <hr />
+              {socialPost.comments.map((comment, id) => (
+                <div key={id}>
+                  <span><strong>{comment.user.username}</strong> : </span>
+                  <span>{comment.content}</span>
+                </div>
+              ))}
+              <hr />
+              <Form onSubmit={(e) => {
+                handleSubmit(e, socialPost)
+              }}>
+                <Form.Group controlId="content">
+                <Form.Label>Comment</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  name='content'
+                  onChange={handleChange}
+                  value={data.content || ''}
+                />
+                </Form.Group>
+                <Button className="buttonColor" type="submit">Submit</Button>
+                <Button className="buttonColor" onClick={this.handleCommentBox}>Close</Button>
+              </Form>
+            </div>
+          }
+          </div>
+        <div>by {socialPost.owner.username}</div>
+        </div>
       </div>
     )
   }

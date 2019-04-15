@@ -10,13 +10,12 @@ class SocialPostIndex extends React.Component {
   constructor() {
     super()
 
-    this.state = { data: {}, errors: {}, search: ''}
+    this.state = { data: {}, errors: {}}
 
     this.handleLike = this.handleLike.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
     this.getPostInfo = this.getPostInfo.bind(this)
   }
 
@@ -57,25 +56,16 @@ class SocialPostIndex extends React.Component {
       .then(() => this.getPostInfo())
   }
 
-  handleSearch(e) {
-    this.setState({ search: e.target.value.substr(0, 20) })
-  }
-
   render(){
     if (!this.state.socialPosts) return null
     const {socialPosts} = this.state
-    const filteredSocialPost = socialPosts.filter(post => post.post_title.toLowerCase().indexOf(this.state.search.toLowerCase())!== -1)
+    const filteredSocialPost = socialPosts.filter(post => post.post_title.toLowerCase().indexOf(this.props.search.toLowerCase())!== -1)
     return(
-      <div className="postform">
+      <div className="postform animated fadeIn">
         <div className="sectionOne">
           <div className="searchBox">
           <span>Social Post</span>
-          <Form.Control
-            type="text"
-            placeholder="Search by name"
-            value={this.state.search}
-            onChange={this.handleSearch}
-          / >
+
         </div>
         <div className="jobPostWrapperOverFlow">
         {filteredSocialPost && filteredSocialPost.sort((a,b) => {

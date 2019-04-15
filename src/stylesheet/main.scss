@@ -1,9 +1,14 @@
 * {
   box-sizing: border-box;
 }
-@import '~bootstrap/scss/bootstrap.scss';
+
+img {
+  max-width: 100%;
+}
 
 @import 'variable/variables';
+@import '~bootstrap/scss/bootstrap.scss';
+@import 'animate';
 
 @import 'layout/header';
 @import 'layout/main';
