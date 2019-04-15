@@ -14,6 +14,8 @@ img {
 
 @import 'variable/variables';
 
+@import '~bootstrap/scss/bootstrap.scss';
+
 @import 'common/header';
 
 @import 'page/login';
