@@ -90,8 +90,8 @@ class EditJobPost extends React.Component {
         console.log(res)
         this.fileInput.current.state.value = res.map(data => (
           {value: data.id, label: data.industry}))
-        this.fileInput.current._reactInternalFiber.stateNode.state.value = res.map(data => (
-          {value: data.id, label: data.industry}))
+        // this.fileInput.current._reactInternalFiber.stateNode.state.value = res.map(data => (
+        //   {value: data.id, label: data.industry}))
       })
       .catch(err => {
         this.setState({ errors: err.response.data})
@@ -99,8 +99,15 @@ class EditJobPost extends React.Component {
   }
 
   postAxios(){
+    const data = {...this.state.data}
+    this.setState({newData: data}, () => {
+      const key = ['owner']
+      const key1 = ['liked_by']
+      delete this.state.newData[key]
+      delete this.state.newData[key1]
+    })
     axios.put(`/api/job_posts/${this.props.id}`,
-      this.state.data,
+      this.state.newData,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => {
         this.setState({show: false},() =>{
@@ -117,6 +124,8 @@ class EditJobPost extends React.Component {
 
   render() {
     const {data, errors} = this.state
+    // console.log(data, 'data')
+    // console.log(errors, 'errors')
     return (
       <>
         <Button className="buttonColor" onClick={this.handleShow}>

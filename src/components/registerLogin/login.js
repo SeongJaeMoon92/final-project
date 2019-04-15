@@ -11,7 +11,7 @@ class Login extends React.Component{
   constructor(){
     super()
 
-    this.state = { data: {}, errors: {}}
+    this.state = { data: { username: '', email: ''}, errors: {}, validated: false}
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -25,40 +25,55 @@ class Login extends React.Component{
 
   handleSubmit(e){
     e.preventDefault()
-    axios.post('/api/login', this.state.data)
-      .then(res => {
-        Auth.setToken(res.data.token)
-        this.props.history.push('/')
-      })
-      .catch(err => this.setState({errors: err.response.data}))
+    const form = e.currentTarget
+    if (form.checkValidity() === false) {
+      e.stopPropagation()
+    }
+    this.setState({ validated: true }, () => {
+      axios.post('/api/login', this.state.data)
+        .then(res => {
+          Auth.setToken(res.data.token)
+          this.props.history.push('/')
+        })
+        .catch(err => this.setState({errors: err.response.data}))
+    })
   }
 
   render(){
-    const { data, errors } = this.state
+    const { data, errors, validated } = this.state
     return (
       <div className="login">
         <div className="loginForm animated fadeIn">
-          <Form onSubmit={this.handleSubmit}>
+          <Form
+            noValidate
+            validated={validated}
+            onSubmit={this.handleSubmit}
+          >
             <Form.Group controlId="email">
-              <Form.Label>Email</Form.Label>
+              <Form.Label className={errors.email ? 'text-danger' : ''}>Email</Form.Label>
                 <Form.Control
+                  required
+                  className={errors.email ? 'border-danger' : ''}
                   name="email"
                   placeholder="Email"
                   onChange={this.handleChange}
                   value={data.email || ''}
                 />
+                {errors.email && <Form.Text className="text-danger">{errors.email}</Form.Text>}
             </Form.Group>
             <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
+              <Form.Label className={errors.password ? 'text-danger' : ''}>Password</Form.Label>
                 <Form.Control
+                  required
+                  className={errors.password ? 'border-danger' : ''}
                   type="password"
                   name="password"
                   placeholder="password"
                   onChange={this.handleChange}
                   value={data.password || ''}
                 />
+                {errors.password && <Form.Text className="text-danger">{errors.password}</Form.Text>}
             </Form.Group>
-            {errors.message && <Form.Text>{errors.message}</Form.Text>}
             <Button type="submit">Submit</Button>
           </Form>
           <div>
