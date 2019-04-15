@@ -17,3 +17,11 @@ $color-psi-dark: darken($color-psi, 10%);
 $color-omega: #FFFCF2;
 $color-omega-light: lighten($color-omega, 30%);
 $color-omega-dark: darken($color-omega, 10%);
+
+
+$primary: $color-alpha;
+$secondary: $color-beta;
+$success: #419D78;
+$warning: #FCBF49;
+$danger: #92140C;
+$info: #087CA7;
