@@ -39,8 +39,8 @@ class EducationDelete extends React.Component{
     const { school } = this.props
     return(
       <div>
-        <Button variant="primary" onClick={this.handleShow}>
-         Delete education
+        <Button className="m-1 px-3" size="sm" variant="danger" onClick={this.handleShow}>
+         Delete
         </Button>
 
         <Modal
@@ -51,12 +51,13 @@ class EducationDelete extends React.Component{
             <Modal.Title>Delete Education at {school}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>Are you sure you want to delete your {school} education? This cannot be undone.</p>
+            <p>Are you sure you want to delete your {school} education?</p>
+            <p>This cannot be undone.</p>
             <ButtonToolbar>
-              <Button variant="primary" onClick={this.handleDelete}>
-              Delete education
+              <Button className="m-1 px-3" variant="danger" onClick={this.handleDelete}>
+              Delete
               </Button>
-              <Button variant="danger" onClick={this.handleClose}>
+              <Button className="m-1 px-3" variant="secondary" onClick={this.handleClose}>
               Cancel
               </Button>
             </ButtonToolbar>

@@ -18,17 +18,13 @@ class ExperienceUpdate extends React.Component{
 
     this.handleShow = this.handleShow.bind(this)
     this.handleClose = this.handleClose.bind(this)
-    this.handleEndDate = this.handleEndDate.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount() {
-    console.log('data', this.props.data)
-    console.log('end date', this.props.endDate)
-    if (this.props.data.end_date !== null) this.setState({ data: this.props.data, endDate: true })
-    this.setState({ data: this.props.data, endDate: false })
 
+  componentDidMount() {
+    this.setState({ data: this.props.data })
   }
 
   handleShow() {
@@ -39,9 +35,6 @@ class ExperienceUpdate extends React.Component{
     this.setState({ showModal: false })
   }
 
-  handleEndDate(){
-    this.setState({ endDate: true })
-  }
 
   handleChange({target: {name, value}}){
     const data = {...this.state.data, [name]: value}
@@ -64,10 +57,9 @@ class ExperienceUpdate extends React.Component{
   render(){
     return(
       <div>
-        <Button variant="primary" onClick={this.handleShow}>
-         Edit experience
+        <Button className="m-1 px-4" size="sm" variant="info" onClick={this.handleShow}>
+         Edit
         </Button>
-
         <Modal
           show={this.state.showModal}
           onHide={this.handleClose}
@@ -79,40 +71,14 @@ class ExperienceUpdate extends React.Component{
             <ExperienceForm
               data={this.state.data}
               errors={this.state.errors}
-              endDate={this.state.endDate}
-              handleEndDate={this.handleEndDate}
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
             />
           </Modal.Body>
         </Modal>
-
-
-
-
       </div>
     )
   }
 }
 
 export default ExperienceUpdate
-
-
-// <Button variant="primary" onClick={handleShow}>
-//  Add new experience
-// </Button>
-//
-// <Modal
-//   show={this.state.show}
-//   onHide={this.handleClose}
-// >
-//   <Modal.Header closeButton>
-//     <Modal.Title>Modal heading</Modal.Title>
-//   </Modal.Header>
-//   <Modal.Body>
-//     <ExperienceUpdate
-//       profileId={profileId}
-//       getProfileData={this.getProfileData}
-//     />
-//   </Modal.Body>
-// </Modal>

@@ -56,9 +56,11 @@ class ExperienceCreate extends React.Component{
   render(){
     return(
       <div>
-        <Button variant="primary" onClick={this.handleShow}>
-         Add new experience
-        </Button>
+        {this.props.isOwner() &&
+          <Button size="sm" variant="primary" onClick={this.handleShow}>
+            Add new experience
+          </Button>
+        }
         <Modal
           show={this.state.showModal}
           onHide={this.handleClose}
@@ -71,7 +73,6 @@ class ExperienceCreate extends React.Component{
               data={this.state.data}
               errors={this.state.errors}
               endDate={this.state.endDate}
-              handleEndDate={this.handleEndDate}
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
             />

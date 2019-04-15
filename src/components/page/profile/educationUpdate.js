@@ -55,8 +55,8 @@ class EducationUpdate extends React.Component{
   render(){
     return(
       <div>
-        <Button variant="primary" onClick={this.handleShow}>
-         Edit education
+        <Button className="m-1 px-4" size="sm" variant="info" onClick={this.handleShow}>
+         Edit
         </Button>
         <Modal
           show={this.state.showModal}

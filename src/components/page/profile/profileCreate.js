@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { Container, Row } from 'react-bootstrap'
 import Auth from '../../lib/auth'
 
 import ProfileForm from './profileForm'
@@ -35,15 +36,19 @@ class ProfileCreate extends React.Component{
 
   render(){
     return(
-      <div>
-        <h1>Add profile.....</h1>
-        <ProfileForm
-          data={this.state.data}
-          errors={this.state.errors}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
-      </div>
+      <Container className="container-fluid my-3">
+        <Row className="border-bottom border-secondary mb-4">
+          <h2>Add profile</h2>
+        </Row>
+        <Row>
+          <ProfileForm
+            data={this.state.data}
+            errors={this.state.errors}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+          />
+        </Row>
+      </Container>
     )
   }
 }
