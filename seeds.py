@@ -98,7 +98,9 @@ with app.app_context():
     profile_wes = Profile(
         name='Wesley Hall',
         headline='Web Development Immersive Student',
-        summary='I like to dance',
+        summary='''With a strong interest in technology and a logical and creative approach to problem solving, I decided to leave my job as a generalist Marketing Executive and join the Web Development Immersive course at General Assembly London in January 2018.
+
+        I am looking for an opportunity to continue my career change in an environment that both supports my desire to learn and grow as a full-stack developer and my desire to collaborate with and help others working towards similar goals.''',
         location='London, UK',
         owner=wes
     )
@@ -139,15 +141,29 @@ with app.app_context():
     db.session.add_all([
         profile_moon,
         profile_wes,
-        profile_jack
+        profile_jack,
+        profile_alex,
+        profile_bob,
+        profile_janet
     ])
 
 
 # Friend Requests ==========================================================
-    friend1 = Friend(friend_a=moon, friend_b=wes, status='Accepted')
+    friend_request_1 = Friend(friend_a=moon, friend_b=wes, status='Accepted')
+    friend_request_2 = Friend(friend_a=moon, friend_b=jack, status='Accepted')
+    friend_request_3 = Friend(friend_a=moon, friend_b=alex, status='Requested')
+    friend_request_4 = Friend(friend_a=wes, friend_b=jack, status='Requested')
+    friend_request_5 = Friend(friend_a=wes, friend_b=alex, status='Requested')
+    friend_request_6 = Friend(friend_a=jack, friend_b=alex, status='Accepted')
+
 
     db.session.add_all([
-        friend1
+        friend_request_1,
+        friend_request_2,
+        friend_request_3,
+        friend_request_4,
+        friend_request_5,
+        friend_request_6
     ])
 
 
@@ -241,22 +257,23 @@ with app.app_context():
 # Messages =================================================================
 
     message_1 = Message(
-        message_content='Hello check check',
+        message_content='Hi Wesley, thanks for accepting my request! ',
         sender=moon,
         receiver=wes
     )
 
     message_2 = Message(
+    message_content='Hey Seong Jae, no worries. How is your job search coming along?',
+    sender=wes,
+    receiver=moon
+    )
+
+    message_3 = Message(
         message_content='Hello 2 check check',
         sender=moon,
         receiver=wes
     )
 
-    message_3 = Message(
-        message_content='Hello 3 check check',
-        sender=wes,
-        receiver=moon
-    )
 
     db.session.add_all([
         message_1,
@@ -649,7 +666,7 @@ with app.app_context():
         company='General Assembly',
         job_title="Some job title",
         post_content='This is a job post. Come and work at our amazing company!',
-        post_image='https://ga-core.s3.amazonaws.com/cms/files/files/000/000/886/original/ga-logo-gear.png',
+        post_image='./src/assets/images/profiles/general_assembly.png',
         owner=moon,
         industries=[industry2, industry5],
         liked_by=[wes]
@@ -659,11 +676,12 @@ with app.app_context():
         company='General Assembly',
         job_title="Some other job title",
         post_content='This is another job post. Join our amazing team today!',
-        post_image='https://ga-core.s3.amazonaws.com/cms/files/files/000/000/886/original/ga-logo-gear.png',
+        post_image='./src/assets/images/companies/general_assembly.png',
         owner=wes,
         industries=[industry8, industry4],
         liked_by=[moon]
     )
+
 
 
     db.session.add_all([
@@ -675,10 +693,10 @@ with app.app_context():
 # Social Posts ==============================================================
 
     social_post_1 = SocialPost(
-        post_title="Some post title",
-        post_content='This is a social post. Read my amazing article!',
+        post_title="Handle async operations with Promise.all in JS",
+        post_content='A good read on using Promise.all in JavaScript to handle async operations: https://medium.freecodecamp.org/promise-all-in-javascript-with-example-6c8c5aea3e32?gi=d7a854e8ba4a',
         owner=wes,
-        industries=[industry11],
+        industries=[industry142, industry143, industry144],
         liked_by=[moon]
     )
 
