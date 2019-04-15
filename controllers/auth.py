@@ -1,8 +1,10 @@
+import re
 from flask import Blueprint, jsonify, request, g
 from models.user import User, UserSchema
 from models.profile_folder.profile import Profile, ProfileSchema
 from lib.helpers import is_unique
 from lib.secure_route import secure_route
+from validate_email import validate_email
 
 api = Blueprint('auth', __name__)
 
@@ -20,6 +22,12 @@ def register():
 
     if not is_unique(model=User, key='email', value=data['email']):
         errors['email'] = errors.get('email', []) + ['Email already taken']
+
+    if not validate_email(data['email']):
+        errors['email'] = errors.get('email', []) + ['Email invalid']
+
+    if not re.match(r"^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])[\w\d@#$]{6,12}$", data['password']):
+        errors['password'] = errors.get('password', []) + ['Password must contain at least one uppercase character, one lowercase and one number']
 
     if errors:
         return jsonify(errors), 422

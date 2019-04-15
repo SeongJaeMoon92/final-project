@@ -14,6 +14,7 @@ marshmallow-sqlalchemy = "*"
 flask-bcrypt = "*"
 pyjwt = "*"
 requests = "*"
+validate-email = "*"
 
 [requires]
 python_version = "3.7"

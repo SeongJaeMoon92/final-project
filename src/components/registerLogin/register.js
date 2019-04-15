@@ -7,7 +7,7 @@ class Register extends React.Component{
   constructor(){
     super()
 
-    this.state = { data: {username: '', email: ''}, errors: {}, validated: false}
+    this.state = { data: {username: '', email: '', password: '', password_confirmation: ''}, errors: {}, validated: false}
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)

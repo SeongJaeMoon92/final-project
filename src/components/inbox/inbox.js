@@ -106,7 +106,7 @@ class Inbox extends React.Component{
     const {data, profiles, sortMessages, dataMessage} = this.state
     console.log(sortMessages)
     return (
-      <Container className="container-fluid my-3 inboxContainer container-min-height">
+      <Container className="container-fluid my-3 inboxContainer">
         <div className="messageSidebar">
           <div className="sideBar">
             <Badge variant="secondary" className="text">Messaging</Badge>
