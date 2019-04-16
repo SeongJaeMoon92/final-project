@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import Auth from '../../lib/auth'
 import JobPostForm from './jobPostForm'
+import Flash from '../../lib/flash'
 
 class JobPostNew extends React.Component {
   constructor() {
@@ -69,10 +70,12 @@ class JobPostNew extends React.Component {
     axios.post('/api/job_posts',
       this.state.data,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
-      .then(() => this.setState({data: ''},() =>{
+      .then((res) => {
+        // Flash.setMessage('primary', res.data.message)
+        this.setState({data: ''},() =>{
         this.fileInput.current.select.clearValue()
         this.props.postInfo()
-      }))
+      })})
       .catch(err => this.setState({ errors: err.response.data}))
   }
 
@@ -83,7 +86,6 @@ class JobPostNew extends React.Component {
   }
 
   render() {
-    console.log(this.state.errors);
     return (
       <div className="sectionTwo">
         <span>Create a new post</span>
