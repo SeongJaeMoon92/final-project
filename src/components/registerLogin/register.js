@@ -3,6 +3,8 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Form, Button} from 'react-bootstrap'
 
+import Flash from '../lib/flash'
+
 class Register extends React.Component{
   constructor(){
     super()
@@ -27,7 +29,8 @@ class Register extends React.Component{
     }
     this.setState({ validated: true }, () => {
       axios.post('/api/register', this.state.data)
-        .then(() => {
+        .then((res) => {
+          Flash.setMessage('primary', res.data.message)
           this.props.history.push('/login')
         })
         .catch(err => this.setState({errors: err.response.data}))

@@ -6,6 +6,7 @@ import { Form, Button} from 'react-bootstrap'
 // import component
 
 import Auth from '../lib/auth'
+import Flash from '../lib/flash'
 
 class Login extends React.Component{
   constructor(){
@@ -32,6 +33,8 @@ class Login extends React.Component{
     this.setState({ validated: true }, () => {
       axios.post('/api/login', this.state.data)
         .then(res => {
+          console.log(res)
+          Flash.setMessage('primary', res.data.message)
           Auth.setToken(res.data.token)
           this.props.history.push('/')
         })
@@ -40,6 +43,7 @@ class Login extends React.Component{
   }
 
   render(){
+    console.log('Mount')
     const { data, errors, validated } = this.state
     return (
       <div className="login">

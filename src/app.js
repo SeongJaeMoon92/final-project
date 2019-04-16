@@ -15,6 +15,7 @@ import NetworkIndex from './components/page/network/networkIndex'
 import Profile from './components/page/profile/profile'
 import ProfileCreate from './components/page/profile/profileCreate'
 import Inbox from './components/inbox/inbox'
+import FlashMessages from './components/common/flashMessages'
 
 class App extends React.Component{
   constructor(){
@@ -28,6 +29,7 @@ class App extends React.Component{
       <Browser>
         <main className="bg-light appHeight">
           <Header />
+          <FlashMessages />
           <Switch>
             <SecureRoute path='/inbox' component={Inbox} />
             <SecureRoute path='/profile/new' component={ProfileCreate} />
