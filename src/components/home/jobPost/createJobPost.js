@@ -5,6 +5,7 @@ import Auth from '../../lib/auth'
 import JobPostForm from './jobPostForm'
 import Flash from '../../lib/flash'
 import industriesOptions from '../data/industriesOptions'
+import Test from './test'
 
 class JobPostNew extends React.Component {
   constructor() {
@@ -15,6 +16,7 @@ class JobPostNew extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
+
     this.fileInput = React.createRef()
   }
 
@@ -25,7 +27,6 @@ class JobPostNew extends React.Component {
   }
 
   handleSelect(e, actionMeta){
-    console.log(actionMeta)
     const arr = []
     e.forEach(val => {
       const industries = {id: parseInt(val.value), industry: val.label}
@@ -90,15 +91,17 @@ class JobPostNew extends React.Component {
       <div className="sectionTwo">
         <span>Create a new post</span>
         <hr/>
+        <Test
+        />
         <JobPostForm
-          selectRef={this.fileInput}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          handleSelect={this.handleSelect}
-          data={this.state.data}
-          errors={this.state.errors}
-          validated={this.state.validated}
-          industriesOptions={industriesOptions}
+        selectRef={this.fileInput}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+        handleSelect={this.handleSelect}
+        data={this.state.data}
+        errors={this.state.errors}
+        validated={this.state.validated}
+        industriesOptions={industriesOptions}
         />
       </div>
     )

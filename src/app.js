@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Browser, Route, Switch} from 'react-router-dom'
 
 import './stylesheet/main.scss'
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 // import components
 
 import Header from './components/common/header'
