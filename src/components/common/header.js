@@ -64,7 +64,7 @@ class Header extends React.Component{
           <Link to="/">
             <img
               alt="JoinedUp"
-              src="./assets/images/joinedup/joinedup_logo_white_small.png"
+              src="../assets/images/joinedup/joinedup_logo_white_small.png"
               height="30"
               className="d-inline-block align-top"
             />
