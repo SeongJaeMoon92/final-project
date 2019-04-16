@@ -26,12 +26,13 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:4000',
         secure: false
       }
     }
   },
   plugins: [
+    new webpack.EnvironmentPlugin({...process.env}),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html',

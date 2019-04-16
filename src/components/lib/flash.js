@@ -1,9 +1,9 @@
 class Flash {
   static setMessage(type, message) {
-    console.log(type, message, 'setMessage')
+    // console.log(type, message, 'setMessage')
     this.messages = this.messages || {}
     this.messages[type] = message
-    console.log(this.messages, 'this messages')
+    // console.log(this.messages, 'this messages')
   }
 
   static getMessages() {

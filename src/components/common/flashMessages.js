@@ -21,7 +21,7 @@ class FlashMessages extends React.Component {
   }
 
   render() {
-    console.log(this.state.messages, 'message')
+    // console.log(this.state.messages, 'message')
     return (
       <div>
         {this.state.messages &&

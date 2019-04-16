@@ -69,7 +69,7 @@ class SocialPostIndex extends React.Component {
         </div>
         <div className="jobPostWrapperOverFlow">
         {filteredSocialPost && filteredSocialPost.sort((a,b) => {
-            if (a.id > b.id) return 1
+            if (a.id < b.id) return 1
             return -1
           }).map((socialPost,id) => (
             <div key={id} className="jobPostWrapper">
