@@ -154,8 +154,11 @@ with app.app_context():
     friend_request_2 = Friend(friend_a=moon, friend_b=jack, status='Accepted')
     friend_request_3 = Friend(friend_a=moon, friend_b=alex, status='Requested')
     friend_request_4 = Friend(friend_a=wes, friend_b=jack, status='Requested')
-    friend_request_5 = Friend(friend_a=wes, friend_b=alex, status='Requested')
-    friend_request_6 = Friend(friend_a=jack, friend_b=alex, status='Accepted')
+    friend_request_5 = Friend(friend_a=wes, friend_b=alex, status='Accepted')
+    friend_request_6 = Friend(friend_a=janet, friend_b=moon, status='Requested')
+    friend_request_7 = Friend(friend_a=bob, friend_b=moon, status='Requested')
+    friend_request_8 = Friend(friend_a=janet, friend_b=wes, status='Requested')
+    friend_request_9 = Friend(friend_a=bob, friend_b=wes, status='Requested')
 
 
     db.session.add_all([
@@ -164,7 +167,10 @@ with app.app_context():
         friend_request_3,
         friend_request_4,
         friend_request_5,
-        friend_request_6
+        friend_request_6,
+        friend_request_7,
+        friend_request_8,
+        friend_request_9
     ])
 
 
