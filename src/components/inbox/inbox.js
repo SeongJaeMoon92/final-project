@@ -14,7 +14,11 @@ class Inbox extends React.Component{
     this.handleChangeMessage = this.handleChangeMessage.bind(this)
     this.handleSubmitMessage = this.handleSubmitMessage.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
     this.handleClickColor = this.handleClickColor.bind(this)
+    // this.getMessagesInfo = this.getMessagesInfo.bind(this)
+    // this.setState = this.setState.bind(this);
+    // this.intevalFunction()
   }
 
   componentDidMount(){
@@ -61,7 +65,7 @@ class Inbox extends React.Component{
       if(a.id > b.id) return 1
       return -1
     })
-    this.setState({ sortMessages })
+    this.setState({ sortMessages }, this.handleScroll)
   }
 
   handleMessageUpdate(){
@@ -71,10 +75,29 @@ class Inbox extends React.Component{
     }, 300)
   }
 
+  // intevalFunction() {
+  //   setInterval(this.getMessagesInfo, 5000)
+  // }
+
   handleChangeMessage({target: {name, value}}){
     const dataMessage = {...this.state.dataMessage, [name]: value}
     const errors = {...this.state.errors, [name]: ''}
     this.setState({ dataMessage, errors })
+  }
+
+  handleScroll() {
+    const sidebardiv = [...this.DivSidebar.children]
+    var last_element = sidebardiv[sidebardiv.length - 1]
+    last_element.scrollIntoView({behavior: "smooth"})
+  }
+
+  handleKeyPress(e) {
+    // console.log(e.keyCode)
+    if (!this.state.dataMessage) return null
+    if (e.keyCode === 13 && this.state.dataMessage){
+      console.log(this.state.dataMessage)
+      this.handleSubmitMessage(e)
+    }
   }
 
   handleSubmitMessage(e){
@@ -104,7 +127,6 @@ class Inbox extends React.Component{
 
   render(){
     const { profiles, sortMessages, dataMessage} = this.state
-    console.log(sortMessages)
     return (
       <Container className="container-fluid my-3 inboxContainer">
         <div className="messageSidebar">
@@ -112,10 +134,13 @@ class Inbox extends React.Component{
             <Badge variant="secondary" className="text">Messaging</Badge>
             <div ref={el => this.DivButton = el} className="scrollSideBar">
               {profiles && profiles.map((profile, id) => (
-                <div className="listItem" key={id} onClick={(e) => {
+                <div
+                className="listItem"
+                key={id}
+                onClick={(e) => {
                   this.handleClick(e, profile)
                   this.handleClickColor(e)
-                } }>
+                }}>
                   <div><img width="100" className="rounded" src={profile.image ? profile.image : 'https://cdn.filestackcontent.com/Dk4icouSTHqDePOMsHFR'} /></div>
                   <div>{profile.name}</div>
                   <div>{profile.location}</div>
@@ -126,7 +151,7 @@ class Inbox extends React.Component{
           </div>
         </div>
         <div className="messageBox">
-          <div className="border-bottom message">
+          <div ref={el => this.DivSidebar = el} className="border-bottom message">
             {sortMessages && sortMessages.map((message, id) => (
               <Row className="my-2" key={id}>
                 <Col className={`border-bottom py-3 ${message.sender.id === Auth.getPayload().sub ? 'mx-4 text-right' : 'mx-4 text-left'}`}>
@@ -138,7 +163,7 @@ class Inbox extends React.Component{
             ))}
           </div>
           <div className="messageContent">
-            <Form onSubmit={this.handleSubmitMessage}>
+            <Form onSubmit={this.handleSubmitMessage} >
               <Form.Group controlId="message_content">
                 <Form.Label>Message</Form.Label>
                 <Form.Control
@@ -147,6 +172,7 @@ class Inbox extends React.Component{
                   placeholder='Message'
                   onChange={this.handleChangeMessage}
                   value={dataMessage.message_content || ''}
+                  onKeyUp={this.handleKeyPress}
                 />
               </Form.Group>
               <Button type="submit">Send</Button>
