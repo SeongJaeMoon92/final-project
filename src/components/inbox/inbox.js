@@ -4,6 +4,7 @@ import {Form, Button, Container, Row, Col, Badge} from 'react-bootstrap'
 
 // import component
 import Auth from '../lib/auth'
+import Notifications from '../lib/notification'
 
 class Inbox extends React.Component{
   constructor(){
@@ -16,9 +17,7 @@ class Inbox extends React.Component{
     this.handleClick = this.handleClick.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.handleClickColor = this.handleClickColor.bind(this)
-    // this.getMessagesInfo = this.getMessagesInfo.bind(this)
-    // this.setState = this.setState.bind(this);
-    // this.intevalFunction()
+    this.intevalFunction()
   }
 
   componentDidMount(){
@@ -69,15 +68,23 @@ class Inbox extends React.Component{
   }
 
   handleMessageUpdate(){
+
     this.getMessagesInfo()
     setTimeout(() => {
       this.sortMessages()
     }, 300)
   }
 
-  // intevalFunction() {
-  //   setInterval(this.getMessagesInfo, 5000)
-  // }
+  intevalFunction() {
+    setInterval(() => {
+      console.log('working')
+      // Notifications.setNotification('success', 1)
+      this.getMessagesInfo()
+      setTimeout(() => {
+        this.sortMessages()
+      }, 300)
+    }, 4000)
+  }
 
   handleChangeMessage({target: {name, value}}){
     const dataMessage = {...this.state.dataMessage, [name]: value}
@@ -88,11 +95,11 @@ class Inbox extends React.Component{
   handleScroll() {
     const sidebardiv = [...this.DivSidebar.children]
     var last_element = sidebardiv[sidebardiv.length - 1]
+    if (!last_element) return
     last_element.scrollIntoView({behavior: "smooth"})
   }
 
   handleKeyPress(e) {
-    // console.log(e.keyCode)
     if (!this.state.dataMessage) return null
     if (e.keyCode === 13 && this.state.dataMessage){
       console.log(this.state.dataMessage)

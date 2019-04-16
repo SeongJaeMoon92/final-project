@@ -1,8 +1,11 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import Auth from '../lib/auth'
 import axios from 'axios'
 import { Navbar, Nav } from 'react-bootstrap'
+
+import Auth from '../lib/auth'
+import Notifications from '../lib/notification'
+
 
 class Header extends React.Component{
   constructor(){
@@ -11,6 +14,8 @@ class Header extends React.Component{
     this.state = {}
 
     this.logout = this.logout.bind(this)
+
+    this.path = React.createRef()
   }
 
   componentDidMount() {
@@ -23,6 +28,17 @@ class Header extends React.Component{
     this.getProfileId()
     this.setLocationInState()
   }
+
+  // getNotification(){
+  //   const messages = Notifications.getNotification()
+  //   console.log(messages, 'update')
+  //   if (!messages) return false
+  //
+  //   this.setState({ messages })
+  //   console.log(this.state.messages, 'update message')
+  //   Notifications.clearNotification()
+  //   setTimeout(() => this.setState({ messages: null }), 4000)
+  // }
 
   setLocationInState() {
     this.setState({ previousLocation: this.props.history.location })
@@ -39,8 +55,6 @@ class Header extends React.Component{
   logout() {
     Auth.logout()
   }
-
-
 
   render() {
     if (!Auth.isAuthenticated()) return null
@@ -60,7 +74,7 @@ class Header extends React.Component{
         <Navbar.Collapse id="navbar-joinedup" className="justify-content-end">
           <Nav>
             <Nav.Link href="/discover">Discover</Nav.Link>
-            <Nav.Link href="/inbox">Inbox</Nav.Link>
+            <Nav.Link ref={this.path} href="/inbox">Inbox</Nav.Link>
             <Nav.Link href={`/profile/${this.state.profileId}`}>My Profile</Nav.Link>
             <Nav.Link href="/" onClick={this.logout}>Logout</Nav.Link>
           </Nav>

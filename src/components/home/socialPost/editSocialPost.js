@@ -4,6 +4,8 @@ import Auth from '../../lib/auth'
 import {Modal, Button} from 'react-bootstrap'
 import SocialPostForm from './socialPostForm'
 
+import industriesOptions from '../data/industriesOptions'
+
 class EditSocialPost extends React.Component {
   constructor() {
     super()
@@ -16,6 +18,8 @@ class EditSocialPost extends React.Component {
     this.handleSelect = this.handleSelect.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.fileInput = React.createRef()
+
+    this.handleIndustriesOptions()
   }
 
   handleClose() {
@@ -89,15 +93,35 @@ class EditSocialPost extends React.Component {
       .then(res => {
         this.fileInput.current.state.value = res.map(data => (
           {value: data.id, label: data.industry}))
+        return this.fileInput.current.state.value
       })
+      .then(res =>{
+        let newArr = this.state.industriesOptions
+        for (let arr in res){
+          newArr = newArr.filter(el =>{
+            return parseInt(el.value) !== (res[arr].value)
+          })
+        }
+        return newArr
+      })
+      .then(res => this.setState({options:res}))
       .catch(err => {
         this.setState({ errors: err.response.data})
       })
   }
 
   postAxios(){
+    const data = {...this.state.data}
+    this.setState({newData: data}, () => {
+      const key = ['owner']
+      const key1 = ['liked_by']
+      const key2 = ['comments']
+      delete this.state.newData[key]
+      delete this.state.newData[key1]
+      delete this.state.newData[key2]
+    })
     axios.put(`/api/social_posts/${this.props.id}`,
-      this.state.data,
+      this.state.newData,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => {
         this.setState({show: false},() =>{
@@ -111,8 +135,13 @@ class EditSocialPost extends React.Component {
     e.preventDefault()
     this.handleNestedObject()
   }
+
+  handleIndustriesOptions(){
+    this.state.industriesOptions = industriesOptions
+  }
+
   render() {
-    const {data, errors} = this.state
+    const {data, errors, options} = this.state
     return (
       <>
         <Button className="buttonColor" onClick={this.handleShow}>
@@ -136,6 +165,7 @@ class EditSocialPost extends React.Component {
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
               handleSelect={this.handleSelect}
+              industriesOptions={options}
             />
           </Modal.Body>
         </Modal>

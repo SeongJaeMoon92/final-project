@@ -4,6 +4,7 @@ import axios from 'axios'
 import Auth from '../../lib/auth'
 import JobPostForm from './jobPostForm'
 import Flash from '../../lib/flash'
+import industriesOptions from '../data/industriesOptions'
 
 class JobPostNew extends React.Component {
   constructor() {
@@ -71,7 +72,6 @@ class JobPostNew extends React.Component {
       this.state.data,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
       .then((res) => {
-        // Flash.setMessage('primary', res.data.message)
         this.setState({data: ''},() =>{
         this.fileInput.current.select.clearValue()
         this.props.postInfo()
@@ -98,6 +98,7 @@ class JobPostNew extends React.Component {
           data={this.state.data}
           errors={this.state.errors}
           validated={this.state.validated}
+          industriesOptions={industriesOptions}
         />
       </div>
     )

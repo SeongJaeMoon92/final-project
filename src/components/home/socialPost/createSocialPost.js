@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import Auth from '../../lib/auth'
 import SocialPostForm from './socialPostForm'
+import industriesOptions from '../data/industriesOptions'
 
 class SocialPostNew extends React.Component {
   constructor() {
@@ -92,6 +93,7 @@ class SocialPostNew extends React.Component {
           handleSelect={this.handleSelect}
           data={this.state.data}
           errors={this.state.errors}
+          industriesOptions={industriesOptions}
         />
       </div>
     )
