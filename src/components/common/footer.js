@@ -8,13 +8,12 @@ const Footer = () => {
     <Navbar collapseOnSelect sticky="bottom" expand="lg" bg="primary" variant="dark" className="justify-content-center">
       <Nav>
         <Nav.Link href="/">
-          &copy;
           <img
-            src="../../assets/images/link-512.png"
-            width="30"
+            alt="JoinedUp"
+            src="../../assets/images/joinedup/joinedup_logo_white_small.png"
             height="30"
+            className="d-inline-block align-top"
           />
-          Joined Up
         </Nav.Link>
       </Nav>
     </Navbar>

@@ -4,6 +4,7 @@ import { Container, Row, Col, Form } from 'react-bootstrap'
 
 import Auth from '../../lib/auth'
 
+import ProfileRequired from '../../common/profileRequired'
 import NetworkProfile from './networkProfile'
 
 class NetworkIndex extends React.Component{
@@ -101,7 +102,8 @@ class NetworkIndex extends React.Component{
 
   render(){
     const { userProfile, otherProfiles, allRequests, search } = this.state
-    if (!userProfile || !otherProfiles || !allRequests) return null
+    if (!userProfile) return <ProfileRequired/>
+    if (!otherProfiles || !allRequests) return null
     const filteredProfiles = otherProfiles.filter(profiles => profiles.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
     return(
       <Container className="container-fluid my-3 container-min-height">

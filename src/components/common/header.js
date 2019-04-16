@@ -49,13 +49,11 @@ class Header extends React.Component{
         <Navbar.Brand>
           <Link to="/">
             <img
-              alt=""
-              src="../../assets/images/link-512.png"
-              width="30"
+              alt="JoinedUp"
+              src="../../assets/images/joinedup/joinedup_logo_white_small.png"
               height="30"
               className="d-inline-block align-top"
             />
-            {' JoinedUp'}
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-joinedup" />

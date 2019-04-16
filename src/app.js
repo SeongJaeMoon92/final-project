@@ -14,6 +14,7 @@ import SecureRoute from './components/lib/secureRoute'
 import NetworkIndex from './components/page/network/networkIndex'
 import Profile from './components/page/profile/profile'
 import ProfileCreate from './components/page/profile/profileCreate'
+import ProfileRequired from './components/common/profileRequired'
 import Inbox from './components/inbox/inbox'
 import FlashMessages from './components/common/flashMessages'
 
@@ -32,6 +33,7 @@ class App extends React.Component{
           <FlashMessages />
           <Switch>
             <SecureRoute path='/inbox' component={Inbox} />
+            <SecureRoute path='/profile/undefined' component={ProfileRequired} />
             <SecureRoute path='/profile/new' component={ProfileCreate} />
             <SecureRoute path='/profile/:id' component={Profile} />
             <SecureRoute path='/discover' component={NetworkIndex} />

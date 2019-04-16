@@ -1,6 +1,5 @@
 import React from 'react'
 import {Button, Form} from 'react-bootstrap'
-// import compoenents
 
 import SideProfile from  './sideProfile'
 import SocialPostIndex from  './socialPost/socialPostIndex'

@@ -116,7 +116,7 @@ class Inbox extends React.Component{
                   this.handleClick(e, profile)
                   this.handleClickColor(e)
                 } }>
-                  <div><img width="100" src={profile.image ? profile.image : 'https://cdn.filestackcontent.com/r2EcoZ4uR0Wh8bgGlZkV'} /></div>
+                  <div><img width="100" className="rounded" src={profile.image ? profile.image : 'https://cdn.filestackcontent.com/Dk4icouSTHqDePOMsHFR'} /></div>
                   <div>{profile.name}</div>
                   <div>{profile.location}</div>
                   <hr/>
@@ -128,11 +128,11 @@ class Inbox extends React.Component{
         <div className="messageBox">
           <div className="border-bottom message">
             {sortMessages && sortMessages.map((message, id) => (
-              <Row className="my-4" key={id}>
-                <Col className={message.sender.id === Auth.getPayload().sub ? 'mx-4 text-right' : 'mx-4 text-left'}>
+              <Row className="my-2" key={id}>
+                <Col className={`border-bottom py-3 ${message.sender.id === Auth.getPayload().sub ? 'mx-4 text-right' : 'mx-4 text-left'}`}>
+                  <div><img width="50" className="rounded" src={message.sender.user_profile[0].image ? message.sender.user_profile[0].image : 'https://cdn.filestackcontent.com/Dk4icouSTHqDePOMsHFR'}/></div>
+                  <div className="font-weight-bold">{message.sender.user_profile[0].name}</div>
                   <div>{message.message_content}</div>
-                  <div>Sent by: {message.sender.username}</div>
-                  <hr />
                 </Col>
               </Row>
             ))}
