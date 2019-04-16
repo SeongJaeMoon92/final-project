@@ -349,7 +349,6 @@ with app.app_context():
     profile_david = Profile(
         name='David Miller',
         headline='Director at Recruitment agency',
-        image='../assets/images/profiles/man2.jpg',
         summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         location='Canary, UK',
         owner=david

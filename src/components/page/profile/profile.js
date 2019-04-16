@@ -10,14 +10,36 @@ import ExperienceCreate from './experienceCreate'
 import EducationCreate from './educationCreate'
 
 import MessageModal from '../../home/message/messageModal'
+import MessageProfileModal from '../message'
 
 class Profile extends React.Component{
   constructor(){
     super()
 
-    this.state = {}
+    this.state = { data: {}}
     this.getProfileData = this.getProfileData.bind(this)
     this.isOwner = this.isOwner.bind(this)
+    this.handleChangeMessage = this.handleChangeMessage.bind(this)
+    this.handleSubmitMessage = this.handleSubmitMessage.bind(this)
+  }
+
+  handleChangeMessage({target: {name, value}}){
+    const data = {...this.state.data, [name]: value}
+    const errors = {...this.state.errors, [name]: ''}
+    this.setState({ data, errors })
+  }
+
+  handleSubmitMessage(e){
+    e.preventDefault()
+    const data = {...this.state.data, receiver_id: this.state.profile.owner.id}
+    this.setState({data},
+      () =>  {
+        axios.post('/api/messages', this.state.data,
+          { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
+          .then((res) => this.setState({data: ''},() => console.log(res.data)))
+          .catch(err => this.setState({errors: err.response.data}))
+      }
+    )
   }
 
   componentDidMount() {
@@ -72,9 +94,12 @@ class Profile extends React.Component{
             }
             {!this.isOwner() &&
               <Col xs={12} className="text-right">
-                <Button className="mx-2" href="/inbox" size="sm" variant="primary">
-                  Message {profile.name}
-                </Button>
+                <MessageProfileModal
+                  dataMessage={this.state.data}
+                  handleChange={this.handleChangeMessage}
+                  handleSubmit={this.handleSubmitMessage}
+                  data ={profile.name}
+                />
               </Col>
             }
             <Col xs={8} md={3} className="mx-auto">
@@ -185,16 +210,3 @@ class Profile extends React.Component{
 }
 
 export default Profile
-
-
-// To figure out:
-// {!this.isOwner() &&
-//   <Col xs={12} className="text-right">
-//
-//     <MessageModal
-//       data={this.state.profile}
-//       profileId={this.props.match.params.id}
-//       getProfileData={this.getProfileData}
-//     />
-//   </Col>
-// }
