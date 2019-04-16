@@ -18,8 +18,8 @@ with app.app_context():
 # Users =====================================================================
     moon, errors = user_schema.load({
         'username': 'moon',
-    	'email': 'moon@email',
-    	'password': 'moon12345',
+    	'email': 'moon@email.com',
+    	'password': 'Password1234',
     	'password_confirmation': 'moon12345'
     })
 
@@ -28,8 +28,8 @@ with app.app_context():
 
     wes, errors = user_schema.load({
         'username': 'wes',
-    	'email': 'wes@email',
-    	'password': 'wes12345',
+    	'email': 'wes@email.com',
+    	'password': 'Password1234',
     	'password_confirmation': 'wes12345'
     })
 
@@ -38,8 +38,8 @@ with app.app_context():
 
     jack, errors = user_schema.load({
         'username': 'beanslord',
-    	'email': 'jack@email',
-    	'password': 'password',
+    	'email': 'jack@email.com',
+    	'password': 'Password1234',
     	'password_confirmation': 'password'
     })
 
@@ -48,8 +48,8 @@ with app.app_context():
 
     alex, errors = user_schema.load({
         'username': 'alex',
-    	'email': 'alex@email',
-    	'password': 'password',
+    	'email': 'alex@email.com',
+    	'password': 'Password1234',
     	'password_confirmation': 'password'
     })
 
@@ -58,8 +58,8 @@ with app.app_context():
 
     bob, errors = user_schema.load({
         'username': 'bob',
-    	'email': 'bob@email',
-    	'password': 'password',
+    	'email': 'bob@email.com',
+    	'password': 'Password1234',
     	'password_confirmation': 'password'
     })
 
@@ -68,7 +68,7 @@ with app.app_context():
 
     janet, errors = user_schema.load({
         'username': 'janet',
-    	'email': 'janet@email',
+    	'email': 'janet@email.com',
     	'password': 'password',
     	'password_confirmation': 'password'
     })
