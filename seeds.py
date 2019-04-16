@@ -19,8 +19,8 @@ with app.app_context():
     moon, errors = user_schema.load({
         'username': 'moon',
     	'email': 'moon@email.com',
-    	'password': 'Password1234',
-    	'password_confirmation': 'moon12345'
+    	'password': 'Moon12345',
+    	'password_confirmation': 'Moon12345'
     })
 
     if errors:
@@ -29,8 +29,8 @@ with app.app_context():
     wes, errors = user_schema.load({
         'username': 'wes',
     	'email': 'wes@email.com',
-    	'password': 'Password1234',
-    	'password_confirmation': 'wes12345'
+    	'password': 'Wes12345',
+    	'password_confirmation': 'Wes12345'
     })
 
     if errors:
@@ -39,8 +39,8 @@ with app.app_context():
     jack, errors = user_schema.load({
         'username': 'beanslord',
     	'email': 'jack@email.com',
-    	'password': 'Password1234',
-    	'password_confirmation': 'password'
+    	'password': 'Password12345',
+    	'password_confirmation': 'Password12345'
     })
 
     if errors:
@@ -49,8 +49,8 @@ with app.app_context():
     alex, errors = user_schema.load({
         'username': 'alex',
     	'email': 'alex@email.com',
-    	'password': 'Password1234',
-    	'password_confirmation': 'password'
+    	'password': 'Password12345',
+    	'password_confirmation': 'Password12345'
     })
 
     if errors:
@@ -59,8 +59,8 @@ with app.app_context():
     bob, errors = user_schema.load({
         'username': 'bob',
     	'email': 'bob@email.com',
-    	'password': 'Password1234',
-    	'password_confirmation': 'password'
+    	'password': 'Password12345',
+    	'password_confirmation': 'Password12345'
     })
 
     if errors:
@@ -69,8 +69,8 @@ with app.app_context():
     janet, errors = user_schema.load({
         'username': 'janet',
     	'email': 'janet@email.com',
-    	'password': 'password',
-    	'password_confirmation': 'password'
+    	'password': 'Password12345',
+    	'password_confirmation': 'Password12345'
     })
 
     if errors:
