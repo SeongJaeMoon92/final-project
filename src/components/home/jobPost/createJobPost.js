@@ -5,7 +5,6 @@ import Auth from '../../lib/auth'
 import JobPostForm from './jobPostForm'
 import Flash from '../../lib/flash'
 import industriesOptions from '../data/industriesOptions'
-import Test from './test'
 
 class JobPostNew extends React.Component {
   constructor() {
@@ -91,8 +90,6 @@ class JobPostNew extends React.Component {
       <div className="sectionTwo">
         <span>Create a new post</span>
         <hr/>
-        <Test
-        />
         <JobPostForm
         selectRef={this.fileInput}
         handleChange={this.handleChange}
