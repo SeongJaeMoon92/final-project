@@ -4,6 +4,8 @@ import Auth from '../../lib/auth'
 import {Modal, Button} from 'react-bootstrap'
 import JobPostForm from './jobPostForm'
 
+import industriesOptions from '../data/industriesOptions'
+
 class EditJobPost extends React.Component {
   constructor() {
     super()
@@ -16,6 +18,8 @@ class EditJobPost extends React.Component {
     this.handleSelect = this.handleSelect.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.fileInput = React.createRef()
+
+    this.handleIndustriesOptions()
   }
 
   handleClose() {
@@ -87,12 +91,20 @@ class EditJobPost extends React.Component {
         return industries
       })
       .then(res => {
-        console.log(res)
         this.fileInput.current.state.value = res.map(data => (
           {value: data.id, label: data.industry}))
-        // this.fileInput.current._reactInternalFiber.stateNode.state.value = res.map(data => (
-        //   {value: data.id, label: data.industry}))
+        return this.fileInput.current.state.value
       })
+      .then(res =>{
+        let newArr = this.state.industriesOptions
+        for (let arr in res){
+          newArr = newArr.filter(el =>{
+            return parseInt(el.value) !== (res[arr].value)
+          })
+        }
+        return newArr
+      })
+      .then(res => this.setState({options:res}))
       .catch(err => {
         this.setState({ errors: err.response.data})
       })
@@ -122,10 +134,12 @@ class EditJobPost extends React.Component {
     this.handleNestedObject()
   }
 
+  handleIndustriesOptions(){
+    this.state.industriesOptions = industriesOptions
+  }
+
   render() {
-    const {data, errors} = this.state
-    // console.log(data, 'data')
-    // console.log(errors, 'errors')
+    const {data, errors, options} = this.state
     return (
       <>
         <Button className="buttonColor" onClick={this.handleShow}>
@@ -149,6 +163,7 @@ class EditJobPost extends React.Component {
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
               handleSelect={this.handleSelect}
+              industriesOptions={options}
             />
           </Modal.Body>
         </Modal>

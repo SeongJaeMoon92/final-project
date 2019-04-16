@@ -85,7 +85,7 @@ class Profile extends React.Component{
               </Col>
             }
             <Col xs={8} md={3} className="mx-auto">
-              <img src={profile.image ? profile.image : 'https://cdn.filestackcontent.com/Dk4icouSTHqDePOMsHFR'} />
+              <img src={profile.image ? profile.image : './assets/images/profiles/joinedup_no_image.png'} />
             </Col>
             <Col xs={12} md={9} className="text-center text-md-left">
               <h2 >{profile.name}</h2>

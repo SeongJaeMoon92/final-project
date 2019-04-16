@@ -10,7 +10,7 @@ const Footer = () => {
         <Nav.Link className="p-1" href="/">
           <img
             alt="JoinedUp"
-            src="../../assets/images/joinedup/joinedup_logo_white_small.png"
+            src="../assets/images/joinedup/joinedup_logo_white_small.png"
             height="32"
             className="d-inline-block align-top"
           />

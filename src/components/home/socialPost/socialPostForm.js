@@ -2,11 +2,10 @@ import React from 'react'
 
 import Select from 'react-select'
 import makeAnimated from 'react-select/lib/animated'
-import industriesOptions from '../data/industriesOptions'
 
 import { Form, Button} from 'react-bootstrap'
 
-const SocialPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, selectRef}) => {
+const SocialPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, selectRef, industriesOptions}) => {
   return(
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="post_title">

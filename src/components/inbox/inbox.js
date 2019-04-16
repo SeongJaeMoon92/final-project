@@ -4,6 +4,7 @@ import {Form, Button, Container, Row, Col, Badge} from 'react-bootstrap'
 
 // import component
 import Auth from '../lib/auth'
+import Notifications from '../lib/notification'
 
 class Inbox extends React.Component{
   constructor(){
@@ -16,9 +17,7 @@ class Inbox extends React.Component{
     this.handleClick = this.handleClick.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.handleClickColor = this.handleClickColor.bind(this)
-    // this.getMessagesInfo = this.getMessagesInfo.bind(this)
-    // this.setState = this.setState.bind(this);
-    // this.intevalFunction()
+    this.intevalFunction()
   }
 
   componentDidMount(){
@@ -69,15 +68,23 @@ class Inbox extends React.Component{
   }
 
   handleMessageUpdate(){
+
     this.getMessagesInfo()
     setTimeout(() => {
       this.sortMessages()
     }, 300)
   }
 
-  // intevalFunction() {
-  //   setInterval(this.getMessagesInfo, 5000)
-  // }
+  intevalFunction() {
+    setInterval(() => {
+      console.log('working')
+      // Notifications.setNotification('success', 1)
+      this.getMessagesInfo()
+      setTimeout(() => {
+        this.sortMessages()
+      }, 300)
+    }, 4000)
+  }
 
   handleChangeMessage({target: {name, value}}){
     const dataMessage = {...this.state.dataMessage, [name]: value}
@@ -88,11 +95,11 @@ class Inbox extends React.Component{
   handleScroll() {
     const sidebardiv = [...this.DivSidebar.children]
     var last_element = sidebardiv[sidebardiv.length - 1]
+    if (!last_element) return
     last_element.scrollIntoView({behavior: "smooth"})
   }
 
   handleKeyPress(e) {
-    // console.log(e.keyCode)
     if (!this.state.dataMessage) return null
     if (e.keyCode === 13 && this.state.dataMessage){
       console.log(this.state.dataMessage)
@@ -141,7 +148,7 @@ class Inbox extends React.Component{
                   this.handleClick(e, profile)
                   this.handleClickColor(e)
                 }}>
-                  <div><img width="100" className="rounded" src={profile.image ? profile.image : 'https://cdn.filestackcontent.com/Dk4icouSTHqDePOMsHFR'} /></div>
+                  <div><img width="100" className="rounded" src={profile.image ? profile.image : './assets/images/profiles/joinedup_no_image.png'} /></div>
                   <div>{profile.name}</div>
                   <div>{profile.location}</div>
                   <hr/>
@@ -155,7 +162,7 @@ class Inbox extends React.Component{
             {sortMessages && sortMessages.map((message, id) => (
               <Row className="my-2" key={id}>
                 <Col className={`border-bottom py-3 ${message.sender.id === Auth.getPayload().sub ? 'mx-4 text-right' : 'mx-4 text-left'}`}>
-                  <div><img width="50" className="rounded" src={message.sender.user_profile[0].image ? message.sender.user_profile[0].image : 'https://cdn.filestackcontent.com/Dk4icouSTHqDePOMsHFR'}/></div>
+                  <div><img width="50" className="rounded" src={message.sender.user_profile[0].image ? message.sender.user_profile[0].image : './assets/images/profiles/joinedup_no_image.png'}/></div>
                   <div className="font-weight-bold">{message.sender.user_profile[0].name}</div>
                   <div>{message.message_content}</div>
                 </Col>
