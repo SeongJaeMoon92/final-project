@@ -37,7 +37,7 @@ class MainPage extends React.Component{
           / > 
           <SideProfile />
           <div>
-          <Button className="buttonColor switchButton" onClick={this.handlePost}> Switch</Button>   
+            <Button className="buttonColor switchButton" onClick={this.handlePost}> Switch</Button>   
           </div>
         </div>
         {socialPost &&
