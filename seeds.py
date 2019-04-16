@@ -76,13 +76,112 @@ with app.app_context():
     if errors:
         raise Exception(errors)
 
+    tom, errors = user_schema.load({
+        'username': 'tom',
+    	'email': 'tom@email.com',
+    	'password': 'Password12345',
+    	'password_confirmation': 'Password12345'
+    })
+
+    if errors:
+        raise Exception(errors)
+
+    john, errors = user_schema.load({
+        'username': 'john',
+    	'email': 'john@email.com',
+    	'password': 'Password12345',
+    	'password_confirmation': 'Password12345'
+    })
+
+    if errors:
+        raise Exception(errors)
+
+    oliver, errors = user_schema.load({
+        'username': 'oliver',
+    	'email': 'oliver@email.com',
+    	'password': 'Password12345',
+    	'password_confirmation': 'Password12345'
+    })
+
+    if errors:
+        raise Exception(errors)
+
+    olivia, errors = user_schema.load({
+        'username': 'olivia',
+    	'email': 'olivia@email.com',
+    	'password': 'Password12345',
+    	'password_confirmation': 'Password12345'
+    })
+
+    if errors:
+        raise Exception(errors)
+
+    amelia, errors = user_schema.load({
+        'username': 'amelia',
+    	'email': 'amelia@email.com',
+    	'password': 'Password12345',
+    	'password_confirmation': 'Password12345'
+    })
+
+    if errors:
+        raise Exception(errors)
+
+    isla, errors = user_schema.load({
+        'username': 'isla',
+    	'email': 'isla@email.com',
+    	'password': 'Password12345',
+    	'password_confirmation': 'Password12345'
+    })
+
+    if errors:
+        raise Exception(errors)
+
+    george, errors = user_schema.load({
+        'username': 'george',
+    	'email': 'george@email.com',
+    	'password': 'Password12345',
+    	'password_confirmation': 'Password12345'
+    })
+
+    if errors:
+        raise Exception(errors)
+
+    charlie, errors = user_schema.load({
+        'username': 'charlie',
+    	'email': 'charlie@email.com',
+    	'password': 'Password12345',
+    	'password_confirmation': 'Password12345'
+    })
+
+    if errors:
+        raise Exception(errors)
+
+    jacob, errors = user_schema.load({
+        'username': 'jacob',
+    	'email': 'jacob@email.com',
+    	'password': 'Password12345',
+    	'password_confirmation': 'Password12345'
+    })
+
+    if errors:
+        raise Exception(errors)
+
     db.session.add_all([
         moon,
         wes,
         jack,
         alex,
         bob,
-        janet
+        janet,
+        tom,
+        john,
+        oliver,
+        olivia,
+        amelia,
+        isla,
+        george,
+        charlie,
+        jacob
     ])
 
 
@@ -138,6 +237,78 @@ with app.app_context():
         owner=janet
     )
 
+    profile_tom = Profile(
+        name='Tom Brown',
+        headline='Junior web developer at BBC',
+        summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        location='TowerBridge, UK',
+        owner=tom
+    )
+
+    profile_john = Profile(
+        name='John Smith',
+        headline='Marketing Executive at Utility Warehouse Limited ',
+        summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        location='Kingston, UK',
+        owner=john
+    )
+
+    profile_oliver = Profile(
+        name='Oliver Wratten',
+        headline='Graduate Analyst at Two Circles ',
+        summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        location='Richmond, UK',
+        owner=oliver
+    )
+
+    profile_olivia = Profile(
+        name='Olivia Johnson',
+        headline='Senior Membership Executive at FOURTEEN PEOPLE ',
+        summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        location='Acton, UK',
+        owner=olivia
+    )
+
+    profile_amelia = Profile(
+        name='Amelia Jones',
+        headline='Finance Analyst at Goodman Masson',
+        summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        location='North hampton, UK',
+        owner=amelia
+    )
+
+    profile_isla = Profile(
+        name='Isla Miller',
+        headline='Financial Controller at Pertemps',
+        summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        location='Wapping, UK',
+        owner=isla
+    )
+
+    profile_george = Profile(
+        name='George Williams',
+        headline='Management Accountant at Crowley Cox',
+        summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        location='Wapping, UK',
+        owner=george
+    )
+
+    profile_charlie = Profile(
+        name='Charlie Wilson',
+        headline='Senior architect at 1508 London',
+        summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        location='Wapping, UK',
+        owner=charlie
+    )
+
+    profile_jacob = Profile(
+        name='Jacob Davis',
+        headline='Intern at EBRD',
+        summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        location='Wapping, UK',
+        owner=jacob
+    )
+
 
     db.session.add_all([
         profile_moon,
@@ -145,7 +316,16 @@ with app.app_context():
         profile_jack,
         profile_alex,
         profile_bob,
-        profile_janet
+        profile_janet,
+        profile_tom,
+        profile_john,
+        profile_oliver,
+        profile_olivia,
+        profile_amelia,
+        profile_isla,
+        profile_george,
+        profile_charlie,
+        profile_jacob
     ])
 
 
