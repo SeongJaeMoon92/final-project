@@ -197,7 +197,7 @@ with app.app_context():
     profile_wes = Profile(
         name='Wesley Hall',
         headline='Web Development Immersive Student',
-        image='https://cdn.filestackcontent.com/88IBDPLURXu6NDEH3W54',
+        image='../assets/images/profiles/wes.jpg',
         summary='''With a strong interest in technology and a logical and creative approach to problem solving, I decided to leave my job as a generalist Marketing Executive and join the Web Development Immersive course at General Assembly London in January 2018.
 
         I am looking for an opportunity to continue my career change in an environment that both supports my desire to learn and grow as a full-stack developer and my desire to collaborate with and help others working towards similar goals.''',
@@ -223,23 +223,25 @@ with app.app_context():
 
     profile_bob = Profile(
         name='Bob de Builder',
-        headline='Junior web developer at Dark Trace',
-        summary='I am a Junior web developer at Dark trace',
+        headline='Junior Web Developer at Dark Trace',
+        image='../assets/images/profiles/man4.jpg',
+        summary='I am a Junior Web Developer at Dark Trace',
         location='Essex, UK',
         owner=bob
     )
 
     profile_janet = Profile(
         name='Janet Brown',
-        headline='Junior web developer at BBC',
-        summary='I am a Junior web developer at BBC',
+        headline='Senior Web Developer at BBC',
+        image='../assets/images/profiles/woman3.jpg',
+        summary='I am a Junior Web Developer at BBC',
         location='Canary Wharf, UK',
         owner=janet
     )
 
     profile_tom = Profile(
         name='Tom Brown',
-        headline='Junior web developer at BBC',
+        headline='Web Developer at BBC',
         summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         location='TowerBridge, UK',
         owner=tom
@@ -247,7 +249,8 @@ with app.app_context():
 
     profile_john = Profile(
         name='John Smith',
-        headline='Marketing Executive at Utility Warehouse Limited ',
+        headline='Marketing Director at Utility Warehouse Limited ',
+        image='../assets/images/profiles/man6.jpg',
         summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         location='Kingston, UK',
         owner=john
@@ -264,6 +267,7 @@ with app.app_context():
     profile_olivia = Profile(
         name='Olivia Johnson',
         headline='Senior Membership Executive at FOURTEEN PEOPLE ',
+        image='../assets/images/profiles/woman2.jpg',
         summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         location='Acton, UK',
         owner=olivia
@@ -272,6 +276,7 @@ with app.app_context():
     profile_amelia = Profile(
         name='Amelia Jones',
         headline='Finance Analyst at Goodman Masson',
+        image='../assets/images/profiles/woman1.jpg',
         summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         location='North hampton, UK',
         owner=amelia
@@ -288,6 +293,7 @@ with app.app_context():
     profile_george = Profile(
         name='George Williams',
         headline='Management Accountant at Crowley Cox',
+        image='../assets/images/profiles/man5.jpg',
         summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         location='Wapping, UK',
         owner=george
@@ -296,6 +302,7 @@ with app.app_context():
     profile_charlie = Profile(
         name='Charlie Wilson',
         headline='Senior architect at 1508 London',
+        image='../assets/images/profiles/man3.jpg',
         summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         location='Wapping, UK',
         owner=charlie
@@ -304,6 +311,7 @@ with app.app_context():
     profile_jacob = Profile(
         name='Jacob Davis',
         headline='Intern at EBRD',
+        image='../assets/images/profiles/man2.jpg',
         summary='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         location='Wapping, UK',
         owner=jacob
