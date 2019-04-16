@@ -17,8 +17,3 @@ const ProfileRequired = () => {
 }
 
 export default ProfileRequired
-// if (!userProfile) return <ProfileRequired/>
-//
-//
-//
-// import ProfileRequired from '../../common/profileRequired'
