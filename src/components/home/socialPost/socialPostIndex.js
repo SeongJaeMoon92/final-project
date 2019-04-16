@@ -64,31 +64,30 @@ class SocialPostIndex extends React.Component {
       <div className="postform animated fadeIn">
         <div className="sectionOne">
           <div className="searchBox">
-          <span>Social Post</span>
-
-        </div>
-        <div className="jobPostWrapperOverFlow">
-        {filteredSocialPost && filteredSocialPost.sort((a,b) => {
-            if (a.id < b.id) return 1
-            return -1
-          }).map((socialPost,id) => (
-            <div key={id} className="jobPostWrapper">
-              <SocialPostShow
-                getPostInfo = {this.getPostInfo}
-                socialPost = {socialPost}
-                handleLike = {this.handleLike}
-                handleChange = {this.handleChange}
-                handleSubmit = {this.handleSubmit}
-                handleDelete = {this.handleDelete}
-                data = {this.state.data}
-                errors = {this.state.errors}
-              />
-            </div>
-          ))}
+            <span>Social Post</span>
+          </div>
+          <div className="jobPostWra  pperOverFlow">
+            {filteredSocialPost && filteredSocialPost.sort((a,b) => {
+              if (a.id < b.id) return 1
+              return -1
+            }).map((socialPost,id) => (
+              <div key={id} className="jobPostWrapper">
+                <SocialPostShow
+                  getPostInfo = {this.getPostInfo}
+                  socialPost = {socialPost}
+                  handleLike = {this.handleLike}
+                  handleChange = {this.handleChange}
+                  handleSubmit = {this.handleSubmit}
+                  handleDelete = {this.handleDelete}
+                  data = {this.state.data}
+                  errors = {this.state.errors}
+                />
+              </div>
+            ))}
           </div>
         </div>
         <SocialPostNew
-        postInfo={this.getPostInfo}
+          postInfo={this.getPostInfo}
         />
       </div>
     )
