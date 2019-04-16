@@ -70,7 +70,7 @@ class ProfileUpdate extends React.Component{
 
     return(
       <div>
-        <Button className="m-1 px-3" size="sm" variant="primary" onClick={this.handleShow}>
+        <Button className="m-2 px-3" size="sm" variant="info" onClick={this.handleShow}>
          Edit profile
         </Button>
 

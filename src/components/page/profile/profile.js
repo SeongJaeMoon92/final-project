@@ -54,38 +54,31 @@ class Profile extends React.Component{
     const { profile, pendingReceived, pendingSent } = this.state
     return(
       <Container className="container-fluid my-3 container-min-height">
-        {this.isOwner() &&
-          <Row>
-            {pendingReceived > 0 &&
-              <Col className=" mb-2 text-left">
-                <Button href="/discover" variant="warning">
-                  {pendingReceived} requests waiting
-                </Button>
-              </Col>
-            }
-            {pendingSent > 0 &&
-              <Col className=" mb-2 text-left">
-                <Button href="/discover" variant="warning">
-                  {pendingSent} requests sent
-                </Button>
-              </Col>
-            }
-          </Row>
-        }
-
         <Container className="bg-white rounded border border-dark p-4">
           <Row className="align-items-center">
             {this.isOwner() &&
               <Col xs={12} className="text-right">
-                <ProfileUpdate
-                  data={this.state.profile}
-                  profileId={this.props.match.params.id}
-                  getProfileData={this.getProfileData}
-                />
+                {pendingReceived > 0 &&
+                  <Button className="mx-2" href="/discover" size="sm" variant="warning">
+                    {pendingReceived} requests waiting
+                  </Button>
+                }
+                {pendingSent > 0 &&
+                  <Button className="mx-2" href="/discover" size="sm" variant="primary">
+                    {pendingSent} requests sent
+                  </Button>
+                }
+              </Col>
+            }
+            {!this.isOwner() &&
+              <Col xs={12} className="text-right">
+                <Button className="mx-2" href="/inbox" size="sm" variant="primary">
+                  Message {profile.name}
+                </Button>
               </Col>
             }
             <Col xs={8} md={3} className="mx-auto">
-              <img src={profile.image ? profile.image : '../assets/images/profiles/joinedup_no_image.png'} />
+              <img className="rounded" src={profile.image ? profile.image : '../assets/images/profiles/joinedup_no_image.png'} />
             </Col>
             <Col xs={12} md={9} className="text-center text-md-left">
               <h2 >{profile.name}</h2>
@@ -96,6 +89,15 @@ class Profile extends React.Component{
           <Row className="m-2 text-justify">
             <p>{profile.summary}</p>
           </Row>
+          <Col xs={12} className="text-right">
+            {this.isOwner() &&
+              <ProfileUpdate
+                data={this.state.profile}
+                profileId={this.props.match.params.id}
+                getProfileData={this.getProfileData}
+              />
+            }
+          </Col>
         </Container>
         <Row className="m-3 text-center">
           {profile.profile_experience.length === 0 &&
