@@ -17,8 +17,8 @@ class Message(db.Model, BaseModel):
         return f'{self.id}'
 
 class MessageSchema(ma.ModelSchema, BaseSchema):
-    sender = fields.Nested('UserSchema', only=('id', 'username'))
-    receiver = fields.Nested('UserSchema', only=('id', 'username'))
+    sender = fields.Nested('UserSchema', only=('id', 'username', 'user_profile'))
+    receiver = fields.Nested('UserSchema', only=('id', 'username', 'user_profile'))
 
     class Meta:
         model = Message
