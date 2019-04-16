@@ -332,14 +332,17 @@ with app.app_context():
 # Friend Requests ==========================================================
     friend_request_1 = Friend(friend_a=moon, friend_b=wes, status='Accepted')
     friend_request_2 = Friend(friend_a=moon, friend_b=jack, status='Accepted')
-    friend_request_3 = Friend(friend_a=moon, friend_b=alex, status='Requested')
+    friend_request_3 = Friend(friend_a=moon, friend_b=alex, status='Accepted')
     friend_request_4 = Friend(friend_a=wes, friend_b=jack, status='Requested')
     friend_request_5 = Friend(friend_a=wes, friend_b=alex, status='Accepted')
+    friend_request_5 = Friend(friend_a=wes, friend_b=jacob, status='Accepted')
     friend_request_6 = Friend(friend_a=janet, friend_b=moon, status='Requested')
     friend_request_7 = Friend(friend_a=bob, friend_b=moon, status='Requested')
     friend_request_8 = Friend(friend_a=janet, friend_b=wes, status='Requested')
     friend_request_9 = Friend(friend_a=bob, friend_b=wes, status='Requested')
-
+    friend_request_9 = Friend(friend_a=george, friend_b=wes, status='Requested')
+    friend_request_9 = Friend(friend_a=isla, friend_b=wes, status='Requested')
+    friend_request_9 = Friend(friend_a=jacob, friend_b=moon, status='Requested')
 
     db.session.add_all([
         friend_request_1,
@@ -450,22 +453,70 @@ with app.app_context():
     )
 
     message_2 = Message(
-    message_content='Hey Seong Jae, no worries. How is your job search coming along?',
-    sender=wes,
-    receiver=moon
+        message_content='Hey Seong Jae, no worries. How is your job search coming along?',
+        sender=wes,
+        receiver=moon
     )
 
     message_3 = Message(
-        message_content='Hello 2 check check',
+        message_content='It is great',
         sender=moon,
         receiver=wes
     )
 
+    message_4 = Message(
+        message_content='Hi Jack, thanks for accepting my request! ',
+        sender=moon,
+        receiver=jack
+    )
+
+    message_5 = Message(
+        message_content='Hi Alex, thanks for accepting my request! ',
+        sender=moon,
+        receiver=jack
+    )
+
+    message_6 = Message(
+        message_content='Hi Bob, How are you?',
+        sender=moon,
+        receiver=bob
+    )
+
+    message_7 = Message(
+        message_content='Hi Alex, thanks for accepting my request!',
+        sender=wes,
+        receiver=alex
+    )
+
+    message_8 = Message(
+        message_content='Hi Jacob, thanks for accepting my request!',
+        sender=wes,
+        receiver=jacob
+    )
+
+    message_9 = Message(
+        message_content='Hi Wes, How are you?',
+        sender=george,
+        receiver=wes
+    )
+
+    message_10 = Message(
+        message_content='Hi Wes, How are you?',
+        sender=isla,
+        receiver=wes
+    )
 
     db.session.add_all([
         message_1,
         message_2,
-        message_3
+        message_3,
+        message_4,
+        message_5,
+        message_6,
+        message_7,
+        message_8,
+        message_9,
+        message_10,
     ])
 
 
