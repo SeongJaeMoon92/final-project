@@ -9,6 +9,8 @@ import ProfileEducation from './profileEducation'
 import ExperienceCreate from './experienceCreate'
 import EducationCreate from './educationCreate'
 
+import MessageModal from '../../home/message/messageModal'
+
 class Profile extends React.Component{
   constructor(){
     super()
@@ -36,9 +38,9 @@ class Profile extends React.Component{
       { headers: { Authorization: `Bearer ${Auth.getToken()}`}}
     )
       .then(res => {
-        const connectionRequests = res.data.received_friend_requests
-        const pendingRequests = connectionRequests.filter(request => request.status === 'Requested')
-        this.setState({ pendingRequests: pendingRequests.length })
+        const pendingReceived = res.data.received_friend_requests.filter(request => request.status === 'Requested')
+        const pendingSent = res.data.sent_friend_requests.filter(request => request.status === 'Requested')
+        this.setState({ pendingReceived: pendingReceived.length, pendingSent: pendingSent.length })
       })
       .catch(err => console.log(err))
   }
@@ -49,16 +51,28 @@ class Profile extends React.Component{
 
   render(){
     if (!this.state.profile) return null
-    const { profile, pendingRequests } = this.state
+    const { profile, pendingReceived, pendingSent } = this.state
     return(
       <Container className="container-fluid my-3 container-min-height">
-        {this.isOwner() && pendingRequests > 0 &&
-          <Col xs={12} className=" mb-2 text-left">
-            <Button href="/discover" variant="warning">
-              View pending conenction requests ({pendingRequests})
-            </Button>
-          </Col>
+        {this.isOwner() &&
+          <Row>
+            {pendingReceived > 0 &&
+              <Col className=" mb-2 text-left">
+                <Button href="/discover" variant="warning">
+                  {pendingReceived} requests waiting
+                </Button>
+              </Col>
+            }
+            {pendingSent > 0 &&
+              <Col className=" mb-2 text-left">
+                <Button href="/discover" variant="warning">
+                  {pendingSent} requests sent
+                </Button>
+              </Col>
+            }
+          </Row>
         }
+
         <Container className="bg-white rounded border border-dark p-4">
           <Row className="align-items-center">
             {this.isOwner() &&
@@ -169,3 +183,16 @@ class Profile extends React.Component{
 }
 
 export default Profile
+
+
+// To figure out:
+// {!this.isOwner() &&
+//   <Col xs={12} className="text-right">
+//
+//     <MessageModal
+//       data={this.state.profile}
+//       profileId={this.props.match.params.id}
+//       getProfileData={this.getProfileData}
+//     />
+//   </Col>
+// }
