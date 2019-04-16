@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Button } from 'react-bootstrap'
 
 const NetworkProfile = (props) => {
-  const { profile, ownerId, isConnection, isPendingReceived, isPendingSent, requestConnection, approveConnection } = props
+  const { profile, ownerId, isConnection, isPendingReceived, isPendingSent, isDeclined, requestConnection, approveConnection, declineConnection } = props
   console.log('isConnection', profile.id, isConnection(profile))
   console.log('isPendingReceived', profile.id, isPendingReceived(profile))
   console.log('isPendingSent', profile.id, isPendingSent(profile))
@@ -20,6 +20,11 @@ const NetworkProfile = (props) => {
           <p className="m-0 py-1 text-white">JoinedUp!</p>
         </Card.Footer>
       }
+      {isDeclined(profile) &&
+        <Card.Footer className="bg-secondary">
+          <p className="m-0 py-1 text-white font-italic">Declined</p>
+        </Card.Footer>
+      }
       {isPendingSent(profile) &&
         <Card.Footer className="bg-secondary">
           <p className="m-0 py-1 text-white font-italic">Pending</p>
@@ -28,6 +33,7 @@ const NetworkProfile = (props) => {
       {!isConnection(profile) &&
         !isPendingReceived(profile) &&
         !isPendingSent(profile) &&
+        !isDeclined(profile) &&
         <Card.Footer className="bg-info">
           <Button
             variant="secondary"
@@ -42,12 +48,22 @@ const NetworkProfile = (props) => {
       {isPendingReceived(profile) &&
         <Card.Footer className="bg-secondary">
           <Button
+            className="mx-1"
             variant="warning"
             size="sm"
             value={isPendingReceived(profile).id}
             onClick={approveConnection}
           >
-            Approve Request
+            Approve
+          </Button>
+          <Button
+            className="mx-1"
+            variant="danger"
+            size="sm"
+            value={isPendingReceived(profile).id}
+            onClick={declineConnection}
+          >
+            Decline
           </Button>
         </Card.Footer>
       }

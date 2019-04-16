@@ -18,9 +18,11 @@ class NetworkIndex extends React.Component{
     this.handleSearch = this.handleSearch.bind(this)
     this.requestConnection = this.requestConnection.bind(this)
     this.approveConnection = this.approveConnection.bind(this)
+    this.declineConnection = this.declineConnection.bind(this)
     this.isConnection = this.isConnection.bind(this)
     this.isPendingReceived = this.isPendingReceived.bind(this)
     this.isPendingSent = this.isPendingSent.bind(this)
+    this.isDeclined = this.isDeclined.bind(this)
   }
 
   componentDidMount() {
@@ -78,6 +80,13 @@ class NetworkIndex extends React.Component{
     return this.state.allRequests[pos]
   }
 
+  isDeclined(profile) {
+    const pos = this.state.allRequests.map(request => request.friend_a ? request.friend_a.id : '').indexOf(profile.owner.id)
+    if (pos === -1) return false
+    if (this.state.allRequests[pos].status !== 'Declined') return false
+    return this.state.allRequests[pos]
+  }
+
 
   requestConnection(e) {
     axios.post('/api/friends', { friend_b_id: e.target.value},
@@ -87,9 +96,16 @@ class NetworkIndex extends React.Component{
       .catch(err => console.log(err))
   }
 
-
   approveConnection(e) {
     axios.put(`/api/friends/${e.target.value}`, { status: 'Accepted'},
+      { headers: { Authorization: `Bearer ${Auth.getToken()}`}}
+    )
+      .then(() => this.getConnectionData())
+      .catch(err => console.log(err))
+  }
+
+  declineConnection(e) {
+    axios.put(`/api/friends/${e.target.value}`, { status: 'Declined'},
       { headers: { Authorization: `Bearer ${Auth.getToken()}`}}
     )
       .then(() => this.getConnectionData())
@@ -127,8 +143,10 @@ class NetworkIndex extends React.Component{
                   isConnection={this.isConnection}
                   isPendingReceived={this.isPendingReceived}
                   isPendingSent={this.isPendingSent}
+                  isDeclined={this.isDeclined}
                   requestConnection={this.requestConnection}
                   approveConnection={this.approveConnection}
+                  declineConnection={this.declineConnection}
                 />
               </Col>
             ))}
