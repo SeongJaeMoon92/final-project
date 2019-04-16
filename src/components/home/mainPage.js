@@ -16,8 +16,8 @@ class MainPage extends React.Component{
     this.handleSearch = this.handleSearch.bind(this)
   }
 
-  handlePost(e){
-    this.setState({socialPost:!this.state.socialPost, jobPost: !this.state.jobPost})
+  handlePost(){
+    this.setState({ socialPost: !this.state.socialPost, jobPost: !this.state.jobPost})
   }
 
   handleSearch(e) {
@@ -25,7 +25,7 @@ class MainPage extends React.Component{
   }
 
   render(){
-    const {socialPost, jobPost} = this.state
+    const { socialPost, jobPost } = this.state
     return (
       <main className="mainHomePage animated fadeIn">
         <div className="sidebar">
@@ -37,7 +37,7 @@ class MainPage extends React.Component{
           / > 
           <SideProfile />
           <div>
-          <Button className="buttonColor switchButton" onClick={this.handlePost}> Switch</Button>   
+            <Button className="buttonColor switchButton" onClick={this.handlePost}> Switch</Button>   
           </div>
         </div>
         {socialPost &&
