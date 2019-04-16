@@ -9,7 +9,7 @@ class Inbox extends React.Component{
   constructor(){
     super()
 
-    this.state = { data: {}, errors: {}, dataMessage: {}}
+    this.state = { data: {}, errors: {}, dataMessage: {} }
 
     this.handleChangeMessage = this.handleChangeMessage.bind(this)
     this.handleSubmitMessage = this.handleSubmitMessage.bind(this)
@@ -23,13 +23,13 @@ class Inbox extends React.Component{
 
   getMessagesInfo() {
     axios.get('/api/messages',
-      { headers: { Authorization: `Bearer ${Auth.getToken()}`}})
+      { headers: { Authorization: `Bearer ${Auth.getToken()}` }})
       .then(res => this.setState({data: res.data}))
       .then(() => {
         const receiver =  this.state.data.sent_messages.map(message =>(
           message.receiver.id
         ))
-        this.setState({receiver})
+        this.setState({ receiver })
       })
       .then(() => {
         const arr = []
@@ -61,7 +61,7 @@ class Inbox extends React.Component{
       if(a.id > b.id) return 1
       return -1
     })
-    this.setState({sortMessages})
+    this.setState({ sortMessages })
   }
 
   handleMessageUpdate(){
@@ -103,7 +103,7 @@ class Inbox extends React.Component{
   }
 
   render(){
-    const {data, profiles, sortMessages, dataMessage} = this.state
+    const { profiles, sortMessages, dataMessage} = this.state
     console.log(sortMessages)
     return (
       <Container className="container-fluid my-3 inboxContainer">
