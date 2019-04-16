@@ -9,7 +9,7 @@ const NetworkProfile = (props) => {
   return(
     <Card className="text-center mb-3">
       <a className="clear-text-decoration" href={`/profile/${profile.id}`}>
-        <Card.Img src={profile.image ? profile.image : './assets/images/profiles/joinedup_no_image.png'} />
+        <Card.Img src={profile.image ? profile.image : '../assets/images/profiles/joinedup_no_image.png'} />
         <Card.Body>
           <Card.Title>{profile.name}</Card.Title>
           <Card.Text>{profile.headline}</Card.Text>
