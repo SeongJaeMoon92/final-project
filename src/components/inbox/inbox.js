@@ -94,9 +94,9 @@ class Inbox extends React.Component{
 
   handleScroll() {
     const sidebardiv = [...this.DivSidebar.children]
-    var last_element = sidebardiv[sidebardiv.length - 1]
-    if (!last_element) return
-    last_element.scrollIntoView({behavior: "smooth"})
+    const lastElement = sidebardiv[sidebardiv.length - 1]
+    if (!lastElement) return
+    lastElement.scrollIntoView({behavior: 'smooth'})
   }
 
   handleKeyPress(e) {
@@ -142,13 +142,14 @@ class Inbox extends React.Component{
             <div ref={el => this.DivButton = el} className="scrollSideBar">
               {profiles && profiles.map((profile, id) => (
                 <div
-                className="listItem"
-                key={id}
-                onClick={(e) => {
-                  this.handleClick(e, profile)
-                  this.handleClickColor(e)
-                }}>
-                  <div><img width="100" className="rounded" src={profile.image ? profile.image : 'https://cdn.filestackcontent.com/Dk4icouSTHqDePOMsHFR'} /></div>
+                  className="listItem"
+                  key={id}
+                  onClick={(e) => {
+                    this.handleClick(e, profile)
+                    this.handleClickColor(e)
+                  }}
+                >
+                  <div><img width="100" className="rounded" src={profile.image ? profile.image : './assets/images/profiles/joinedup_no_image.png'} /></div>
                   <div>{profile.name}</div>
                   <div>{profile.location}</div>
                   <hr/>
@@ -162,7 +163,7 @@ class Inbox extends React.Component{
             {sortMessages && sortMessages.map((message, id) => (
               <Row className="my-2" key={id}>
                 <Col className={`border-bottom py-3 ${message.sender.id === Auth.getPayload().sub ? 'mx-4 text-right' : 'mx-4 text-left'}`}>
-                  <div><img width="50" className="rounded" src={message.sender.user_profile[0].image ? message.sender.user_profile[0].image : 'https://cdn.filestackcontent.com/Dk4icouSTHqDePOMsHFR'}/></div>
+                  <div><img width="50" className="rounded" src={message.sender.user_profile[0].image ? message.sender.user_profile[0].image : './assets/images/profiles/joinedup_no_image.png'}/></div>
                   <div className="font-weight-bold">{message.sender.user_profile[0].name}</div>
                   <div>{message.message_content}</div>
                 </Col>
