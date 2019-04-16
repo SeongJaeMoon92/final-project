@@ -18,7 +18,6 @@ class Inbox extends React.Component{
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.handleClickColor = this.handleClickColor.bind(this)
     this.intevalFunction()
-    // this.path = React.createRef()
   }
 
   componentDidMount(){
@@ -78,6 +77,7 @@ class Inbox extends React.Component{
 
   intevalFunction() {
     setInterval(() => {
+      console.log('working')
       // Notifications.setNotification('success', 1)
       this.getMessagesInfo()
       setTimeout(() => {
@@ -100,7 +100,6 @@ class Inbox extends React.Component{
   }
 
   handleKeyPress(e) {
-    // console.log(e.keyCode)
     if (!this.state.dataMessage) return null
     if (e.keyCode === 13 && this.state.dataMessage){
       console.log(this.state.dataMessage)
@@ -135,7 +134,6 @@ class Inbox extends React.Component{
 
   render(){
     const { profiles, sortMessages, dataMessage} = this.state
-    // console.log(this.props)
     return (
       <Container className="container-fluid my-3 inboxContainer">
         <div className="messageSidebar">

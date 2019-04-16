@@ -3,10 +3,8 @@ import { Form, Button } from 'react-bootstrap'
 
 import Select from 'react-select'
 import makeAnimated from 'react-select/lib/animated'
-import industriesOptions from '../data/industriesOptions'
 
-const JobPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, selectRef, validated}) => {
-  // console.log(errors, 'edit errors')
+const JobPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, selectRef, validated, industriesOptions}) => {
   return(
     <Form
       onSubmit={handleSubmit}
