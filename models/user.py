@@ -91,7 +91,7 @@ class UserSchema(ma.ModelSchema, BaseSchema):
             'password_confirmation'
             )
 
-    user_profile = fields.Nested('ProfileSchema', only=('id',))
+    user_profile = fields.Nested('ProfileSchema', many=True, only=('id', 'name', 'image'))
     owned_job_posts = fields.Nested('JobPostSchema', many=True)
     owned_social_posts = fields.Nested('SocialPostSchema', many=True)
     likes_job_post = fields.Nested('JobPostSchema', many=True, only=('id', 'job_title'))
