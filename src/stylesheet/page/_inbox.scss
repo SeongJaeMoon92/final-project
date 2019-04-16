@@ -1,7 +1,6 @@
 .inboxContainer {
-  width: 100%;
-  // height: calc(100% - 62px - 56px - 1em - 1em);
-  height: 80.8279vh;
+  height: calc(100vh - 56px - 56px);
+  // height: 80.8279vh;
   display: flex;
   flex-direction: column;
   .messageSidebar {

@@ -9,6 +9,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 import Header from './components/common/header'
 import Footer from './components/common/footer'
 import MainPage from './components/home/mainPage'
+import MainPageNew from './components/home/mainPageNew'
 import Register from './components/registerLogin/register'
 import Login from './components/registerLogin/login'
 import SecureRoute from './components/lib/secureRoute'
@@ -29,7 +30,7 @@ class App extends React.Component{
   render(){
     return (
       <Browser>
-        <main className="bg-light appHeight">
+        <main className="bg-light container-min-height">
           <Header />
           <FlashMessages />
           <Switch>
@@ -40,6 +41,7 @@ class App extends React.Component{
             <SecureRoute path='/discover' component={NetworkIndex} />
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
+            <SecureRoute path='/testing' component={MainPageNew} />
             <SecureRoute exact path='/' component={MainPage} />
           </Switch>
           <Footer />

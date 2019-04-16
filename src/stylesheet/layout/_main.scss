@@ -2,20 +2,16 @@
 	height: 100vh;
 }
 
-// .appHeight {
-//   height: 100%;
-// }
-.mainPage {
-		height: 100%;
-		  // background:	#E8E8E8;
-	}
-
 // .container {
 // 	height: calc(95% - 56px);
 // }
 
 .container-min-height {
-  min-height: calc(100vh - 140px);
+  min-height: calc(100vh - 56px - 56px);
+}
+
+.container--height {
+  min-height: calc(100vh - 56px - 56px);
 }
 
 .active {

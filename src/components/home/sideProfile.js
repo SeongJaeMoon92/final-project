@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { Row, Button } from 'react-bootstrap'
 
 import Auth from '../lib/auth'
 
@@ -15,21 +16,23 @@ class SideProfile extends React.Component{
   }
 
   getProfileData(){
-    axios.get('/api/profiles/1')
-      .then(res => this.setState({ data: res.data }))
+    axios.get(`/api/users/${Auth.getPayload().sub}`,
+      { headers: { Authorization: `Bearer ${Auth.getToken()}`}}
+    )
+      .then(res => this.setState({ data: res.data.user_profile[0] }))
   }
-
-  // getProfileData(){
-  //   axios.get(`/api/profiles/${Auth.getPayload().sub}`)
-  //     .then(res => this.setState({ data: res.data }))
-  // }
 
   render() {
     const { data } = this.state
     return(
-      <div className="sideProfile">
-        {data.image && <img src={data.image} />}
-        {data.name && <span>Welcome {data.name}</span> }
+      <div className=" d-flex flex-column justify-content-center align-items-center bg-white rounded border-light p-3">
+        {data.image && <a href={`/profile/${data.id}`}><img className="my-2 rounded" width="100" height="100" src={data.image} /></a>}
+        {data.name && <p className="my-2 font-weight-bold"><a className="clear-text-decoration" href={`/profile/${data.id}`}>Welcome {data.name}</a></p>}
+        <div className="d-flex flex-md-column justify-content-center align-items-center">
+          <Button href={`/profile/${data.id}`} className="m-2" size="sm" variant="primary">My profile</Button>
+          <Button href="/inbox" className="m-2" size="sm" variant="primary">My messages</Button>
+          <Button href="/discover" className="m-2" size="sm" variant="primary">Discover Joins</Button>
+        </div>
       </div>
     )
   }

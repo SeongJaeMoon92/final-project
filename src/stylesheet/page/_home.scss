@@ -1,13 +1,13 @@
 .mainHomePage{
   display: flex;
-  height: 85vh;
+  height: calc(100vh - 56px - 56px);
   width: 100%;
   background:	#E8E8E8;
   .sidebar {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 1em;
+    padding: 1em;
     width: 15%;
     height: 100%;
     div {
