@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React from 'react'
-import {Form} from 'react-bootstrap'
 
 import Auth from '../../lib/auth'
 import SocialPostShow from './socialPostShow'
@@ -61,17 +60,17 @@ class SocialPostIndex extends React.Component {
     const {socialPosts} = this.state
     const filteredSocialPost = socialPosts.filter(post => post.post_title.toLowerCase().indexOf(this.props.search.toLowerCase())!== -1)
     return(
-      <div className="postform animated fadeIn">
-        <div className="sectionOne">
-          <div className="searchBox">
-            <span>Social Post</span>
-          </div>
-          <div className="jobPostWra  pperOverFlow">
+      <div className="d-flex mx-3 animated fadeIn">
+        <div className="mr-2 d-flex flex-column align-items-center">
+          <SocialPostNew
+            postInfo={this.getPostInfo}
+          />
+          <div className="post-wrapper-height-overflow bg-white rounded p-2">
             {filteredSocialPost && filteredSocialPost.sort((a,b) => {
               if (a.id < b.id) return 1
               return -1
             }).map((socialPost,id) => (
-              <div key={id} className="jobPostWrapper">
+              <div key={id} className="p-1 m-2 mb-1 border-bottom border-dark">
                 <SocialPostShow
                   getPostInfo = {this.getPostInfo}
                   socialPost = {socialPost}
@@ -86,9 +85,6 @@ class SocialPostIndex extends React.Component {
             ))}
           </div>
         </div>
-        <SocialPostNew
-          postInfo={this.getPostInfo}
-        />
       </div>
     )
   }

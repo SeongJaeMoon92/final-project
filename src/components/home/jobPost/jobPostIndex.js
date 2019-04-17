@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React from 'react'
-import {Form} from 'react-bootstrap'
 
 import Auth from '../../lib/auth'
 import JobPostShow from './jobPostShow'
@@ -45,32 +44,29 @@ class JobPostIndex extends React.Component {
     const {jobPosts} = this.state
     const filteredJobPost = jobPosts.filter(post => post.company.toLowerCase().indexOf(this.props.search.toLowerCase())!== -1)
     return(
-      <div className="postform animated fadeIn">
-        <div className="sectionOne">
-          <div className="searchBox">
-            <span>Job Post</span>
-          </div>
-          <div className="jobPostWrapperOverFlow">
-          {filteredJobPost && filteredJobPost.sort((a,b) => {
-            if (a.id < b.id) return 1
-            return -1
-          }).map((jobPost,id) => (
-            <div key={id} className="jobPostWrapper">
-              <JobPostShow
-                getPostInfo = {this.getPostInfo}
-                jobPost = {jobPost}
-                handleLike = {this.handleLike}
-                handleDelete = {this.handleDelete}
-                data = {this.state.data}
-                errors = {this.state.errors}
-              />
-            </div>
-          ))}
+      <div className="d-flex mx-3 animated fadeIn">
+        <div className="mr-2 d-flex flex-column align-items-center">
+          <JobPostNew
+            postInfo={this.getPostInfo}
+          />
+          <div className="post-wrapper-height-overflow bg-white rounded p-2">
+            {filteredJobPost && filteredJobPost.sort((a,b) => {
+              if (a.id < b.id) return 1
+              return -1
+            }).map((jobPost,id) => (
+              <div key={id} className="p-1 m-2 mb-1 border-bottom border-dark">
+                <JobPostShow
+                  getPostInfo = {this.getPostInfo}
+                  jobPost = {jobPost}
+                  handleLike = {this.handleLike}
+                  handleDelete = {this.handleDelete}
+                  data = {this.state.data}
+                  errors = {this.state.errors}
+                />
+              </div>
+            ))}
           </div>
         </div>
-        <JobPostNew
-        postInfo={this.getPostInfo}
-        />
       </div>
     )
   }

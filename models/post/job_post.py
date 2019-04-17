@@ -48,7 +48,7 @@ class JobPostSchema(ma.ModelSchema, BaseSchema):
     )
 
     liked_by = fields.Nested('UserSchema', many=True, only=('id', 'username'))
-    owner = fields.Nested('UserSchema', only=('id', 'username'))
+    owner = fields.Nested('UserSchema', only=('id', 'username', 'user_profile'))
     industries = fields.Nested('IndustrySchema', many=True, only=('id', 'industry'))
 
     @validates_schema

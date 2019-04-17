@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
-import {Button} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 
 import EditJobPost from  './editJobPost'
 import Auth from '../../lib/auth'
@@ -49,56 +49,54 @@ class JobPostShow extends React.Component {
     const { deleteButton, deleteButtonShow } = this.state
     const {jobPost, handleLike, handleChange, data, errors, getPostInfo } = this.props
     return(
-      <div className="showPage">
-        <div className="">
-          <div>Company : {jobPost.company}</div>
-          <div>We are looking for <strong>{jobPost.job_title}</strong></div>
-          <div>Content : {jobPost.post_content}</div>
-          <img src={jobPost.post_image} alt={jobPost.job_title}/>
+      <div>
+        <div className="border-bottom border-light pb-2 mb-2">
+          <h4 className="font-weight-bold">New role available: {jobPost.job_title}</h4>
+          <h5>{jobPost.company}</h5>
+          <p>Posted by <a href={`/profile/${jobPost.owner.user_profile[0].id}`}>{jobPost.owner.user_profile[0].name}</a></p>
+          <p>{jobPost.post_content}</p>
+          {jobPost.post_image && <img width="40%" src={jobPost.post_image} alt={jobPost.job_title}/>}
         </div>
-        <hr />
-        <div>Industries : </div>
-          <div className="industriesList">
-            {jobPost.industries.map((category, id) => (
-              <div key={id} className="industries">{category.industry}</div>
-            ))}
-          </div>
-        <hr />
-        <div className="buttonsAndUser">
+        <h6 className="font-weight-bold">Industries:</h6>
+        <div className="d-flex flex-wrap border-bottom border-light pb-2 mb-2">
+          {jobPost.industries.map((category, id) => (
+            <div key={id} className="bg-light rounded py-1 px-3 m-1 ">{category.industry}</div>
+          ))}
+        </div>
+        <div className="d-flex flex-between pt-2 mb-3">
           <div>
-          <Button
-            name={jobPost.id}
-            className="buttonColor"
-            onClick={handleLike}
-          >
-          {jobPost.liked_by.length} Like(s)
-          </Button>
-          {!this.isOwner() && <MessageModal
-            dataMessage={this.state.data}
-            handleChange={this.handleChangeMessage}
-            handleSubmit={this.handleSubmitMessage}
-            data ={jobPost}
-          />}
-          {this.isOwner() && <EditJobPost
-            id={jobPost.id}
-            postInfo = {getPostInfo}
-          />}
-          {(this.isOwner() && deleteButton) &&
-            <span>
-              <Button variant="danger" className="animated fadeIn" value={jobPost.id} onClick={(e)=> {
-                this.props.handleDelete(e)
-                this.handleDeleteButton()
-              }}>
-              Confirm
-              </Button>
-              <Button className="buttonColor animated fadeIn" onClick={this.handleDeleteButton}>Cancel</Button>
-            </span>
-          }
-          {(this.isOwner() && deleteButtonShow) &&
-            <Button onClick={this.handleDeleteButton} variant="danger" className="animated fadeIn">Delete</Button>
-          }
+            <Button
+              name={jobPost.id}
+              className="buttonColor"
+              onClick={handleLike}
+            >
+              {jobPost.liked_by.length} Like(s)
+            </Button>
+            {!this.isOwner() && <MessageModal
+              dataMessage={this.state.data}
+              handleChange={this.handleChangeMessage}
+              handleSubmit={this.handleSubmitMessage}
+              data ={jobPost}
+            />}
+            {this.isOwner() && <EditJobPost
+              id={jobPost.id}
+              postInfo = {getPostInfo}
+            />}
+            {(this.isOwner() && deleteButton) &&
+              <span>
+                <Button variant="danger" className="animated fadeIn" value={jobPost.id} onClick={(e)=> {
+                  this.props.handleDelete(e)
+                  this.handleDeleteButton()
+                }}>
+                Confirm
+                </Button>
+                <Button className="buttonColor animated fadeIn" onClick={this.handleDeleteButton}>Cancel</Button>
+              </span>
+            }
+            {(this.isOwner() && deleteButtonShow) &&
+              <Button onClick={this.handleDeleteButton} variant="danger" className="animated fadeIn">Delete</Button>
+            }
           </div>
-          <div>by {jobPost.owner.username}</div>
         </div>
       </div>
     )

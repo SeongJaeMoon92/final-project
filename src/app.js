@@ -3,13 +3,11 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Browser, Route, Switch} from 'react-router-dom'
 
 import './stylesheet/main.scss'
-import 'react-bootstrap-typeahead/css/Typeahead.css';
-// import components
+import 'react-bootstrap-typeahead/css/Typeahead.css'
 
 import Header from './components/common/header'
 import Footer from './components/common/footer'
 import MainPage from './components/home/mainPage'
-import MainPageNew from './components/home/mainPageNew'
 import Register from './components/registerLogin/register'
 import Login from './components/registerLogin/login'
 import SecureRoute from './components/lib/secureRoute'
@@ -41,7 +39,6 @@ class App extends React.Component{
             <SecureRoute path='/discover' component={NetworkIndex} />
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
-            <SecureRoute path='/testing' component={MainPageNew} />
             <SecureRoute exact path='/' component={MainPage} />
           </Switch>
           <Footer />

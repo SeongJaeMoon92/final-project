@@ -37,8 +37,6 @@ class NetworkIndex extends React.Component{
       .then(res => {
         const userProfile = res.filter(profile => (profile.owner.id === Auth.getPayload().sub))[0]
         const otherProfiles = res.filter(profile => (profile.owner.id !== Auth.getPayload().sub))
-        console.log('user profile', userProfile)
-        console.log('profiles', otherProfiles)
         this.setState({ userProfile, otherProfiles })
       })
   }
@@ -120,14 +118,17 @@ class NetworkIndex extends React.Component{
     const { userProfile, otherProfiles, allRequests, search } = this.state
     if (!userProfile) return <ProfileRequired/>
     if (!otherProfiles || !allRequests) return null
-    const filteredProfiles = otherProfiles.filter(profiles => profiles.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
+    const filteredProfiles = otherProfiles.filter(profiles => (
+      profiles.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+      profiles.headline.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+    ))
     return(
       <Container className="container-fluid my-3 container-min-height">
         <Row className="justify-content-center mb-4">
           <Col xs={12} md={10}>
             <Form.Control
               type="text"
-              placeholder="Search by name"
+              placeholder="Search by name or headline"
               value={search}
               onChange={this.handleSearch}
             / >

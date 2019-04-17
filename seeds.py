@@ -947,12 +947,12 @@ with app.app_context():
 
 
 # Job Posts =================================================================
-    image_logo_ga = 'https://cdn.filestackcontent.com/UUkTk6VgSTmfpX4gq8TW'
+
     job_post_1 = JobPost(
         company='General Assembly',
-        job_title="Some job title",
-        post_content='This is a job post. Come and work at our amazing company!',
-        post_image=image_logo_ga,
+        job_title="Teaching Assitant - Software Engineering Immersive",
+        post_content='This role is available to Software Engineering Immersive and Web Development Immersive alumni. Get in touch to apply!',
+        post_image='../assets/images/companies/general_assembly.png',
         owner=jack,
         industries=[industry2, industry5],
         liked_by=[wes]
@@ -960,18 +960,18 @@ with app.app_context():
 
     job_post_2 = JobPost(
         company='General Assembly',
-        job_title="Some other job title",
-        post_content='This is another job post. Join our amazing team today!',
-        post_image=image_logo_ga,
+        job_title="Teaching Assistant - UX Design Immersive",
+        post_content='This role is available to Software Engineering Immersive and Web Development Immersive alumni. Get in touch to apply!',
+        post_image='../assets/images/companies/general_assembly.png',
         owner=jack,
         industries=[industry8, industry4]
     )
 
     job_post_3 = JobPost(
-        company='KINGS COLLEGE LONDON',
+        company='King\'s College London',
         job_title="King's Prize Fellowship - Health Related Research",
         post_content='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        post_image='https://sciencecouncil.org/web/wp-content/uploads/2016/10/Kings-College-London-logo.jpg',
+        post_image='../assets/images/companies/kings_college_london.jpg',
         owner=jason,
         industries=[industry71, industry83, industry74]
     )
@@ -980,7 +980,7 @@ with app.app_context():
         company='NCVO',
         job_title="Capacity Building Programmes Manager",
         post_content='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        post_image='https://blogs.ncvo.org.uk/wp-content/themes/clickingmad/images/ncvo-logo.png',
+        post_image='../assets/images/companies/ncvo.png',
         owner=david,
         industries=[industry34, industry52]
     )
@@ -989,7 +989,7 @@ with app.app_context():
         company='Harris Hill',
         job_title="Communications Assistant",
         post_content='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        post_image='https://cj-live-blob.azureedge.net/thumbnails/harrishill_mainlogo_2018_blue_2018_01_08_05_21_44_pm-695x130.png',
+        post_image='../assets/images/companies/harris_hill.png',
         owner=olivia,
         industries=[industry72, industry111]
     )
@@ -998,16 +998,16 @@ with app.app_context():
         company='Tomorrow',
         job_title="Marketing Executive",
         post_content='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        post_image='https://www.tomorrow.one/img/logo.jpg',
+        post_image='../assets/images/companies/tomorrow.jpg',
         owner=amelia,
         industries=[industry60, industry50]
     )
 
     job_post_7 = JobPost(
-        company='THE WRITER',
+        company='The Writer',
         job_title="Writer, Brand Language Consultant and Trainer",
         post_content='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        post_image='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAMAAACahl6sAAAAM1BMVEX///8Aru9/1vc/wvO/6/vv+v6f4fnf9f3P8PxfzPUPs/AfuPFv0fYvvfKv5vqP2/hPx/QdLYPzAAAFHklEQVR4nO2Zi46kIBBF5SEiCPr/X7u8KWx7257p2Uk29ySTCC1Qt4pH4UwTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADw3+JXxxgT2/zbhnwPb5nZpJRKGPXbtnyHLQRD58fVLF/vR/IXOPn3DpRoaFoIJpanbZpI7YWOtRbsdtfsRaxi3VaxTLPIzTlLmDyO7Y+CFV4JsfVFq0lBZBtjf1FIqXUPBsXaNqP4o9AnaCnZtMvgA854qomjmb0uM55NyEhxR0iYEdnInRZSI22i7anvxWWlZ+QwQjDuNvFdubJFFCGiDvUopFj1Ukj291EKjvU+9mB86dz3pTDgaJjeFiKtVU0IXWEnIcmq10KSWzktiPZcW89kKQx41f3oH6bec3wQ4j03UxNC97yzEH9LSAqJoAWbH/duvGbs9ZbEj5ev9He5DH/ah90qleuY5deTEHlPiIpRqI4l0971aKsnARlw/PU7zxCelr4oZDJ07xF1xSysG7bemqLfEDLyVSG8T6c8H9M8Okyf/sZetRuY3e8LWYbtzeZDjjrYs5fpR9DxD4QsnnM/JHWz4ltYbKW00oYqh0SQgKz1eUkttOw/5ZpJGXYWIvl6cEVHXfbc+uW+8USIPvIZ3ceZuSnHuWwv9nMihYQGZE5Lffabjd1r12wuNdPeUoJmga9VNSuO77KYncS6LwnZ2hC1fTDFhV1Ci2aRYOSgSCGxJCB7CNAiipVL9kFodzS7Vcjq4mNK79IsXIPf5mnew8sueGjJ77JpNoMlbwjxgh1KT5r3dTDbmg4cdbtSdYUnDD0iAzZ0Omevi3DKppwuVCmaBkxDk6BDNxPCYHNJ44LHaut3hRixVLdWpx+sejv5J/1uaUj4MNNCN3mpx9kiVPTGWnIzaa+F+L6dr7VjGWWrWL++3BauhPQgmvKjJP20YaLMNpmSvn4CHnXvjZmdTRZux1xrroTYvpvrFuu0ye+09VtC+vYbBjXJLuLtOKVMs53TjtpM6wdjOytpnxdC1Ml/OXxn674sJP5aRhxJFm80JOlQrCFZmyRBXvmbkOM8wlHHv3mHvCUkVNrxFpl6H+5IeYfKNs+mTTLx4NJrISEI6zCCIuN/TIh6EuC4XGxtt/eZtvcu7gphlwnFp4XwsirO6L4/W5teztPI9h5vCnmSGf2AEHa5abSlHPfItvgV8/SNu0IucrOfEOIfmk4k7bVxhtWZ5kjee1OIZpf3yU8LkdfDTPlQ3HJA2uKX1LdvrJGL2ftpIct4bBPKoWJzDHJIBLXorhBXj44fFZKGcVerJK0LpUoMkuB9SCbuCkln0oOvPi4kJYhdCe8382iAEHVRHOQwaWafPpRcC0kbYP8MNh/vniNxNtCRRiFH7SglreWzXsjOu/QUhLYoJD3eq9knU0RfDYzkJemLWr3/hGxxv279jJzrk5ButPO0lvMFr9yqhBCuf4OrWu3QYDgP3MPObXuNIU4stw4Tz3dXveFupig6Xw+Cq+vg6fpZP/bPyUtuUNJrCn44AXY2fm1SDyHaSU10wuGlVDHloSOUPDO3fv1PFEaJQeVDqX3UTtFdWvH07xlDTV9oPLUod1cjhDrXpGIbQQ8jpOHbu6y2foqkxAguQ0m3UrGLx0/2+znU63AJdSQ8C8kB5bkmd3mYoGmrHznkGqNit+W6NQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH+EPM+EgGSSdcNsAAAAASUVORK5CYII=',
+        post_image='../assets/images/companies/the_writer.png',
         owner=david,
         industries=[industry90, industry100]
     )
@@ -1016,24 +1016,24 @@ with app.app_context():
         company='Fircroft',
         job_title="Cost Engineer",
         post_content='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        post_image='https://1481603-1-1.cdn.4matnetworks.com/file.ashx?path=root/images/fircroft_og_logo.jpg',
+        post_image='../assets/images/companies/fircroft.jpg',
         owner=isla,
         industries=[industry110, industry120]
     )
 
     job_post_9 = JobPost(
-        company='SPRINGER NATURE',
+        company='Springer Nature',
         job_title="Digital Content Coordinator, Springer Healthcare",
         post_content='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        post_image='data:image/png;base64,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',
+        post_image='../assets/images/companies/springer_nature.png',
         owner=david,
         industries=[industry130, industry140]
     )
     job_post_10 = JobPost(
-        company='KINGS COLLEGE LONDON',
+        company='King\'s College London',
         job_title="Research Assistant",
         post_content='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        post_image='https://sciencecouncil.org/web/wp-content/uploads/2016/10/Kings-College-London-logo.jpg',
+        post_image='../assets/images/companies/kings_college_london.jpg',
         owner=jason,
         industries=[industry150, industry160]
     )
@@ -1055,24 +1055,36 @@ with app.app_context():
 # Social Posts ==============================================================
 
     social_post_1 = SocialPost(
-        post_title="Handle async operations with Promise.all in JS",
-        post_content='A good read on using Promise.all in JavaScript to handle async operations: https://medium.freecodecamp.org/promise-all-in-javascript-with-example-6c8c5aea3e32?gi=d7a854e8ba4a',
-        owner=wes,
+        post_title="Thanks for the support!",
+        post_content='Hey everyone, thank you all for your support and guidance, I\'ve just accepted an offer to start as an Intern at EBRD next month.',
+        owner=jacob,
         industries=[industry142, industry143, industry144],
-        liked_by=[moon]
+        liked_by=[]
     )
 
     social_post_2 = SocialPost(
-        post_title="Some other post title",
-        post_content='This is another social post. BLah blah blah',
+        post_title="GA is the best!",
+        post_content="I am a few days away from finishing the Web Development Immersive course at General Assembly London and would reccommend it to any and all aspiring web developers looking for a career change.",
+        post_image='../assets/images/companies/general_assembly.png',
         owner=moon,
+        industries=[industry110],
+        liked_by=[wes]
+    )
+
+    social_post_3 = SocialPost(
+        post_title="Stack Overflow Dev Survey 2019",
+        post_content="Published just a few days ago, the Stack Overflow Developer Survey gives an excellent insight into 90,000 developers, how they work and which tools they're using. ",
+        post_link='https://insights.stackoverflow.com/survey/2019',
+        post_image='../assets/images/social/stack_overflow_survey.png',
+        owner=wes,
         industries=[industry110],
         liked_by=[wes]
     )
 
     db.session.add_all([
         social_post_1,
-        social_post_2
+        social_post_2,
+        social_post_3
     ])
 
 

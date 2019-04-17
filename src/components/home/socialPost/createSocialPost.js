@@ -1,5 +1,9 @@
 import React from 'react'
 import axios from 'axios'
+import { Button, Modal } from 'react-bootstrap'
+
+import * as filestack from 'filestack-js'
+const client = filestack.init(process.env.FILESTACK_KEY)
 
 import Auth from '../../lib/auth'
 import SocialPostForm from './socialPostForm'
@@ -9,18 +13,45 @@ class SocialPostNew extends React.Component {
   constructor() {
     super()
 
-    this.state = { data: {}, errors: {}}
+    this.state = {
+      data: {},
+      errors: {},
+      showModal: false,
+      image: ''
+    }
 
+    this.handleShow = this.handleShow.bind(this)
+    this.handleClose = this.handleClose.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleImageUpload = this.handleImageUpload.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.fileInput = React.createRef()
+  }
+
+  handleShow() {
+    this.setState({ showModal: true })
+  }
+
+  handleClose() {
+    this.setState({ showModal: false })
   }
 
   handleChange({ target: { name, value }}) {
     const data = {...this.state.data, [name]: value }
     const errors = {...this.state.errors, [name]: ''}
     this.setState({ data, errors })
+  }
+
+  handleImageUpload() {
+    const options = {
+      fromSources: ['local_file_system','url','googledrive','dropbox','instagram','facebook'],
+      accept: ['image/*'],
+      onFileUploadFinished: file => {
+        this.setState({ image: file.url })
+      }
+    }
+    client.picker(options).open()
   }
 
   handleSelect(e){
@@ -66,11 +97,17 @@ class SocialPostNew extends React.Component {
   }
 
   postAxios(){
-    axios.post('/api/social_posts',
-      this.state.data,
+    let post_image = ''
+    let data = {...this.state.data}
+    if (this.state.image) {
+       post_image = this.state.image
+      data = {...this.state.data, post_image}
+    }
+    console.log('posting data', data)
+    axios.post('/api/social_posts', data,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => this.setState({data: ''},() =>{
-        this.fileInput.current.select.clearValue()
+        if (this.fileInput.current) this.fileInput.current.select.clearValue()
         this.props.postInfo()
       }))
       .catch(err => this.setState({ errors: err.response.data}))
@@ -79,22 +116,36 @@ class SocialPostNew extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     this.handleNestedObject()
+    this.handleClose()
   }
 
   render() {
     return (
-      <div className="sectionTwo">
-        <span>Create a new post</span>
-        <hr/>
-        <SocialPostForm
-          selectRef={this.fileInput}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          handleSelect={this.handleSelect}
-          data={this.state.data}
-          errors={this.state.errors}
-          industriesOptions={industriesOptions}
-        />
+      <div className="my-2">
+        <Button size="sm" variant="dark" onClick={this.handleShow}>
+          Create a new post
+        </Button>
+        <Modal
+          show={this.state.showModal}
+          onHide={this.handleClose}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Create a New Social Post</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <SocialPostForm
+              selectRef={this.fileInput}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              handleSelect={this.handleSelect}
+              data={this.state.data}
+              errors={this.state.errors}
+              industriesOptions={industriesOptions}
+              handleImageUpload={this.handleImageUpload}
+              imageUrl={this.state.image}
+            />
+          </Modal.Body>
+        </Modal>
       </div>
     )
   }

@@ -48,6 +48,7 @@ class Login extends React.Component{
     return (
       <div className="login">
         <div className="loginForm animated fadeIn">
+          <img className="pb-5" src="../assets/images/joinedup/joinedup_logo.png" />
           <Form
             noValidate
             validated={validated}
@@ -55,28 +56,28 @@ class Login extends React.Component{
           >
             <Form.Group controlId="email">
               <Form.Label className={errors.email ? 'text-danger' : ''}>Email</Form.Label>
-                <Form.Control
-                  required
-                  className={errors.email ? 'border-danger' : ''}
-                  name="email"
-                  placeholder="Email"
-                  onChange={this.handleChange}
-                  value={data.email || ''}
-                />
-                {errors.email && <Form.Text className="text-danger">{errors.email}</Form.Text>}
+              <Form.Control
+                required
+                className={errors.email ? 'border-danger' : ''}
+                name="email"
+                placeholder="Email"
+                onChange={this.handleChange}
+                value={data.email || ''}
+              />
+              {errors.email && <Form.Text className="text-danger">{errors.email}</Form.Text>}
             </Form.Group>
             <Form.Group controlId="password">
               <Form.Label className={errors.password ? 'text-danger' : ''}>Password</Form.Label>
-                <Form.Control
-                  required
-                  className={errors.password ? 'border-danger' : ''}
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  onChange={this.handleChange}
-                  value={data.password || ''}
-                />
-                {errors.password && <Form.Text className="text-danger">{errors.password}</Form.Text>}
+              <Form.Control
+                required
+                className={errors.password ? 'border-danger' : ''}
+                type="password"
+                name="password"
+                placeholder="password"
+                onChange={this.handleChange}
+                value={data.password || ''}
+              />
+              {errors.password && <Form.Text className="text-danger">{errors.password}</Form.Text>}
             </Form.Group>
             <Button type="submit">Submit</Button>
           </Form>

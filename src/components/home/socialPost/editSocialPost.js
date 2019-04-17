@@ -1,7 +1,11 @@
 import React from 'react'
 import axios from 'axios'
-import Auth from '../../lib/auth'
 import {Modal, Button} from 'react-bootstrap'
+
+import * as filestack from 'filestack-js'
+const client = filestack.init(process.env.FILESTACK_KEY)
+
+import Auth from '../../lib/auth'
 import SocialPostForm from './socialPostForm'
 
 import industriesOptions from '../data/industriesOptions'
@@ -10,11 +14,17 @@ class EditSocialPost extends React.Component {
   constructor() {
     super()
 
-    this.state = { show: false, data: {}, errors: {}}
+    this.state = {
+      data: {},
+      errors: {},
+      show: false,
+      image: ''
+    }
 
     this.handleShow = this.handleShow.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleImageUpload = this.handleImageUpload.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.fileInput = React.createRef()
@@ -34,6 +44,17 @@ class EditSocialPost extends React.Component {
     const data = {...this.state.data, [name]: value }
     const errors = {...this.state.errors, [name]: ''}
     this.setState({ data, errors })
+  }
+
+  handleImageUpload() {
+    const options = {
+      fromSources: ['local_file_system','url','googledrive','dropbox','instagram','facebook'],
+      accept: ['image/*'],
+      onFileUploadFinished: file => {
+        this.setState({ image: file.url })
+      }
+    }
+    client.picker(options).open()
   }
 
   handleSelect(e, actionMeta){
@@ -111,7 +132,12 @@ class EditSocialPost extends React.Component {
   }
 
   postAxios(){
-    const data = {...this.state.data}
+    let post_image = ''
+    let data = {...this.state.data}
+    if (this.state.image) {
+       post_image = this.state.image
+      data = {...this.state.data, post_image}
+    }
     this.setState({newData: data}, () => {
       const key = ['owner']
       const key1 = ['liked_by']
@@ -126,6 +152,7 @@ class EditSocialPost extends React.Component {
       .then(() => {
         this.setState({show: false},() =>{
           this.props.postInfo()
+          this.handleClose()
         })
       })
       .catch(err => this.setState({ errors: err.response.data}))
@@ -141,7 +168,7 @@ class EditSocialPost extends React.Component {
   }
 
   render() {
-    const {data, errors, options} = this.state
+    const {data, errors, options, image} = this.state
     return (
       <>
         <Button className="buttonColor" onClick={this.handleShow}>
@@ -162,8 +189,10 @@ class EditSocialPost extends React.Component {
               selectRef={this.fileInput}
               data={data}
               errors={errors}
+              imageUrl={this.state.data.image}
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
+              handleImageUpload={this.handleImageUpload}
               handleSelect={this.handleSelect}
               industriesOptions={options}
             />

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Modal, Button, ButtonToolbar, Form } from 'react-bootstrap'
+import {Modal, Button, Form } from 'react-bootstrap'
 
 class MessageModal extends React.Component {
   constructor() {
@@ -24,13 +24,13 @@ class MessageModal extends React.Component {
     return (
       <>
         <Button className="buttonColor" onClick={this.handleShow}>
-         Message to {data.owner.username}
+         Message {data.owner.user_profile[0].name}
         </Button>
         <Modal
           show={this.state.show}
           onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>To {data.owner.username}</Modal.Title>
+            <Modal.Title>Send a message to {data.owner.user_profile[0].name}</Modal.Title>
           </Modal.Header>
           <Form onSubmit={handleSubmit}>
             <Modal.Body>

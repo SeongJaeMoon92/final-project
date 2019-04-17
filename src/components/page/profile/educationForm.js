@@ -94,7 +94,7 @@ const EducationForm = (props) => {
         / >
         {errors.description && <Form.Text className="text-danger">{errors.description}</Form.Text>}
       </Form.Group>
-      <Button variant="success" type="submit">
+      <Button variant="primary" type="submit">
         Submit
       </Button>
     </Form>

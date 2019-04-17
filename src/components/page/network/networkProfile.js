@@ -3,9 +3,6 @@ import { Card, Button } from 'react-bootstrap'
 
 const NetworkProfile = (props) => {
   const { profile, ownerId, isConnection, isPendingReceived, isPendingSent, isDeclined, requestConnection, approveConnection, declineConnection } = props
-  console.log('isConnection', profile.id, isConnection(profile))
-  console.log('isPendingReceived', profile.id, isPendingReceived(profile))
-  console.log('isPendingSent', profile.id, isPendingSent(profile))
   return(
     <Card className="text-center mb-3">
       <a className="clear-text-decoration" href={`/profile/${profile.id}`}>

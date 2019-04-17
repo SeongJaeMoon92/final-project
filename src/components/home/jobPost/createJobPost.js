@@ -1,5 +1,9 @@
 import React from 'react'
 import axios from 'axios'
+import { Button, Modal } from 'react-bootstrap'
+
+import * as filestack from 'filestack-js'
+const client = filestack.init(process.env.FILESTACK_KEY)
 
 import Auth from '../../lib/auth'
 import JobPostForm from './jobPostForm'
@@ -10,13 +14,29 @@ class JobPostNew extends React.Component {
   constructor() {
     super()
 
-    this.state = { data: {}, errors: {}}
+    this.state = {
+      data: {},
+      errors: {},
+      showModal: false,
+      image: ''
+    }
 
+    this.handleShow = this.handleShow.bind(this)
+    this.handleClose = this.handleClose.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleImageUpload = this.handleImageUpload.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
 
     this.fileInput = React.createRef()
+  }
+
+  handleShow() {
+    this.setState({ showModal: true })
+  }
+
+  handleClose() {
+    this.setState({ showModal: false })
   }
 
   handleChange({ target: { name, value }}) {
@@ -25,7 +45,18 @@ class JobPostNew extends React.Component {
     this.setState({ data, errors })
   }
 
-  handleSelect(e, actionMeta){
+  handleImageUpload() {
+    const options = {
+      fromSources: ['local_file_system','url','googledrive','dropbox','instagram','facebook'],
+      accept: ['image/*'],
+      onFileUploadFinished: file => {
+        this.setState({ image: file.url })
+      }
+    }
+    client.picker(options).open()
+  }
+
+  handleSelect(e){
     const arr = []
     e.forEach(val => {
       const industries = {id: parseInt(val.value), industry: val.label}
@@ -68,14 +99,21 @@ class JobPostNew extends React.Component {
   }
 
   postAxios(){
-    axios.post('/api/job_posts',
-      this.state.data,
+    let post_image = ''
+    let data = {...this.state.data}
+    if (this.state.image) {
+       post_image = this.state.image
+      data = {...this.state.data, post_image}
+    }
+    axios.post('/api/job_posts', data,
       { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
-      .then((res) => {
-        this.setState({data: ''},() =>{
-        this.fileInput.current.select.clearValue()
-        this.props.postInfo()
-      })})
+      .then(() => {
+        this.setState({data: ''},() => {
+          if (this.fileInput.current) this.fileInput.current.select.clearValue()
+          this.props.postInfo()
+          this.handleClose()
+        })
+      })
       .catch(err => this.setState({ errors: err.response.data}))
   }
 
@@ -87,19 +125,32 @@ class JobPostNew extends React.Component {
 
   render() {
     return (
-      <div className="sectionTwo">
-        <span>Create a new post</span>
-        <hr/>
-        <JobPostForm
-        selectRef={this.fileInput}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        handleSelect={this.handleSelect}
-        data={this.state.data}
-        errors={this.state.errors}
-        validated={this.state.validated}
-        industriesOptions={industriesOptions}
-        />
+      <div className="my-2">
+        <Button size="sm" variant="dark" onClick={this.handleShow}>
+          Create a new post
+        </Button>
+        <Modal
+          show={this.state.showModal}
+          onHide={this.handleClose}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Create a New Social Post</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <JobPostForm
+              selectRef={this.fileInput}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              handleSelect={this.handleSelect}
+              data={this.state.data}
+              errors={this.state.errors}
+              validated={this.state.validated}
+              industriesOptions={industriesOptions}
+              handleImageUpload={this.handleImageUpload}
+              imageUrl={this.state.image}
+            />
+          </Modal.Body>
+        </Modal>
       </div>
     )
   }

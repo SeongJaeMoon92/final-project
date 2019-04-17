@@ -1,10 +1,10 @@
 import React from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Container, Row, Col, Button } from 'react-bootstrap'
 
 import Select from 'react-select'
 import makeAnimated from 'react-select/lib/animated'
 
-const JobPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, selectRef, validated, industriesOptions}) => {
+const JobPostForm = ({handleSubmit, handleSelect, handleChange, handleImageUpload, data, errors, imageUrl, selectRef, validated, industriesOptions}) => {
   return(
     <Form
       onSubmit={handleSubmit}
@@ -54,13 +54,24 @@ const JobPostForm = ({handleSubmit,handleSelect, handleChange, data, errors, sel
         {errors.post_content && <Form.Text className="text-danger">{errors.post_content}</Form.Text>}
       </Form.Group>
       <Form.Group controlId="post_image">
-        <Form.Label>Image</Form.Label>
-        <Form.Control
-          name="post_image"
-          placeholder="Image"
-          onChange={handleChange}
-          value={data.post_image || ''}
-        />
+        <Form.Label className={errors.image ? 'text-danger' : ''}>Image</Form.Label>
+        <Container>
+          <Row className="mb-3">
+            <Button size="sm" onClick={handleImageUpload}>{imageUrl ? 'Change my image' : 'Upload an image'}</Button>
+          </Row>
+          {imageUrl &&
+            <div>
+              <Row>
+                Image preview:
+              </Row>
+              <Row>
+                <Col md={6}>
+                  <img src={imageUrl} />
+                </Col>
+              </Row>
+            </div>
+          }
+        </Container>
       </Form.Group>
       <Button className="buttonColor" type="submit">Submit</Button>
     </Form>

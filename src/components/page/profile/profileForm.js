@@ -71,7 +71,7 @@ const ProfileForm = (props) => {
           />
           {errors.summary && <Form.Text className="text-danger">{errors.summary}</Form.Text>}
         </Form.Group>
-        <Button variant="success" type="submit">
+        <Button variant="primary" type="submit">
           Submit
         </Button>
       </Form>

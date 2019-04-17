@@ -27,7 +27,7 @@ class ProfileUpdate extends React.Component{
   }
 
   componentDidMount() {
-    this.setState({ data: this.props.data}, () => console.log('data is in', this.state))
+    this.setState({ data: this.props.data})
   }
 
   handleShow() {

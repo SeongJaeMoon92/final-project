@@ -1,6 +1,8 @@
 .inboxContainer {
-  height: calc(100vh - 56px - 56px);
+  height: calc(100vh - 56px - 16px - 56px - 16px);
   // height: 80.8279vh;
+  margin-top: 16px;
+  margin-bottom: 16px;
   display: flex;
   flex-direction: column;
   .messageSidebar {
@@ -61,15 +63,16 @@
 @media (min-width: 768px) {
   .inboxContainer {
     flex-direction: row;
+    // align-items: center;
     .messageSidebar {
       width: 30%;
-      height: 100%;
+      height: 90%;
       overflow-y: auto;
     }
     .messageBox {
       margin-left: 1em;
       width: 70%;
-      height: 100%;
+      height: 90%;
       .message {
         height: 75%;
       }

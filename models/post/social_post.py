@@ -23,6 +23,7 @@ class SocialPost(db.Model, BaseModel):
     post_title = db.Column(db.String(50), nullable=False)
     post_content = db.Column(db.Text, nullable=False)
     post_image = db.Column(db.String)
+    post_link = db.Column(db.String)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     owner = db.relationship('User', backref='owned_social_posts')
     industries = db.relationship('Industry', secondary=industries_social_posts, backref='social_posts')
@@ -53,7 +54,7 @@ class SocialPostSchema(ma.ModelSchema, BaseSchema):
 
     comments = fields.Nested('CommentSchema', many=True, only=('content', 'user', 'id'))
     liked_by = fields.Nested('UserSchema', many=True, only=('id', 'username'))
-    owner = fields.Nested('UserSchema', only=('id', 'username'))
+    owner = fields.Nested('UserSchema', only=('id', 'username', 'user_profile'))
     industries = fields.Nested('IndustrySchema', many=True, only=('id', 'industry'))
 
     @validates_schema

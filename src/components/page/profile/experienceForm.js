@@ -71,7 +71,7 @@ const ExperienceForm = (props) => {
         / >
         {errors.description && <Form.Text className="text-danger">{errors.description}</Form.Text>}
       </Form.Group>
-      <Button variant="success" type="submit">
+      <Button variant="primary" type="submit">
         Submit
       </Button>
     </Form>
@@ -79,18 +79,3 @@ const ExperienceForm = (props) => {
 }
 
 export default ExperienceForm
-
-
-// {!data.end_date && !endDate && <Button className="mb-3" size="sm" variant="info" onClick={handleEndDate}>Add End Date</Button>}
-// {data.end_date || endDate &&
-//   <Form.Group controlId="end_date">
-//     <Form.Label>End Date</Form.Label>
-//     <Form.Control
-//       type="date"
-//       name="end_date"
-//       onChange={handleChange}
-//       value={data.end_date || ''}
-//     / >
-//     {errors.end_date && <Form.Text>{errors.end_date}</Form.Text>}
-//   </Form.Group>
-// }
