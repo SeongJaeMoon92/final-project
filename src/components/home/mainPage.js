@@ -36,7 +36,7 @@ class MainPage extends React.Component{
     const { socialPost, jobPost, profile } = this.state
     if (!profile) return null
     return (
-      <div className="mx-md-5 container-min-height pb-md-1 animated fadeIn">
+      <div className="mx-md-5 container-min-height pb-md-1 animated fadeIn pb-md-1">
         <Row className="px-3 container-min-height py-3 align-items-center align-items-md-start">
           <Col xs={12} md={4} lg={3} className="d-flex flex-column align-items-center pt-md-4 mt-md-5">
             <Button className="mb-3 mb-md-4 d-none d-md-block" variant="info" onClick={this.handlePost}>Switch {socialPost ? 'to Job Posts' : 'to Social Posts'}</Button>
