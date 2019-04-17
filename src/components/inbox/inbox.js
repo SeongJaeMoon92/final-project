@@ -83,7 +83,7 @@ class Inbox extends React.Component{
       setTimeout(() => {
         this.sortMessages()
       }, 300)
-    }, 4000)
+    }, 5000)
   }
 
   handleChangeMessage({target: {name, value}}){

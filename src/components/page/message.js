@@ -35,7 +35,7 @@ class MessageProfileModal extends React.Component {
           <Form onSubmit={handleSubmit}>
             <Modal.Body>
               <Form.Group controlId="message_content">
-                <Form.Label>Message</Form.Label>
+                <Form.Label>New Message</Form.Label>
                 <Form.Control
                   as="textarea"
                   name="message_content"
