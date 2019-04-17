@@ -24,13 +24,13 @@ class MessageProfileModal extends React.Component {
     return (
       <>
         <Button className="mx-2" size="sm" variant="primary" onClick={this.handleShow}>
-         Message to {data}
+         Message {data}
         </Button>
         <Modal
           show={this.state.show}
           onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>To {data}</Modal.Title>
+            <Modal.Title>Send a Message to {data}</Modal.Title>
           </Modal.Header>
           <Form onSubmit={handleSubmit}>
             <Modal.Body>
