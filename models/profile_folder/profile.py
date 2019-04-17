@@ -8,7 +8,7 @@ class Profile(db.Model, BaseModel):
 
     __tablename__ = 'profiles'
 
-    name = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     headline = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(20), nullable=False)
     image = db.Column(db.String)
@@ -62,7 +62,7 @@ class ProfileSchema(ma.ModelSchema, BaseSchema):
 
     profile_education = fields.Nested('EducationSchema', many=True)
     profile_experience = fields.Nested('ExperienceSchema', many=True)
-    owner = fields.Nested('UserSchema', only=('id', 'username',))
+    owner = fields.Nested('UserSchema', only=('id', 'username'))
 
 
     @validates_schema

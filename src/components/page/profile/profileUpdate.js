@@ -46,13 +46,35 @@ class ProfileUpdate extends React.Component{
 
   handleSubmit(e){
     e.preventDefault()
-    axios.put(`/api/profiles/${this.props.profileId}`, this.state.data,
+    this.setNewData()
+  }
+
+  setNewData() {
+    let image = ''
+    let data = {...this.state.data}
+    if (this.state.image) {
+       image = this.state.image
+      data = {...this.state.data, image}
+    }
+    this.setState({newData: data}, () => {
+      const key = ['owner']
+      delete this.state.newData[key]
+      this.putAxios()
+    })
+  }
+
+  putAxios(){
+    axios.put(`/api/profiles/${this.props.profileId}`, this.state.newData,
       { headers: { Authorization: `Bearer ${Auth.getToken()}`}})
       .then(() => {
-        this.handleClose()
-        this.props.getProfileData()
+          this.props.getProfileData()
+          this.handleClose()
+
       })
-      .catch(err => err.response && this.setState({errors: err.response.data}))
+      .catch(err => {
+        console.log(err.response)
+        this.setState({errors: err.response.data})
+      })
   }
 
   handleImageUpload() {
@@ -67,7 +89,9 @@ class ProfileUpdate extends React.Component{
   }
 
   render(){
-
+    console.log(this.state.data, 'data')
+    console.log(this.state.newData, 'new data')
+    console.log(this.state.image, 'image')
     return(
       <div>
         <Button className="m-2 px-3" size="sm" variant="info" onClick={this.handleShow}>

@@ -58,13 +58,16 @@ class SocialPostIndex extends React.Component {
   render(){
     if (!this.state.socialPosts) return null
     const {socialPosts} = this.state
+    const { profile } = this.props
     const filteredSocialPost = socialPosts.filter(post => post.post_title.toLowerCase().indexOf(this.props.search.toLowerCase())!== -1)
     return(
       <div className="d-flex mx-3 animated fadeIn">
         <div className="mr-2 d-flex flex-column align-items-center">
-          <SocialPostNew
-            postInfo={this.getPostInfo}
-          />
+          { profile.length !== 0  &&
+            <SocialPostNew
+              postInfo={this.getPostInfo}
+            />
+          }
           <div className="post-wrapper-height-overflow bg-white rounded p-2">
             {filteredSocialPost && filteredSocialPost.sort((a,b) => {
               if (a.id < b.id) return 1

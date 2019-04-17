@@ -42,13 +42,16 @@ class JobPostIndex extends React.Component {
   render(){
     if (!this.state.jobPosts) return null
     const {jobPosts} = this.state
+    const { profile } = this.props
     const filteredJobPost = jobPosts.filter(post => post.company.toLowerCase().indexOf(this.props.search.toLowerCase())!== -1)
     return(
       <div className="d-flex mx-3 animated fadeIn">
         <div className="mr-2 d-flex flex-column align-items-center">
-          <JobPostNew
+          { profile.length !== 0 &&
+            <JobPostNew
             postInfo={this.getPostInfo}
-          />
+            />
+          }
           <div className="post-wrapper-height-overflow bg-white rounded p-2">
             {filteredJobPost && filteredJobPost.sort((a,b) => {
               if (a.id < b.id) return 1

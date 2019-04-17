@@ -54,7 +54,7 @@ class ProfileCreate extends React.Component{
 
   render(){
     return(
-      <Container className="container-fluid my-3">
+      <Container className="container-fluid my-3 container-min-height">
         <Row className="border-bottom border-secondary mb-4">
           <h2>Add profile</h2>
         </Row>
