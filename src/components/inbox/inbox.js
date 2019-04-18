@@ -17,11 +17,11 @@ class Inbox extends React.Component{
     this.handleClick = this.handleClick.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.handleClickColor = this.handleClickColor.bind(this)
-    this.intevalFunction()
   }
 
   componentDidMount(){
     this.getMessagesInfo()
+    this.intevalFunction()
   }
 
   getMessagesInfo() {
@@ -76,7 +76,7 @@ class Inbox extends React.Component{
   }
 
   intevalFunction() {
-    setInterval(() => {
+    this.interval = setInterval(() => {
       console.log('working')
       // Notifications.setNotification('success', 1)
       this.getMessagesInfo()
@@ -84,6 +84,10 @@ class Inbox extends React.Component{
         this.sortMessages()
       }, 300)
     }, 5000)
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.interval)
   }
 
   handleChangeMessage({target: {name, value}}){
